@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://github.com/MOHAMEDMETAWEA",
+    "name": "Mohamed Mostafa MOHAMEDMETAWEA - AI Engineer",
+    "snippet": "Deep Learning · NLP ...",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://medagent.com/en",
+    "name": "Experts for medical device approval & compliance",
+    "snippet": "With over 25 years of experience in the certification and approval of medical devices, we offer in-depth knowledge and practice-oriented solutions.",
+    "host_name": "medagent.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://arxiv.org/abs/2311.10537",
+    "name": "MedAgents: Large Language Models as Collaborators for",
+    "snippet": "2023 · Cited by 391 — We propose MedAgents, a novel multi-disciplinary collaboration framework for the medical domain . MedAgents leverages LLM-based agents in a role-playing setting.",
+    "host_name": "arxiv.org",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/0xneobyte/MedAgent",
+    "name": "MedAgent is an AI-powered multi-agent system",
+    "snippet": "MedAgent is an AI-powered multi-agent system designed to automate patient interactions, appointment scheduling, and notifications in healthcare settings.",
+    "host_name": "github.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://openreview.net/forum?id=ZOuU0udyA4",
+    "name": "MedAgent-Pro: Towards Evidence-based Multi-modal",
+    "snippet": "Cited by 47 — Here we propose MedAgent-Pro, an agentic reasoning paradigm that mirrors modern diagnosis principles via a hierarchical diagnostic workflow, ...",
+    "host_name": "openreview.net",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

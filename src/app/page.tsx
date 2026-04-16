@@ -465,12 +465,21 @@ const certifications = [
   },
   {
     title: "Machine Learning Specialization",
-    issuer: "DeepLearning.AI",
-    period: "Completed",
-    description: "Foundational and advanced ML concepts taught by Andrew Ng",
+    issuer: "DeepLearning.AI/Stanford",
+    period: "Oct 2025",
+    description: "3-course specialization by Andrew Ng covering supervised learning, unsupervised learning, recommender systems, and reinforcement learning",
     icon: Brain,
-    certificateUrl: null,
-    verifyUrl: null
+    certificateUrl: "/cert-ml-specialization.pdf",
+    verifyUrl: "https://coursera.org/verify/specialization/K2UKWZ4APRL6"
+  },
+  {
+    title: "Unsupervised Learning, Recommenders & RL",
+    issuer: "DeepLearning.AI/Stanford",
+    period: "Oct 2025",
+    description: "Advanced ML course covering clustering, anomaly detection, recommender systems, and reinforcement learning techniques",
+    icon: TrendingUp,
+    certificateUrl: "/cert-unsupervised-learning.pdf",
+    verifyUrl: "https://coursera.org/verify/VTHCGLVU4BQP"
   },
   {
     title: "IBM Data Science Professional",

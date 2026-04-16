@@ -482,6 +482,15 @@ const certifications = [
     verifyUrl: "https://coursera.org/verify/VTHCGLVU4BQP"
   },
   {
+    title: "Advanced Learning Algorithms",
+    issuer: "DeepLearning.AI/Stanford",
+    period: "Oct 2025",
+    description: "Course covering neural networks, decision trees, and best practices for building and training ML models by Andrew Ng",
+    icon: TrendingUp,
+    certificateUrl: "/cert-advanced-learning-algorithms.pdf",
+    verifyUrl: "https://coursera.org/verify/7KHL0EX5HTK6"
+  },
+  {
     title: "IBM Data Science Professional",
     issuer: "DEPI",
     period: "Completed",

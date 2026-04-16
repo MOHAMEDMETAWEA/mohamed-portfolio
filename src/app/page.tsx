@@ -15,7 +15,7 @@ import {
   Star, GitBranch, Rocket, Bot, Eye, Heart, Music, Leaf, Sparkles,
   Aperture, Activity, Server, BookOpen, Lightbulb, Menu, X, Workflow,
   TrendingUp, Users, GitFork, ArrowUpRight, Play, ChevronRight,
-  Terminal, Cog, Gauge, BarChart3, RefreshCw
+  Terminal, Cog, Gauge, BarChart3, RefreshCw, Cloud
 } from 'lucide-react'
 
 // Animation variants
@@ -381,6 +381,60 @@ const certifications = [
     icon: Database,
     certificateUrl: "/cert-rag-embeddings.pdf",
     verifyUrl: "https://coursera.org/verify/D6ZYH0HP6SM3"
+  },
+  {
+    title: "Intro to AI Engineering",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "Foundational course introducing AI engineering concepts, tools, and best practices for building AI-powered applications",
+    icon: Rocket,
+    certificateUrl: "/cert-intro-ai-eng.pdf",
+    verifyUrl: "https://coursera.org/verify/29TTEDKUJRP1"
+  },
+  {
+    title: "Open-source AI Models",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "Course covering open-source AI models, their deployment, and integration into production applications",
+    icon: Code,
+    certificateUrl: "/cert-opensource-ai.pdf",
+    verifyUrl: "https://coursera.org/verify/AWWBPIHIVH5S"
+  },
+  {
+    title: "Deploy AI Apps with Cloudflare",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "Practical course on deploying AI applications using Cloudflare's edge computing platform and serverless functions",
+    icon: Cloud,
+    certificateUrl: "/cert-cloudflare-ai.pdf",
+    verifyUrl: "https://coursera.org/verify/PTC1WJO0Y35E"
+  },
+  {
+    title: "AI Workflow: Business Priorities & Data Ingestion",
+    issuer: "IBM/Coursera",
+    period: "Mar 2025",
+    description: "Enterprise-focused course on AI workflows, business alignment, and data ingestion strategies for AI projects",
+    icon: Workflow,
+    certificateUrl: "/cert-ibm-ai-workflow.pdf",
+    verifyUrl: "https://coursera.org/verify/7EZ36W89PBT4"
+  },
+  {
+    title: "Multimodal GenAI & RAG Apps",
+    issuer: "DeepLearning.AI",
+    period: "2025",
+    description: "Advanced course on building multimodal generative AI applications with RAG architectures",
+    icon: Layers,
+    certificateUrl: "/cert-multimodal-rag.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "AWS AI Practitioner Certificate",
+    issuer: "Amazon Web Services",
+    period: "2025",
+    description: "AWS certification validating knowledge of AI/ML services and best practices on AWS cloud platform",
+    icon: Cloud,
+    certificateUrl: "/cert-aws-ai.png",
+    verifyUrl: null
   },
   {
     title: "Future Skills Academy",

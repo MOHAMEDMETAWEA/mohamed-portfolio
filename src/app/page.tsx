@@ -320,53 +320,112 @@ const projects = [
 
 const certifications = [
   {
+    title: "AI Engineering Specialization",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "9-course specialization covering OpenAI suite, LangChain, RAG, vector databases, AI agents, and MCP",
+    icon: Bot,
+    certificateUrl: "/cert-ai-engineering.pdf",
+    verifyUrl: "https://coursera.org/verify/specialization/KA9W2QX9ME4U"
+  },
+  {
+    title: "Learn AI Agents",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "Comprehensive course on building autonomous AI agents with modern frameworks and tools",
+    icon: Bot,
+    certificateUrl: "/cert-ai-agents.pdf",
+    verifyUrl: "https://coursera.org/verify/9LXRFGOHE9Y8"
+  },
+  {
+    title: "Build AI Apps with LangChain.js",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "Practical course on building production AI applications using LangChain.js framework",
+    icon: Code,
+    certificateUrl: "/cert-langchain.pdf",
+    verifyUrl: "https://coursera.org/verify/GQ84048LIJG7"
+  },
+  {
+    title: "Learn OpenAI's Assistant API",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "Hands-on training with OpenAI's Assistant API for building intelligent conversational AI",
+    icon: MessageSquare,
+    certificateUrl: "/cert-assistant-api.pdf",
+    verifyUrl: "https://coursera.org/verify/RWD0Q1ORABUQ"
+  },
+  {
+    title: "Intro to Dall-E and GPT Vision",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "Course covering DALL-E image generation and GPT Vision for multimodal AI applications",
+    icon: Eye,
+    certificateUrl: "/cert-dalle-gpt-vision.pdf",
+    verifyUrl: "https://coursera.org/verify/9CJFM7RPO753"
+  },
+  {
+    title: "Intro to Model Context Protocol (MCP)",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "Introduction to MCP for connecting AI models with external tools and data sources",
+    icon: Cpu,
+    certificateUrl: "/cert-mcp.pdf",
+    verifyUrl: "https://coursera.org/verify/AXMGLBYIMYJF"
+  },
+  {
+    title: "Future Skills Academy",
+    issuer: "UNDP-MBRF",
+    period: "2025",
+    description: "Learning pathway covering soft skills, digital skills, and AI fundamentals",
+    icon: Layers,
+    certificateUrl: "/cert-future-skills.pdf",
+    verifyUrl: null
+  },
+  {
     title: "Generative AI Professional",
     issuer: "DEPI",
     period: "Nov 2025 – Jun 2026",
     description: "Comprehensive program covering LLMs, RAG systems, agentic AI, and production deployment",
-    icon: Brain
-  },
-  {
-    title: "AI Engineering Specialization",
-    issuer: "Scrimba/Coursera",
-    period: "9 Courses Completed",
-    description: "In-depth training on AI engineering principles, MLOps, and practical AI development",
-    icon: GraduationCap
+    icon: Brain,
+    certificateUrl: null,
+    verifyUrl: null
   },
   {
     title: "Post-Training LLMs: Fine-Tuning & RLHF",
     issuer: "DeepLearning.AI",
     period: "Completed",
     description: "Advanced techniques for fine-tuning large language models with reinforcement learning",
-    icon: Cpu
-  },
-  {
-    title: "AI Training Program",
-    issuer: "NTI, Egypt",
-    period: "Completed",
-    description: "National training initiative covering AI fundamentals and applications",
-    icon: Layers
+    icon: Cpu,
+    certificateUrl: null,
+    verifyUrl: null
   },
   {
     title: "Machine Learning Specialization",
     issuer: "DeepLearning.AI",
     period: "Completed",
     description: "Foundational and advanced ML concepts taught by Andrew Ng",
-    icon: Brain
+    icon: Brain,
+    certificateUrl: null,
+    verifyUrl: null
   },
   {
     title: "IBM Data Science Professional",
     issuer: "DEPI",
     period: "Completed",
     description: "Comprehensive data science curriculum including Python, SQL, and ML",
-    icon: Database
+    icon: Database,
+    certificateUrl: null,
+    verifyUrl: null
   },
   {
     title: "Orange AI Level 1 Certification",
     issuer: "Orange",
     period: "Completed",
     description: "Industry-recognized certification in AI fundamentals and applications",
-    icon: Award
+    icon: Award,
+    certificateUrl: null,
+    verifyUrl: null
   }
 ]
 
@@ -1428,7 +1487,7 @@ export default function Portfolio() {
                 Certifications
               </span>
             </h2>
-            <p className="text-slate-600">7 industry-recognized certifications in AI and Data Science</p>
+            <p className="text-slate-600">{certifications.length} industry-recognized certifications in AI and Data Science</p>
           </AnimatedSection>
 
           <motion.div 
@@ -1436,7 +1495,7 @@ export default function Portfolio() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
           >
             {certifications.map((cert, idx) => {
               const Icon = cert.icon
@@ -1457,7 +1516,39 @@ export default function Portfolio() {
                           </h3>
                           <p className="text-sm text-emerald-600 font-medium">{cert.issuer}</p>
                           <p className="text-xs text-slate-500 mt-1">{cert.period}</p>
-                          <p className="text-sm text-slate-600 mt-2">{cert.description}</p>
+                          <p className="text-sm text-slate-600 mt-2 line-clamp-2">{cert.description}</p>
+                          
+                          {/* Certificate Actions */}
+                          {(cert.certificateUrl || cert.verifyUrl) && (
+                            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-slate-100">
+                              {cert.certificateUrl && (
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="h-7 text-xs border-emerald-200 text-emerald-600 hover:bg-emerald-50"
+                                  asChild
+                                >
+                                  <a href={cert.certificateUrl} target="_blank" rel="noopener noreferrer">
+                                    <Download className="h-3 w-3 mr-1" />
+                                    Certificate
+                                  </a>
+                                </Button>
+                              )}
+                              {cert.verifyUrl && (
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm" 
+                                  className="h-7 text-xs text-slate-500 hover:text-emerald-600"
+                                  asChild
+                                >
+                                  <a href={cert.verifyUrl} target="_blank" rel="noopener noreferrer">
+                                    <ExternalLink className="h-3 w-3 mr-1" />
+                                    Verify
+                                  </a>
+                                </Button>
+                              )}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </CardContent>

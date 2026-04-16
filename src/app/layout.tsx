@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mohamed-metawea-portfolio.netlify.app"),
   title: "Mohamed Mostafa Metawea | AI Engineer Portfolio",
   description: "AI Engineer specializing in Generative AI & Agentic Systems. Expert in Machine Learning, Deep Learning, Computer Vision, and NLP. Building intelligent ML systems with real-world impact.",
   keywords: ["AI Engineer", "Machine Learning", "Deep Learning", "Generative AI", "Computer Vision", "NLP", "Python", "TensorFlow", "PyTorch", "Mohamed Metawea"],

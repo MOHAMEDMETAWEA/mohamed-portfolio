@@ -58,14 +58,14 @@ const cardHover = {
 // Portfolio Data
 const personalInfo = {
   name: "Mohamed Mostafa Metawea",
-  role: "AI Engineer & Automation Specialist",
-  specialization: "Generative AI, Agentic Systems & n8n Automation",
+  role: "AI Engineer · Generative AI & Agentic Systems",
+  specialization: "Machine Learning · Deep Learning · LLM Applications · n8n Automation",
   location: "6 October City, Giza, Egypt",
   phone: "+20 155 055 9108",
   email: "mm3796703@gmail.com",
   linkedin: "https://www.linkedin.com/in/mohamed-mostafa-metawea",
   github: "https://github.com/MOHAMEDMETAWEA",
-  bio: "I architect intelligent systems that bridge the gap between cutting-edge AI research and real-world impact. From autonomous multi-agent clinical orchestrators to automated n8n workflows, I transform complex problems into elegant, production-ready solutions. My passion lies in building AI systems that think, adapt, and deliver measurable value."
+  bio: "Motivated AI and Machine Learning engineer with a strong foundation in machine learning, deep learning, and generative AI. Experienced in building end-to-end projects, including data processing, model development, and deployment using modern tools and frameworks. Skilled in Python, NLP, and computer vision, with growing expertise in LLM applications and scalable AI systems. Eager to apply technical knowledge, learn quickly, and contribute to impactful real-world projects in a collaborative environment."
 }
 
 const education = {
@@ -83,44 +83,59 @@ const education = {
 const experience = {
   title: "Machine Learning Intern",
   company: "Cellula Technologies",
-  period: "Feb 2025 - Mar 2025",
+  period: "Feb 2025 – Mar 2025",
   responsibilities: [
-    "Developed and optimized machine learning models for real-world applications",
-    "Collaborated with cross-functional teams on AI-driven solutions",
-    "Gained hands-on experience with production ML pipelines",
-    "Implemented data preprocessing and feature engineering workflows"
+    "Developed machine learning models for predictive maintenance, improving model performance using cross-validation and feature engineering",
+    "Containerized and deployed 3 ML models as REST APIs using Flask and Docker, enabling real-time inference and consistent deployment environments",
+    "Collaborated with cross-functional teams on AI-driven solutions for industrial applications",
+    "Implemented data preprocessing and feature engineering workflows for production ML pipelines"
   ]
 }
 
 const skills = {
-  "AI/ML & Deep Learning": { 
-    skills: ["TensorFlow", "PyTorch", "Scikit-learn", "Keras", "OpenAI API", "LangChain", "Hugging Face"],
-    level: 95,
-    icon: Brain
-  },
-  "Computer Vision": { 
-    skills: ["OpenCV", "YOLO", "MediaPipe", "Face Recognition", "Object Detection", "Image Classification"],
-    level: 88,
-    icon: Eye
-  },
-  "NLP & LLMs": { 
-    skills: ["Transformers", "BERT", "GPT Models", "RAG Systems", "Text Classification", "Sentiment Analysis"],
-    level: 90,
-    icon: MessageSquare
-  },
-  "Automation & n8n": { 
-    skills: ["n8n Workflows", "API Integration", "Webhook Automation", "Process Automation", "Data Pipelines"],
-    level: 85,
-    icon: Workflow
-  },
-  "Backend Development": { 
-    skills: ["Python", "FastAPI", "Streamlit", "Git", "Docker", "Linux"],
-    level: 85,
+  "Programming & APIs": { 
+    skills: ["Python", "SQL", "C++", "FastAPI", "Flask", "REST APIs", "Object-Oriented Programming"],
+    level: 92,
     icon: Code
   },
-  "Databases & Vector Stores": { 
-    skills: ["PostgreSQL", "MongoDB", "ChromaDB", "Pinecone", "FAISS"],
+  "Machine Learning": { 
+    skills: ["Scikit-learn", "TensorFlow", "XGBoost", "LightGBM", "Feature Engineering", "Model Evaluation", "Ensemble Methods"],
+    level: 90,
+    icon: Brain
+  },
+  "Deep Learning": { 
+    skills: ["Neural Networks", "CNN", "RNN", "LSTM", "Transformers", "Transfer Learning", "Attention Mechanisms"],
+    level: 88,
+    icon: Cpu
+  },
+  "Generative AI & LLMs": { 
+    skills: ["LangChain", "OpenAI API", "RAG", "AI Agents", "Prompt Engineering", "Fine-tuning", "Vector Databases", "MCP"],
+    level: 92,
+    icon: Sparkles
+  },
+  "Computer Vision": { 
+    skills: ["OpenCV", "YOLO", "CNN Vision Models", "Vision Transformers", "Face Recognition", "Image Classification", "Object Detection"],
+    level: 85,
+    icon: Eye
+  },
+  "NLP & Text Analytics": { 
+    skills: ["Transformers", "BERT", "GPT Models", "Text Classification", "NER", "Sentiment Analysis", "Tokenization", "Word Embeddings"],
+    level: 88,
+    icon: MessageSquare
+  },
+  "MLOps & Deployment": { 
+    skills: ["Docker", "FastAPI", "MLflow", "CI/CD", "Cloud Deployment", "Prometheus", "API Integration"],
+    level: 82,
+    icon: Server
+  },
+  "Cloud & Automation": { 
+    skills: ["Microsoft Azure", "AWS", "Cloudflare Workers", "n8n", "Git", "Power BI"],
     level: 80,
+    icon: Cloud
+  },
+  "Databases & Data": { 
+    skills: ["MongoDB", "PostgreSQL", "FAISS", "ChromaDB", "Data Pipelines", "Data Visualization"],
+    level: 78,
     icon: Database
   }
 }
@@ -131,8 +146,8 @@ const projects = [
     title: "MedAgent — Autonomous Clinical Orchestrator",
     version: "v5.3.0",
     featured: true,
-    description: "An AI-powered multi-agent system designed to automate patient interactions, appointment scheduling, and clinical workflows. Features autonomous agents for symptom analysis, doctor recommendations, and healthcare navigation.",
-    tech: ["Python", "LangChain", "OpenAI", "FastAPI", "Multi-Agent Systems", "RAG"],
+    description: "Production-grade multi-agent AI system with 14 specialized agents for clinical triage, diagnosis, and decision support. Features RAG with FAISS over medical guidelines (NIH, WHO), Tree-of-Thought reasoning with confidence scoring, AES-256 encryption, JWT-based RBAC, and full observability via Prometheus and OpenTelemetry.",
+    tech: ["LangGraph", "GPT-4o", "RAG", "FAISS", "FastAPI", "Docker", "Prometheus", "OpenTelemetry"],
     category: "Agentic AI",
     icon: Bot,
     github: "https://github.com/MOHAMEDMETAWEA",
@@ -140,10 +155,22 @@ const projects = [
   },
   {
     id: 2,
+    title: "AI Personal Assistant — Multi-Agent System",
+    featured: true,
+    isNew: true,
+    description: "Production-ready multi-agent AI system with central Orchestrator routing tasks across 9 specialized sub-agents (Calendar, Email, Search, Weather, Notes, Reminders, Social Media, Data Analysis, Web Automation). Features multi-modal input via WhatsApp & Telegram with voice and image processing.",
+    tech: ["n8n", "OpenRouter", "Groq", "Gemini", "Multi-Agent", "OAuth2", "WhatsApp API"],
+    category: "Agentic AI",
+    icon: Bot,
+    github: "https://github.com/MOHAMEDMETAWEA",
+    image: null
+  },
+  {
+    id: 3,
     title: "AI-Based Face Recognition Attendance System",
     featured: true,
-    description: "A complete biometric attendance solution using deep learning for face detection and recognition. Implements liveness detection to prevent spoofing, with real-time tracking and comprehensive reporting dashboard.",
-    tech: ["Python", "OpenCV", "Face Recognition", "Deep Learning", "Streamlit", "SQLite"],
+    description: "CNN-based face recognition system achieving 95% accuracy with sub-second inference latency. Implements liveness detection and anti-spoofing preventing 98% of replay attacks. Automated attendance workflow reducing manual effort by 80%.",
+    tech: ["Python", "CNN", "OpenCV", "Flask", "Liveness Detection", "Deep Learning"],
     category: "Computer Vision",
     icon: Eye,
     github: "https://github.com/MOHAMEDMETAWEA",
@@ -174,29 +201,29 @@ const projects = [
     image: "/project-n8n-2.png"
   },
   {
-    id: 3,
+    id: 4,
     title: "Heart Disease Risk Prediction System",
     featured: false,
-    description: "A machine learning system that predicts cardiovascular disease risk using patient health metrics. Employs ensemble methods and feature engineering to achieve high accuracy in early detection.",
-    tech: ["Python", "Scikit-learn", "XGBoost", "Flask", "Pandas", "NumPy"],
+    description: "LightGBM/XGBoost ensemble achieving 92% recall and 0.90 F1-score on held-out clinical data, optimized for high sensitivity. Applied SHAP for model interpretability and deployed as interactive Streamlit web app.",
+    tech: ["LightGBM", "XGBoost", "SHAP", "Streamlit", "Feature Engineering", "Scikit-learn"],
     category: "Healthcare AI",
     icon: Heart,
     github: "https://github.com/MOHAMEDMETAWEA",
     image: null
   },
   {
-    id: 4,
+    id: 5,
     title: "Multilabel Comment Toxicity Detection",
     featured: false,
-    description: "NLP system for detecting multiple types of toxicity in online comments including threats, obscenity, insults, and identity-based hate. Uses transformer models for accurate multi-label classification.",
-    tech: ["Python", "TensorFlow", "BERT", "NLP", "Deep Learning"],
+    description: "Multi-label NLP classification model using TF-IDF and Scikit-learn. Reduced false positives by 18% using threshold optimization and feature engineering for detecting threats, obscenity, insults, and hate speech.",
+    tech: ["Python", "TF-IDF", "Scikit-learn", "NLP", "Threshold Optimization"],
     category: "NLP",
     icon: MessageSquare,
     github: "https://github.com/MOHAMEDMETAWEA",
     image: null
   },
   {
-    id: 5,
+    id: 6,
     title: "Job-Resume Matching System",
     featured: false,
     description: "An intelligent recruitment assistant that matches candidate resumes with job descriptions using NLP and semantic similarity. Helps HR teams automate initial screening processes.",

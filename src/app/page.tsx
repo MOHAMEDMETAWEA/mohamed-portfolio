@@ -374,6 +374,15 @@ const certifications = [
     verifyUrl: "https://coursera.org/verify/AXMGLBYIMYJF"
   },
   {
+    title: "RAG with Embeddings & Vector Databases",
+    issuer: "Scrimba/Coursera",
+    period: "Mar 2025",
+    description: "Comprehensive course on Retrieval-Augmented Generation, embeddings, and vector databases for production AI systems",
+    icon: Database,
+    certificateUrl: "/cert-rag-embeddings.pdf",
+    verifyUrl: "https://coursera.org/verify/D6ZYH0HP6SM3"
+  },
+  {
     title: "Future Skills Academy",
     issuer: "UNDP-MBRF",
     period: "2025",

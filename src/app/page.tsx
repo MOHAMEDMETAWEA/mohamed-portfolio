@@ -1072,12 +1072,34 @@ function GitHubStats() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/github?type=stats')
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          setStats(data.data)
-        }
+    const GH_USER = 'MOHAMEDMETAWEA'
+    const headers = { 'Accept': 'application/vnd.github.v3+json' }
+    Promise.all([
+      fetch(`https://api.github.com/users/${GH_USER}`, { headers }).then(r => r.ok ? r.json() : Promise.reject()),
+      fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`, { headers }).then(r => r.ok ? r.json() : Promise.reject())
+    ])
+      .then(([user, userRepos]) => {
+        const languageStats: Record<string, number> = {}
+        let totalStars = 0
+        let totalForks = 0
+        userRepos.forEach((repo: { language?: string | null; stargazers_count?: number; forks_count?: number }) => {
+          if (repo.language) {
+            languageStats[repo.language] = (languageStats[repo.language] || 0) + 1
+          }
+          totalStars += repo.stargazers_count || 0
+          totalForks += repo.forks_count || 0
+        })
+        const sortedLanguages = Object.entries(languageStats)
+          .sort(([, a], [, b]) => (b as number) - (a as number))
+          .slice(0, 8)
+          .map(([name, count]) => ({ name, count: count as number }))
+        setStats({
+          totalRepos: user.public_repos ?? 0,
+          totalStars,
+          totalForks,
+          followers: user.followers ?? 0,
+          languages: sortedLanguages
+        })
         setLoading(false)
       })
       .catch(() => setLoading(false))
@@ -1474,39 +1496,43 @@ function GitHubRepos() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/github?type=repos')
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          const transformed = data.data.slice(0, 6).map((repo: {
-            id: number
-            name: string
-            description: string
-            url: string
-            stars: number
-            forks: number
-            language: string | null
-            topics: string[]
-            pushedAt: string
-          }) => ({
+    const GH_USER = 'MOHAMEDMETAWEA'
+    fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=30`, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    })
+      .then(res => res.ok ? res.json() : Promise.reject())
+      .then((repoList: {
+        id: number
+        name: string
+        description: string | null
+        html_url: string
+        stargazers_count: number
+        forks_count: number
+        language: string | null
+        topics: string[]
+        pushed_at: string
+      }[]) => {
+        const transformed = repoList
+          .filter(repo => !repo.name.startsWith('.'))
+          .slice(0, 6)
+          .map((repo) => ({
             id: `gh-${repo.id}`,
             title: repo.name.replace(/-/g, ' ').replace(/_/g, ' '),
-            description: repo.description,
-            github: repo.url,
-            stars: repo.stars,
-            forks: repo.forks,
+            description: repo.description || 'No description available',
+            github: repo.html_url,
+            stars: repo.stargazers_count,
+            forks: repo.forks_count,
             language: repo.language,
-            topics: repo.topics,
-            updatedAt: repo.pushedAt,
-            tech: repo.topics.slice(0, 4).length > 0 ? repo.topics.slice(0, 4) : [repo.language || 'Code'],
+            topics: repo.topics || [],
+            updatedAt: repo.pushed_at,
+            tech: (repo.topics || []).slice(0, 4).length > 0 ? (repo.topics || []).slice(0, 4) : [repo.language || 'Code'],
             category: repo.language || 'Project',
-            icon: repo.topics.includes('n8n') ? Workflow : repo.topics.includes('ai') ? Bot : Code,
+            icon: (repo.topics || []).includes('n8n') ? Workflow : (repo.topics || []).includes('ai') ? Bot : Code,
             featured: false,
             image: null,
             version: null
           }))
-          setRepos(transformed)
-        }
+        setRepos(transformed)
         setLoading(false)
       })
       .catch(() => setLoading(false))

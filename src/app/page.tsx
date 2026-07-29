@@ -754,6 +754,503 @@ const certifications = [
     certificateUrl: "/cert-gen-ai-rag-langchain-project.pdf",
     verifyUrl: "https://coursera.org/verify/05ZHA5PO3OJ4"
   }
+  ,
+  // Auto-added: unreferenced public assets (filename -> minimal certification entry)
+  {
+    title: "cert-advanced-learning-algorithms.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-advanced-learning-algorithms.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-ai-agents.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-ai-agents.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-ai-engineering.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-ai-engineering.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-assistant-api.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-assistant-api.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-aws-ai.png",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-aws-ai.png",
+    verifyUrl: null
+  },
+  {
+    title: "cert-cloudflare-ai.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-cloudflare-ai.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-dalle-gpt-vision.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-dalle-gpt-vision.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-ibm-ai-workflow.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-ibm-ai-workflow.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-intro-ai-eng.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-intro-ai-eng.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-langchain.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-langchain.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-mcp.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-mcp.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-ml-specialization.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-ml-specialization.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-opensource-ai.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-opensource-ai.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-rag-embeddings.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-rag-embeddings.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "cert-unsupervised-learning.pdf",
+    issuer: "Various",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/cert-unsupervised-learning.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera 05ZHA5PO3OJ4.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera 05ZHA5PO3OJ4.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera 6XEL75XUDVWO.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera 6XEL75XUDVWO.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera 9IA9AJ2BHUDQ.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera 9IA9AJ2BHUDQ.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera CTGWDS950MKC.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera CTGWDS950MKC.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera G6BGF0RXM8UZ.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera G6BGF0RXM8UZ.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera GGP8IG8M8RQ2.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera GGP8IG8M8RQ2.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera HHEB3VS9FIJC.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera HHEB3VS9FIJC.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera I74ORD2QWJNB.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera I74ORD2QWJNB.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera J3AG39R9KN19.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera J3AG39R9KN19.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera MW0S92MWY4XF.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera MW0S92MWY4XF.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera NANC9WTEWYDL.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera NANC9WTEWYDL.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera ORVGWOJ5SF3V.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera ORVGWOJ5SF3V.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera RWIMWPQSJ2YL.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera RWIMWPQSJ2YL.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera S5DD3AFNRB3L.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera S5DD3AFNRB3L.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera U79HGNZL84DQ.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera U79HGNZL84DQ.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera UHDL3UISTU3A.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera UHDL3UISTU3A.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera VCAE9IAGFC4Y.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera VCAE9IAGFC4Y.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera VOBNR11IEJFP.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera VOBNR11IEJFP.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera YUJETL39JUMZ.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera YUJETL39JUMZ.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Coursera Z7KTIV7G08FZ.pdf",
+    issuer: "Coursera",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/Coursera Z7KTIV7G08FZ.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "DeepLearningwithPyTorch_Badge20260505-31-6nitb6.pdf",
+    issuer: "DeepLearning.AI",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/DeepLearningwithPyTorch_Badge20260505-31-6nitb6.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "generative-ai-and-llms-architecture-and-data-prepar.png",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/generative-ai-and-llms-architecture-and-data-prepar.png",
+    verifyUrl: null
+  },
+  {
+    title: "generative-ai-engineering-with-transformers-llms.png",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/generative-ai-engineering-with-transformers-llms.png",
+    verifyUrl: null
+  },
+  {
+    title: "generative-ai-foundational-models-for-nlp-language-.png",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/generative-ai-foundational-models-for-nlp-language-.png",
+    verifyUrl: null
+  },
+  {
+    title: "generative-ai-language-modeling-with-transformers.png",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/generative-ai-language-modeling-with-transformers.png",
+    verifyUrl: null
+  },
+  {
+    title: "ibm-ai-engineering-professional-certificate-v3.png",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/ibm-ai-engineering-professional-certificate-v3.png",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260420-31-csiheo.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260420-31-csiheo.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260423-32-ln2aw4.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260423-32-ln2aw4.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260501-31-5gwit6.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260501-31-5gwit6.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260503-31-3skljl.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260503-31-3skljl.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260506-31-q10eyq.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260506-31-q10eyq.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260507-32-7730t3.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260507-32-7730t3.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260511-32-23n0o4.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260511-32-23n0o4.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260513-31-2siepf.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260513-31-2siepf.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260513-31-433bp2.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260513-31-433bp2.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260513-31-thu13l.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260513-31-thu13l.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260514-33-5lhuqb.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260514-33-5lhuqb.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260515-32-h8xidq.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260515-32-h8xidq.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "IBMDesign20260515-32-j0ejf7.pdf",
+    issuer: "IBM",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/IBMDesign20260515-32-j0ejf7.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "RAG_DeepLearningBook.mp4",
+    issuer: "Project",
+    period: "",
+    description: "",
+    icon: Award,
+    certificateUrl: "/RAG_DeepLearningBook.mp4",
+    verifyUrl: null
+  }
 ]
 
 // Language colors for GitHub stats

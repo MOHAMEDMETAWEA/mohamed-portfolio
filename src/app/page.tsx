@@ -418,7 +418,7 @@ const certifications = [
     period: "Mar 2025",
     description: "9-course specialization covering OpenAI suite, LangChain, RAG, vector databases, AI agents, and MCP",
     icon: Bot,
-    certificateUrl: "/cert-ai-engineering.pdf",
+    certificateUrl: "/Coursera KA9W2QX9ME4U.pdf",
     verifyUrl: "https://coursera.org/verify/specialization/KA9W2QX9ME4U"
   },
   {
@@ -427,7 +427,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Comprehensive course on building autonomous AI agents with modern frameworks and tools",
     icon: Bot,
-    certificateUrl: "/cert-ai-agents.pdf",
+    certificateUrl: "/Coursera 9LXRFGOHE9Y8.pdf",
     verifyUrl: "https://coursera.org/verify/9LXRFGOHE9Y8"
   },
   {
@@ -436,7 +436,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Practical course on building production AI applications using LangChain.js framework",
     icon: Code,
-    certificateUrl: "/cert-langchain.pdf",
+    certificateUrl: "/Coursera GQ84048LIJG7.pdf",
     verifyUrl: "https://coursera.org/verify/GQ84048LIJG7"
   },
   {
@@ -445,7 +445,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Hands-on training with OpenAI's Assistant API for building intelligent conversational AI",
     icon: MessageSquare,
-    certificateUrl: "/cert-assistant-api.pdf",
+    certificateUrl: "/Coursera RWD0Q1ORABUQ.pdf",
     verifyUrl: "https://coursera.org/verify/RWD0Q1ORABUQ"
   },
   {
@@ -454,7 +454,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Course covering DALL-E image generation and GPT Vision for multimodal AI applications",
     icon: Eye,
-    certificateUrl: "/cert-dalle-gpt-vision.pdf",
+    certificateUrl: "/Coursera 9CJFM7RPO753.pdf",
     verifyUrl: "https://coursera.org/verify/9CJFM7RPO753"
   },
   {
@@ -463,7 +463,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Introduction to MCP for connecting AI models with external tools and data sources",
     icon: Cpu,
-    certificateUrl: "/cert-mcp.pdf",
+    certificateUrl: "/Coursera AXMGLBYIMYJF.pdf",
     verifyUrl: "https://coursera.org/verify/AXMGLBYIMYJF"
   },
   {
@@ -472,7 +472,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Comprehensive course on Retrieval-Augmented Generation, embeddings, and vector databases for production AI systems",
     icon: Database,
-    certificateUrl: "/cert-rag-embeddings.pdf",
+    certificateUrl: "/Coursera D6ZYH0HP6SM3.pdf",
     verifyUrl: "https://coursera.org/verify/D6ZYH0HP6SM3"
   },
   {
@@ -481,7 +481,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Foundational course introducing AI engineering concepts, tools, and best practices for building AI-powered applications",
     icon: Rocket,
-    certificateUrl: "/cert-intro-ai-eng.pdf",
+    certificateUrl: "/Coursera 29TTEDKUJRP1.pdf",
     verifyUrl: "https://coursera.org/verify/29TTEDKUJRP1"
   },
   {
@@ -490,7 +490,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Course covering open-source AI models, their deployment, and integration into production applications",
     icon: Code,
-    certificateUrl: "/cert-opensource-ai.pdf",
+    certificateUrl: "/Coursera AWWBPIHIVH5S.pdf",
     verifyUrl: "https://coursera.org/verify/AWWBPIHIVH5S"
   },
   {
@@ -499,7 +499,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Practical course on deploying AI applications using Cloudflare's edge computing platform and serverless functions",
     icon: Cloud,
-    certificateUrl: "/cert-cloudflare-ai.pdf",
+    certificateUrl: "/Coursera PTC1WJO0Y35E.pdf",
     verifyUrl: "https://coursera.org/verify/PTC1WJO0Y35E"
   },
   {
@@ -508,7 +508,7 @@ const certifications = [
     period: "Mar 2025",
     description: "Enterprise-focused course on AI workflows, business alignment, and data ingestion strategies for AI projects",
     icon: Workflow,
-    certificateUrl: "/cert-ibm-ai-workflow.pdf",
+    certificateUrl: "/Coursera 7EZ36W89PBT4.pdf",
     verifyUrl: "https://coursera.org/verify/7EZ36W89PBT4"
   },
   {
@@ -526,7 +526,7 @@ const certifications = [
     period: "2025",
     description: "AWS certification validating knowledge of AI/ML services and best practices on AWS cloud platform",
     icon: Cloud,
-    certificateUrl: "/cert-aws-ai.png",
+    certificateUrl: "/AWS_AIPractitionerCertificate.png",
     verifyUrl: null
   },
   {
@@ -562,7 +562,7 @@ const certifications = [
     period: "Oct 2025",
     description: "3-course specialization by Andrew Ng covering supervised learning, unsupervised learning, recommender systems, and reinforcement learning",
     icon: Brain,
-    certificateUrl: "/cert-ml-specialization.pdf",
+    certificateUrl: "/Coursera K2UKWZ4APRL6.pdf",
     verifyUrl: "https://coursera.org/verify/specialization/K2UKWZ4APRL6"
   },
   {
@@ -571,7 +571,7 @@ const certifications = [
     period: "Oct 2025",
     description: "Advanced ML course covering clustering, anomaly detection, recommender systems, and reinforcement learning techniques",
     icon: TrendingUp,
-    certificateUrl: "/cert-unsupervised-learning.pdf",
+    certificateUrl: "/Coursera VTHCGLVU4BQP.pdf",
     verifyUrl: "https://coursera.org/verify/VTHCGLVU4BQP"
   },
   {
@@ -580,7 +580,7 @@ const certifications = [
     period: "Oct 2025",
     description: "Course covering neural networks, decision trees, and best practices for building and training ML models by Andrew Ng",
     icon: TrendingUp,
-    certificateUrl: "/cert-advanced-learning-algorithms.pdf",
+    certificateUrl: "/Coursera 7KHL0EX5HTK6.pdf",
     verifyUrl: "https://coursera.org/verify/7KHL0EX5HTK6"
   },
   {

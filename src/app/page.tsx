@@ -544,7 +544,7 @@ const certifications = [
     period: "Nov 2025 – Jun 2026",
     description: "Comprehensive program covering LLMs, RAG systems, agentic AI, and production deployment",
     icon: Brain,
-    certificateUrl: null,
+    certificateUrl: "/generative-ai-applications-specialist.png",
     verifyUrl: null
   },
   {
@@ -553,7 +553,7 @@ const certifications = [
     period: "Completed",
     description: "Advanced techniques for fine-tuning large language models with reinforcement learning",
     icon: Cpu,
-    certificateUrl: null,
+    certificateUrl: "/generative-ai-advanced-fine-tuning-for-llms.png",
     verifyUrl: null
   },
   {
@@ -589,7 +589,7 @@ const certifications = [
     period: "Completed",
     description: "Comprehensive data science curriculum including Python, SQL, and ML",
     icon: Database,
-    certificateUrl: null,
+    certificateUrl: "/cert-pending.svg",
     verifyUrl: null
   },
   {
@@ -598,7 +598,7 @@ const certifications = [
     period: "Completed",
     description: "Industry-recognized certification in AI fundamentals and applications",
     icon: Award,
-    certificateUrl: null,
+    certificateUrl: "/cert-pending.svg",
     verifyUrl: null
   },
   {

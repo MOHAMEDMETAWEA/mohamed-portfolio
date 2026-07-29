@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mohamedmustafaportfolio.netlify.app"),
+  metadataBase: new URL("https://mohamedmostafaportfolio.vercel.app"),
   title: "Mohamed Mostafa Metawea | AI Engineer Portfolio",
   description: "AI Engineer specializing in Generative AI & Agentic Systems. Expert in Machine Learning, Deep Learning, Computer Vision, and NLP. Building intelligent ML systems with real-world impact.",
   keywords: ["AI Engineer", "Machine Learning", "Deep Learning", "Generative AI", "Agentic AI", "Computer Vision", "NLP", "Python", "TensorFlow", "PyTorch", "Mohamed Metawea", "MedAgent", "n8n"],
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mohamed Mostafa Metawea | AI Engineer & Agentic Systems Specialist",
     description: "AI Engineer specializing in Generative AI, RAG Architectures, and Autonomous Agentic Systems.",
-    url: "https://mohamedmustafaportfolio.netlify.app",
+    url: "https://mohamedmostafaportfolio.vercel.app",
     siteName: "Mohamed Metawea Portfolio",
     type: "website",
     images: [

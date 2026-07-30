@@ -412,245 +412,115 @@ const projects = [
 ]
 
 const certifications = [
-  {
-    title: "AI Engineering Specialization",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "9-course specialization covering OpenAI suite, LangChain, RAG, vector databases, AI agents, and MCP",
-    icon: Bot,
-    certificateUrl: "/Coursera KA9W2QX9ME4U.pdf",
-    verifyUrl: "https://coursera.org/verify/specialization/KA9W2QX9ME4U"
-  },
-  {
-    title: "Learn AI Agents",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "Comprehensive course on building autonomous AI agents with modern frameworks and tools",
-    icon: Bot,
-    certificateUrl: "/Coursera 9LXRFGOHE9Y8.pdf",
-    verifyUrl: "https://coursera.org/verify/9LXRFGOHE9Y8"
-  },
-  {
-    title: "Build AI Apps with LangChain.js",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "Practical course on building production AI applications using LangChain.js framework",
-    icon: Code,
-    certificateUrl: "/Coursera GQ84048LIJG7.pdf",
-    verifyUrl: "https://coursera.org/verify/GQ84048LIJG7"
-  },
-  {
-    title: "Learn OpenAI's Assistant API",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "Hands-on training with OpenAI's Assistant API for building intelligent conversational AI",
-    icon: MessageSquare,
-    certificateUrl: "/Coursera RWD0Q1ORABUQ.pdf",
-    verifyUrl: "https://coursera.org/verify/RWD0Q1ORABUQ"
-  },
-  {
-    title: "Intro to Dall-E and GPT Vision",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "Course covering DALL-E image generation and GPT Vision for multimodal AI applications",
-    icon: Eye,
-    certificateUrl: "/Coursera 9CJFM7RPO753.pdf",
-    verifyUrl: "https://coursera.org/verify/9CJFM7RPO753"
-  },
-  {
-    title: "Intro to Model Context Protocol (MCP)",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "Introduction to MCP for connecting AI models with external tools and data sources",
-    icon: Cpu,
-    certificateUrl: "/Coursera AXMGLBYIMYJF.pdf",
-    verifyUrl: "https://coursera.org/verify/AXMGLBYIMYJF"
-  },
-  {
-    title: "RAG with Embeddings & Vector Databases",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "Comprehensive course on Retrieval-Augmented Generation, embeddings, and vector databases for production AI systems",
-    icon: Database,
-    certificateUrl: "/Coursera D6ZYH0HP6SM3.pdf",
-    verifyUrl: "https://coursera.org/verify/D6ZYH0HP6SM3"
-  },
-  {
-    title: "Intro to AI Engineering",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "Foundational course introducing AI engineering concepts, tools, and best practices for building AI-powered applications",
-    icon: Rocket,
-    certificateUrl: "/Coursera 29TTEDKUJRP1.pdf",
-    verifyUrl: "https://coursera.org/verify/29TTEDKUJRP1"
-  },
-  {
-    title: "Open-source AI Models",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "Course covering open-source AI models, their deployment, and integration into production applications",
-    icon: Code,
-    certificateUrl: "/Coursera AWWBPIHIVH5S.pdf",
-    verifyUrl: "https://coursera.org/verify/AWWBPIHIVH5S"
-  },
-  {
-    title: "Deploy AI Apps with Cloudflare",
-    issuer: "Scrimba/Coursera",
-    period: "Mar 2025",
-    description: "Practical course on deploying AI applications using Cloudflare's edge computing platform and serverless functions",
-    icon: Cloud,
-    certificateUrl: "/Coursera PTC1WJO0Y35E.pdf",
-    verifyUrl: "https://coursera.org/verify/PTC1WJO0Y35E"
-  },
-  {
-    title: "AI Workflow: Business Priorities & Data Ingestion",
-    issuer: "IBM/Coursera",
-    period: "Mar 2025",
-    description: "Enterprise-focused course on AI workflows, business alignment, and data ingestion strategies for AI projects",
-    icon: Workflow,
-    certificateUrl: "/Coursera 7EZ36W89PBT4.pdf",
-    verifyUrl: "https://coursera.org/verify/7EZ36W89PBT4"
-  },
-  {
-    title: "Multimodal GenAI & RAG Apps",
-    issuer: "DeepLearning.AI",
-    period: "2025",
-    description: "Advanced course on building multimodal generative AI applications with RAG architectures",
-    icon: Layers,
-    certificateUrl: "/cert-multimodal-rag.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "AWS AI Practitioner Certificate",
-    issuer: "Amazon Web Services",
-    period: "2025",
-    description: "AWS certification validating knowledge of AI/ML services and best practices on AWS cloud platform",
-    icon: Cloud,
-    certificateUrl: "/AWS_AIPractitionerCertificate.png",
-    verifyUrl: null
-  },
-  {
-    title: "Future Skills Academy",
-    issuer: "UNDP-MBRF",
-    period: "2025",
-    description: "Learning pathway covering soft skills, digital skills, and AI fundamentals",
-    icon: Layers,
-    certificateUrl: "/cert-future-skills.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Generative AI Professional",
-    issuer: "DEPI",
-    period: "Nov 2025 – Jun 2026",
-    description: "Comprehensive program covering LLMs, RAG systems, agentic AI, and production deployment",
-    icon: Brain,
-    certificateUrl: "/generative-ai-applications-specialist.png",
-    verifyUrl: null
-  },
-  {
-    title: "Post-Training LLMs: Fine-Tuning & RLHF",
-    issuer: "DeepLearning.AI",
-    period: "Completed",
-    description: "Advanced techniques for fine-tuning large language models with reinforcement learning",
-    icon: Cpu,
-    certificateUrl: "/generative-ai-advanced-fine-tuning-for-llms.png",
-    verifyUrl: null
-  },
-  {
-    title: "Machine Learning Specialization",
-    issuer: "DeepLearning.AI/Stanford",
-    period: "Oct 2025",
-    description: "3-course specialization by Andrew Ng covering supervised learning, unsupervised learning, recommender systems, and reinforcement learning",
-    icon: Brain,
-    certificateUrl: "/Coursera K2UKWZ4APRL6.pdf",
-    verifyUrl: "https://coursera.org/verify/specialization/K2UKWZ4APRL6"
-  },
-  {
-    title: "Unsupervised Learning, Recommenders & RL",
-    issuer: "DeepLearning.AI/Stanford",
-    period: "Oct 2025",
-    description: "Advanced ML course covering clustering, anomaly detection, recommender systems, and reinforcement learning techniques",
-    icon: TrendingUp,
-    certificateUrl: "/Coursera VTHCGLVU4BQP.pdf",
-    verifyUrl: "https://coursera.org/verify/VTHCGLVU4BQP"
-  },
-  {
-    title: "Advanced Learning Algorithms",
-    issuer: "DeepLearning.AI/Stanford",
-    period: "Oct 2025",
-    description: "Course covering neural networks, decision trees, and best practices for building and training ML models by Andrew Ng",
-    icon: TrendingUp,
-    certificateUrl: "/Coursera 7KHL0EX5HTK6.pdf",
-    verifyUrl: "https://coursera.org/verify/7KHL0EX5HTK6"
-  },
-  {
-    title: "IBM Data Science Professional",
-    issuer: "DEPI",
-    period: "Completed",
-    description: "Comprehensive data science curriculum including Python, SQL, and ML",
-    icon: Database,
-    certificateUrl: "/cert-pending.svg",
-    verifyUrl: null
-  },
-  {
-    title: "Orange AI Level 1 Certification",
-    issuer: "Orange",
-    period: "Completed",
-    description: "Industry-recognized certification in AI fundamentals and applications",
-    icon: Award,
-    certificateUrl: "/cert-pending.svg",
-    verifyUrl: null
-  },
-  {
-    title: "The Python and Django Learning Guide",
-    issuer: "Udemy",
-    period: "Jul 2024",
-    description: "9-hour comprehensive course on Python programming and Django web framework",
-    icon: Code,
-    certificateUrl: "/cert-image-1.png",
-    verifyUrl: null
-  },
-  {
-    title: "Introduction to Python",
-    issuer: "DataCamp",
-    period: "Sep 2024",
-    description: "Foundational Python course covering basic syntax, lists, functions, and packages",
-    icon: Code,
-    certificateUrl: "/cert-image-2.png",
-    verifyUrl: null
-  },
-  {
-    title: "Data Analytics Bootcamp",
-    issuer: "Alexander Freberg",
-    period: "Completed",
-    description: "Comprehensive bootcamp covering core data analytics skills and tools",
-    icon: BarChart3,
-    certificateUrl: "/cert-whatsapp.jpeg",
-    verifyUrl: null
-  },
-  {
-    title: "Machine Learning with Python (V2)",
-    issuer: "IBM / Coursera",
-    period: "Apr 2026",
-    description: "Comprehensive course covering machine learning concepts and applications using Python",
-    icon: Brain,
-    certificateUrl: "/cert-machine-learning-python-ibm.pdf",
-    verifyUrl: "https://coursera.org/verify/U79HGNZL84DQ"
-  },
+  // ═══════ Flagship Professional Certificates ═══════
   {
     title: "IBM AI Engineering Professional Certificate",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Comprehensive 14-course professional certificate covering machine learning, deep learning, neural networks, generative AI, LLMs, transformers, and AI agents",
+    description: "Rigorous 14-course professional certificate covering machine learning, deep learning, neural networks, generative AI, LLMs, transformers, and AI agents with hands-on model deployment.",
     icon: Award,
     certificateUrl: "/cert-ibm-ai-engineering-pro.pdf",
     verifyUrl: "https://coursera.org/verify/professional-cert/MW0S92MWY4XF"
   },
   {
+    title: "Generative AI Professional Program",
+    issuer: "DEPI",
+    period: "Nov 2025 - Jun 2026",
+    description: "Industry-focused program covering LLMs, RAG systems, agentic AI, prompt engineering, and end-to-end production deployment of generative AI applications.",
+    icon: Brain,
+    certificateUrl: "/generative-ai-applications-specialist.png",
+    verifyUrl: null
+  },
+  {
+    title: "Machine Learning Specialization",
+    issuer: "DeepLearning.AI / Stanford",
+    period: "Oct 2025",
+    description: "3-course specialization by Andrew Ng covering supervised learning, unsupervised learning, recommender systems, and reinforcement learning with hands-on model building.",
+    icon: Brain,
+    certificateUrl: "/Coursera K2UKWZ4APRL6.pdf",
+    verifyUrl: "https://coursera.org/verify/specialization/K2UKWZ4APRL6"
+  },
+  {
+    title: "AI Engineering Specialization",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "9-course specialization covering the OpenAI suite, LangChain, RAG, vector databases, AI agents, and the Model Context Protocol (MCP).",
+    icon: Bot,
+    certificateUrl: "/Coursera KA9W2QX9ME4U.pdf",
+    verifyUrl: "https://coursera.org/verify/specialization/KA9W2QX9ME4U"
+  },
+  {
+    title: "AWS AI Practitioner",
+    issuer: "Amazon Web Services",
+    period: "2025",
+    description: "Foundational certification validating knowledge of AWS AI/ML services, responsible AI, and model selection best practices on the AWS cloud platform.",
+    icon: Cloud,
+    certificateUrl: "/AWS_AIPractitionerCertificate.png",
+    verifyUrl: null
+  },
+
+  // ═══════ Deep Learning Specialization - DeepLearning.AI ═══════
+  {
+    title: "Neural Networks and Deep Learning",
+    issuer: "DeepLearning.AI / Coursera",
+    period: "2025",
+    description: "Foundational deep learning course covering neural network architecture, forward and backpropagation, and vectorized implementation from scratch.",
+    icon: Cpu,
+    certificateUrl: "/Coursera CTGWDS950MKC.pdf",
+    verifyUrl: "https://coursera.org/verify/CTGWDS950MKC"
+  },
+  {
+    title: "Improving Deep Neural Networks: Hyperparameter Tuning, Regularization & Optimization",
+    issuer: "DeepLearning.AI / Coursera",
+    period: "2025",
+    description: "Advanced techniques for tuning, regularizing, and optimizing deep neural networks, including initialization, batch normalization, and Adam optimization.",
+    icon: Gauge,
+    certificateUrl: "/Coursera Z7KTIV7G08FZ.pdf",
+    verifyUrl: "https://coursera.org/verify/Z7KTIV7G08FZ"
+  },
+  {
+    title: "Structuring Machine Learning Projects",
+    issuer: "DeepLearning.AI / Coursera",
+    period: "2025",
+    description: "Strategic course on building production ML systems - train/dev/test splits, error analysis, data distribution mismatch, and end-to-end learning workflows.",
+    icon: Workflow,
+    certificateUrl: "/Coursera S5DD3AFNRB3L.pdf",
+    verifyUrl: "https://coursera.org/verify/S5DD3AFNRB3L"
+  },
+  {
+    title: "Convolutional Neural Networks",
+    issuer: "DeepLearning.AI / Coursera",
+    period: "2025",
+    description: "Hands-on CNN course covering visual recognition, residual networks, object detection, face recognition, and neural style transfer for computer vision.",
+    icon: Eye,
+    certificateUrl: "/Coursera YUJETL39JUMZ.pdf",
+    verifyUrl: "https://coursera.org/verify/YUJETL39JUMZ"
+  },
+  {
+    title: "Sequence Models",
+    issuer: "DeepLearning.AI / Coursera",
+    period: "2025",
+    description: "Deep learning for sequential data - RNNs, GRUs, LSTMs, attention mechanisms, and the Transformer architecture that powers modern LLMs.",
+    icon: Layers,
+    certificateUrl: "/Coursera HHEB3VS9FIJC.pdf",
+    verifyUrl: "https://coursera.org/verify/HHEB3VS9FIJC"
+  },
+
+  // ═══════ IBM Generative AI & Deep Learning Courses ═══════
+  {
+    title: "Machine Learning with Python",
+    issuer: "IBM / Coursera",
+    period: "Apr 2026",
+    description: "Comprehensive course covering supervised and unsupervised machine learning algorithms, classification, regression, and clustering using Python and Scikit-learn.",
+    icon: Brain,
+    certificateUrl: "/cert-machine-learning-python-ibm.pdf",
+    verifyUrl: "https://coursera.org/verify/U79HGNZL84DQ"
+  },
+  {
     title: "Introduction to Deep Learning & Neural Networks with Keras",
     issuer: "IBM / Coursera",
     period: "Apr 2026",
-    description: "Foundational course on deep learning concepts, neural network architectures, and building models with Keras",
+    description: "Foundational course on deep learning concepts, neural network architectures, and building trainable models using the Keras API.",
     icon: Brain,
     certificateUrl: "/cert-intro-dl-neural-networks-keras.pdf",
     verifyUrl: "https://coursera.org/verify/9IA9AJ2BHUDQ"
@@ -659,7 +529,7 @@ const certifications = [
     title: "Introduction to Neural Networks and PyTorch",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Hands-on course covering neural network fundamentals and practical implementation using PyTorch framework",
+    description: "Hands-on course covering neural network fundamentals and practical model implementation using the PyTorch framework for AI research.",
     icon: Cpu,
     certificateUrl: "/cert-intro-neural-networks-pytorch.pdf",
     verifyUrl: "https://coursera.org/verify/ORVGWOJ5SF3V"
@@ -668,7 +538,7 @@ const certifications = [
     title: "Deep Learning with PyTorch",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Advanced deep learning techniques and model building using PyTorch for production applications",
+    description: "Advanced deep learning techniques and production-grade model building using PyTorch, including custom datasets and transfer learning workflows.",
     icon: Cpu,
     certificateUrl: "/cert-dl-pytorch.pdf",
     verifyUrl: "https://coursera.org/verify/VOBNR11IEJFP"
@@ -677,7 +547,7 @@ const certifications = [
     title: "Deep Learning with Keras and TensorFlow",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Comprehensive course on building and training deep learning models using Keras and TensorFlow frameworks",
+    description: "Comprehensive course on building and training deep learning models using the Keras and TensorFlow frameworks for scalable AI systems.",
     icon: Brain,
     certificateUrl: "/cert-dl-keras-tensorflow.pdf",
     verifyUrl: "https://coursera.org/verify/J3AG39R9KN19"
@@ -686,16 +556,16 @@ const certifications = [
     title: "AI Capstone Project with Deep Learning",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Capstone project applying deep learning skills to solve real-world AI challenges end-to-end",
+    description: "Capstone project applying deep learning skills end-to-end to solve a real-world AI challenge, from data pipeline to trained and evaluated model.",
     icon: Rocket,
     certificateUrl: "/cert-ai-capstone-deep-learning.pdf",
     verifyUrl: "https://coursera.org/verify/6XEL75XUDVWO"
   },
   {
-    title: "Gen AI Foundational Models for NLP & Language Understanding",
+    title: "Generative AI Foundational Models for NLP & Language Understanding",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Course on foundational generative AI models for natural language processing and language understanding",
+    description: "Course on foundational generative AI models for natural language processing, language representation, and transformer-based understanding.",
     icon: MessageSquare,
     certificateUrl: "/cert-gen-ai-foundational-models-nlp.pdf",
     verifyUrl: "https://coursera.org/verify/UHDL3UISTU3A"
@@ -704,7 +574,7 @@ const certifications = [
     title: "Generative AI Language Modeling with Transformers",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Advanced course on generative AI language modeling techniques using transformer architectures",
+    description: "Advanced course on generative AI language modeling techniques using transformer architectures for text generation and understanding.",
     icon: Sparkles,
     certificateUrl: "/cert-gen-ai-language-modeling-transformers.pdf",
     verifyUrl: "https://coursera.org/verify/VCAE9IAGFC4Y"
@@ -713,7 +583,7 @@ const certifications = [
     title: "Generative AI and LLMs: Architecture and Data Preparation",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "In-depth course on LLM architectures, data preparation pipelines, and generative AI system design",
+    description: "In-depth course on large language model architectures, training data pipelines, and generative AI system design for production.",
     icon: Layers,
     certificateUrl: "/cert-gen-ai-llms-architecture.pdf",
     verifyUrl: "https://coursera.org/verify/GGP8IG8M8RQ2"
@@ -722,7 +592,7 @@ const certifications = [
     title: "Generative AI Engineering and Fine-Tuning Transformers",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Practical course on engineering generative AI solutions and fine-tuning transformer models",
+    description: "Practical course on engineering generative AI solutions and fine-tuning transformer models for domain-specific applications.",
     icon: Cog,
     certificateUrl: "/cert-gen-ai-engineering-transformers.pdf",
     verifyUrl: "https://coursera.org/verify/I74ORD2QWJNB"
@@ -731,7 +601,7 @@ const certifications = [
     title: "Generative AI Advanced Fine-Tuning for LLMs",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Advanced techniques for fine-tuning large language models including RLHF, LoRA, and PEFT methods",
+    description: "Advanced techniques for fine-tuning large language models, including Parameter-Efficient Fine-Tuning (PEFT), LoRA, and RLHF methods.",
     icon: TrendingUp,
     certificateUrl: "/cert-gen-ai-fine-tuning-llms.pdf",
     verifyUrl: "https://coursera.org/verify/G6BGF0RXM8UZ"
@@ -740,7 +610,7 @@ const certifications = [
     title: "Fundamentals of AI Agents Using RAG and LangChain",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Course on building AI agents using Retrieval-Augmented Generation and LangChain framework",
+    description: "Course on building autonomous AI agents using Retrieval-Augmented Generation pipelines and the LangChain framework for tool-using LLMs.",
     icon: Bot,
     certificateUrl: "/cert-ai-agents-rag-langchain.pdf",
     verifyUrl: "https://coursera.org/verify/RWIMWPQSJ2YL"
@@ -749,509 +619,183 @@ const certifications = [
     title: "Project: Generative AI Applications with RAG and LangChain",
     issuer: "IBM / Coursera",
     period: "May 2026",
-    description: "Hands-on project building production generative AI applications using RAG pipelines and LangChain",
+    description: "Hands-on capstone building a production generative AI application using a complete RAG pipeline and LangChain orchestration.",
     icon: Rocket,
     certificateUrl: "/cert-gen-ai-rag-langchain-project.pdf",
     verifyUrl: "https://coursera.org/verify/05ZHA5PO3OJ4"
-  }
-  ,
-  // Auto-added: unreferenced public assets (filename -> minimal certification entry)
+  },
+
+  // ═══════ Andrew Ng ML Specialization Courses ═══════
   {
-    title: "cert-advanced-learning-algorithms.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-advanced-learning-algorithms.pdf",
-    verifyUrl: null
+    title: "Advanced Learning Algorithms",
+    issuer: "DeepLearning.AI / Stanford",
+    period: "Oct 2025",
+    description: "Course covering neural networks, decision trees, and best practices for building, training, and tuning machine learning models.",
+    icon: TrendingUp,
+    certificateUrl: "/Coursera 7KHL0EX5HTK6.pdf",
+    verifyUrl: "https://coursera.org/verify/7KHL0EX5HTK6"
   },
   {
-    title: "cert-ai-agents.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-ai-agents.pdf",
-    verifyUrl: null
+    title: "Unsupervised Learning, Recommenders & Reinforcement Learning",
+    issuer: "DeepLearning.AI / Stanford",
+    period: "Oct 2025",
+    description: "Advanced ML course covering clustering, anomaly detection, recommender systems, and reinforcement learning techniques.",
+    icon: TrendingUp,
+    certificateUrl: "/Coursera VTHCGLVU4BQP.pdf",
+    verifyUrl: "https://coursera.org/verify/VTHCGLVU4BQP"
+  },
+
+  // ═══════ Scrimba AI Engineering Specialization Courses ═══════
+  {
+    title: "Learn AI Agents",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "Comprehensive course on designing and building autonomous AI agents with modern frameworks, tool use, and multi-step reasoning.",
+    icon: Bot,
+    certificateUrl: "/Coursera 9LXRFGOHE9Y8.pdf",
+    verifyUrl: "https://coursera.org/verify/9LXRFGOHE9Y8"
   },
   {
-    title: "cert-ai-engineering.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-ai-engineering.pdf",
-    verifyUrl: null
+    title: "Build AI Apps with LangChain.js",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "Practical course on building production AI applications using the LangChain.js framework for chaining LLMs, tools, and memory.",
+    icon: Code,
+    certificateUrl: "/Coursera GQ84048LIJG7.pdf",
+    verifyUrl: "https://coursera.org/verify/GQ84048LIJG7"
   },
   {
-    title: "cert-assistant-api.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-assistant-api.pdf",
-    verifyUrl: null
+    title: "Learn OpenAI's Assistant API",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "Hands-on training with OpenAI's Assistant API for building intelligent conversational agents with function calling and code execution.",
+    icon: MessageSquare,
+    certificateUrl: "/Coursera RWD0Q1ORABUQ.pdf",
+    verifyUrl: "https://coursera.org/verify/RWD0Q1ORABUQ"
   },
   {
-    title: "cert-aws-ai.png",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-aws-ai.png",
-    verifyUrl: null
+    title: "Intro to DALL.E and GPT Vision",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "Course covering DALL.E image generation and GPT Vision for building multimodal AI applications that understand images and text.",
+    icon: Eye,
+    certificateUrl: "/Coursera 9CJFM7RPO753.pdf",
+    verifyUrl: "https://coursera.org/verify/9CJFM7RPO753"
   },
   {
-    title: "cert-cloudflare-ai.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-cloudflare-ai.pdf",
-    verifyUrl: null
+    title: "Intro to Model Context Protocol (MCP)",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "Introduction to the Model Context Protocol for securely connecting AI models with external tools, data sources, and services.",
+    icon: Cpu,
+    certificateUrl: "/Coursera AXMGLBYIMYJF.pdf",
+    verifyUrl: "https://coursera.org/verify/AXMGLBYIMYJF"
   },
   {
-    title: "cert-dalle-gpt-vision.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-dalle-gpt-vision.pdf",
-    verifyUrl: null
+    title: "RAG with Embeddings & Vector Databases",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "Comprehensive course on Retrieval-Augmented Generation, embeddings, and vector databases for building accurate, knowledge-grounded AI.",
+    icon: Database,
+    certificateUrl: "/Coursera D6ZYH0HP6SM3.pdf",
+    verifyUrl: "https://coursera.org/verify/D6ZYH0HP6SM3"
   },
   {
-    title: "cert-ibm-ai-workflow.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-ibm-ai-workflow.pdf",
-    verifyUrl: null
+    title: "Intro to AI Engineering",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "Foundational course introducing AI engineering concepts, the modern toolchain, and best practices for building AI-powered applications.",
+    icon: Rocket,
+    certificateUrl: "/Coursera 29TTEDKUJRP1.pdf",
+    verifyUrl: "https://coursera.org/verify/29TTEDKUJRP1"
   },
   {
-    title: "cert-intro-ai-eng.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-intro-ai-eng.pdf",
-    verifyUrl: null
+    title: "Open-source AI Models",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "Course covering open-source AI models - selection, deployment, and integration into production applications as cost-effective alternatives.",
+    icon: Code,
+    certificateUrl: "/Coursera AWWBPIHIVH5S.pdf",
+    verifyUrl: "https://coursera.org/verify/AWWBPIHIVH5S"
   },
   {
-    title: "cert-langchain.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-langchain.pdf",
-    verifyUrl: null
+    title: "Deploy AI Apps with Cloudflare",
+    issuer: "Scrimba / Coursera",
+    period: "Mar 2025",
+    description: "Practical course on deploying AI applications using Cloudflare's edge computing platform and serverless functions for low-latency inference.",
+    icon: Cloud,
+    certificateUrl: "/Coursera PTC1WJO0Y35E.pdf",
+    verifyUrl: "https://coursera.org/verify/PTC1WJO0Y35E"
   },
   {
-    title: "cert-mcp.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-mcp.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "cert-ml-specialization.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-ml-specialization.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "cert-opensource-ai.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-opensource-ai.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "cert-rag-embeddings.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-rag-embeddings.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "cert-unsupervised-learning.pdf",
-    issuer: "Various",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/cert-unsupervised-learning.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera 05ZHA5PO3OJ4.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera 05ZHA5PO3OJ4.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera 6XEL75XUDVWO.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera 6XEL75XUDVWO.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera 9IA9AJ2BHUDQ.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera 9IA9AJ2BHUDQ.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera CTGWDS950MKC.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera CTGWDS950MKC.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera G6BGF0RXM8UZ.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera G6BGF0RXM8UZ.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera GGP8IG8M8RQ2.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera GGP8IG8M8RQ2.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera HHEB3VS9FIJC.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera HHEB3VS9FIJC.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera I74ORD2QWJNB.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera I74ORD2QWJNB.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera J3AG39R9KN19.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera J3AG39R9KN19.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera MW0S92MWY4XF.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera MW0S92MWY4XF.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera NANC9WTEWYDL.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera NANC9WTEWYDL.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera ORVGWOJ5SF3V.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera ORVGWOJ5SF3V.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera RWIMWPQSJ2YL.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera RWIMWPQSJ2YL.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera S5DD3AFNRB3L.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera S5DD3AFNRB3L.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera U79HGNZL84DQ.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera U79HGNZL84DQ.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera UHDL3UISTU3A.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera UHDL3UISTU3A.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera VCAE9IAGFC4Y.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera VCAE9IAGFC4Y.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera VOBNR11IEJFP.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera VOBNR11IEJFP.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera YUJETL39JUMZ.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera YUJETL39JUMZ.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Coursera Z7KTIV7G08FZ.pdf",
-    issuer: "Coursera",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/Coursera Z7KTIV7G08FZ.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "DeepLearningwithPyTorch_Badge20260505-31-6nitb6.pdf",
-    issuer: "DeepLearning.AI",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/DeepLearningwithPyTorch_Badge20260505-31-6nitb6.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "generative-ai-and-llms-architecture-and-data-prepar.png",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/generative-ai-and-llms-architecture-and-data-prepar.png",
-    verifyUrl: null
-  },
-  {
-    title: "generative-ai-engineering-with-transformers-llms.png",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/generative-ai-engineering-with-transformers-llms.png",
-    verifyUrl: null
-  },
-  {
-    title: "generative-ai-foundational-models-for-nlp-language-.png",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/generative-ai-foundational-models-for-nlp-language-.png",
-    verifyUrl: null
-  },
-  {
-    title: "generative-ai-language-modeling-with-transformers.png",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/generative-ai-language-modeling-with-transformers.png",
-    verifyUrl: null
-  },
-  {
-    title: "ibm-ai-engineering-professional-certificate-v3.png",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/ibm-ai-engineering-professional-certificate-v3.png",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260420-31-csiheo.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260420-31-csiheo.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260423-32-ln2aw4.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260423-32-ln2aw4.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260501-31-5gwit6.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260501-31-5gwit6.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260503-31-3skljl.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260503-31-3skljl.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260506-31-q10eyq.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260506-31-q10eyq.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260507-32-7730t3.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260507-32-7730t3.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260511-32-23n0o4.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260511-32-23n0o4.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260513-31-2siepf.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260513-31-2siepf.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260513-31-433bp2.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260513-31-433bp2.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260513-31-thu13l.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260513-31-thu13l.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260514-33-5lhuqb.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260514-33-5lhuqb.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260515-32-h8xidq.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260515-32-h8xidq.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "IBMDesign20260515-32-j0ejf7.pdf",
-    issuer: "IBM",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/IBMDesign20260515-32-j0ejf7.pdf",
-    verifyUrl: null
-  },
-  {
-    title: "Project: Generative AI Applications with RAG and LangChain",
+    title: "AI Workflow: Business Priorities & Data Ingestion",
     issuer: "IBM / Coursera",
-    period: "May 2026",
-    description: "Hands-on project building production generative AI applications using RAG pipelines and LangChain",
-    icon: Rocket,
-    certificateUrl: "/cert-gen-ai-rag-langchain-project.pdf",
-    verifyUrl: "https://coursera.org/verify/05ZHA5PO3OJ4"
+    period: "Mar 2025",
+    description: "Enterprise-focused course on AI workflows, business alignment, and data ingestion strategies for delivering impactful AI projects.",
+    icon: Workflow,
+    certificateUrl: "/Coursera 7EZ36W89PBT4.pdf",
+    verifyUrl: "https://coursera.org/verify/7EZ36W89PBT4"
+  },
+
+  // ═══════ Additional Specialized AI Credentials ═══════
+  {
+    title: "Multimodal GenAI & RAG Applications",
+    issuer: "DeepLearning.AI",
+    period: "2025",
+    description: "Advanced course on building multimodal generative AI applications that combine text, image, and audio with RAG architectures.",
+    icon: Layers,
+    certificateUrl: "/Multimodal_GenAI_RAG_Apps.pdf",
+    verifyUrl: null
+  },
+  {
+    title: "Post-Training LLMs: Fine-Tuning & RLHF",
+    issuer: "DeepLearning.AI",
+    period: "2025",
+    description: "Advanced techniques for post-training large language models, including supervised fine-tuning and reinforcement learning from human feedback.",
+    icon: Cpu,
+    certificateUrl: "/generative-ai-advanced-fine-tuning-for-llms.png",
+    verifyUrl: null
+  },
+  {
+    title: "Future Skills Academy",
+    issuer: "UNDP / MBRF",
+    period: "2025",
+    description: "Structured learning pathway covering digital skills, AI fundamentals, and future-ready competencies for the modern workforce.",
+    icon: Layers,
+    certificateUrl: "/FutureSkillsAcademy_Learning Programmes_EN 2025_Final with links.pdf",
+    verifyUrl: null
+  },
+
+  // ═══════ Programming & Data Foundations ═══════
+  {
+    title: "The Python and Django Learning Guide",
+    issuer: "Udemy",
+    period: "Jul 2024",
+    description: "9-hour comprehensive course on Python programming and the Django web framework for building data-driven backend applications.",
+    icon: Code,
+    certificateUrl: "/cert-image-1.png",
+    verifyUrl: null
+  },
+  {
+    title: "Introduction to Python",
+    issuer: "DataCamp",
+    period: "Sep 2024",
+    description: "Foundational Python course covering core syntax, data structures, functions, and packages - the backbone of modern AI development.",
+    icon: Code,
+    certificateUrl: "/cert-image-2.png",
+    verifyUrl: null
+  },
+  {
+    title: "Data Analytics Bootcamp",
+    issuer: "Alexander Freberg",
+    period: "2024",
+    description: "Comprehensive bootcamp covering core data analytics skills - data cleaning, exploration, visualization, and SQL for data-driven decision making.",
+    icon: BarChart3,
+    certificateUrl: "/cert-whatsapp.jpeg",
+    verifyUrl: null
   }
 ]
+
 
 // Language colors for GitHub stats
 const languageColors: Record<string, string> = {
@@ -1279,7 +823,7 @@ const aiResponses: Record<string, string> = {
   "education": "Mohamed holds a B.Sc. in Communication & Electronics Engineering from October 6 University (2020-2025) with a GPA of 3.44/4.0, specializing in AI & ML.",
   "medagent": "MedAgent is a production-grade clinical AI orchestrator (v5.3.0) featuring 14 specialized agents, RAG with FAISS over NIH/WHO guidelines, Tree-of-Thought reasoning, AES-256 encryption, and full observability via Prometheus.",
   "assistant": "The AI Personal Assistant is a multi-agent system with a central Orchestrator routing tasks across 9 sub-agents: Calendar, Email, Search, Weather, Notes, Reminders, Social Media, Data Analysis, and Web Automation. It supports WhatsApp & Telegram with voice/image processing!",
-  "certifications": "Mohamed has 38+ certifications including:\n🎓 IBM AI Engineering Professional Certificate\n🎓 AI Engineering Specialization (Coursera)\n🎓 ML Specialization (Stanford/DeepLearning.AI)\n🎓 AWS AI Practitioner\n🎓 Generative AI Professional (DEPI)\n🎓 12 IBM Generative AI & Deep Learning courses\nAnd many more!",
+  "certifications": "Mohamed has 40+ certifications including:\n🎓 IBM AI Engineering Professional Certificate\n🎓 Deep Learning Specialization (DeepLearning.AI)\n🎓 AI Engineering Specialization (Scrimba/Coursera)\n🎓 ML Specialization (Stanford/DeepLearning.AI)\n🎓 AWS AI Practitioner\n🎓 Generative AI Professional (DEPI)\n🎓 12 IBM Generative AI & Deep Learning courses\nAnd many more!",
 }
 
 function getAIResponse(input: string): string {
@@ -2514,7 +2058,7 @@ export default function Portfolio() {
                     whileHover={{ scale: 1.05 }}
                   >
                     <Award className="h-5 w-5 text-amber-500" />
-                    <span className="text-sm font-medium text-slate-700">38+ Certifications</span>
+                    <span className="text-sm font-medium text-slate-700">40+ Certifications</span>
                   </motion.div>
                 </motion.div>
               </motion.div>

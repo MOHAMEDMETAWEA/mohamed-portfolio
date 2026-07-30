@@ -1243,13 +1243,13 @@ const certifications = [
     verifyUrl: null
   },
   {
-    title: "RAG_DeepLearningBook.mp4",
-    issuer: "Project",
-    period: "",
-    description: "",
-    icon: Award,
-    certificateUrl: "/RAG_DeepLearningBook.mp4",
-    verifyUrl: null
+    title: "Project: Generative AI Applications with RAG and LangChain",
+    issuer: "IBM / Coursera",
+    period: "May 2026",
+    description: "Hands-on project building production generative AI applications using RAG pipelines and LangChain",
+    icon: Rocket,
+    certificateUrl: "/cert-gen-ai-rag-langchain-project.pdf",
+    verifyUrl: "https://coursera.org/verify/05ZHA5PO3OJ4"
   }
 ]
 

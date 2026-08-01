@@ -42,22 +42,22 @@ function MagneticButton({ children, className = "" }: { children: React.ReactNod
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } }
 }
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } }
 }
 
 const fadeInRight = {
   hidden: { opacity: 0, x: 40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } }
 }
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } }
 }
 
 const staggerContainer = {
@@ -86,7 +86,7 @@ const heroFloat = {
   initial: { y: 0 },
   animate: {
     y: [-8, 8, -8],
-    transition: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+    transition: { duration: 6, repeat: Infinity, ease: "easeInOut" as const }
   }
 }
 
@@ -96,7 +96,7 @@ const cardHover = {
     scale: 1.03, 
     y: -8, 
     boxShadow: "0 20px 40px -12px rgba(16,185,129,0.25)",
-    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } 
+    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }
   }
 }
 
@@ -461,6 +461,15 @@ const certifications = [
 
   // ═══════ Deep Learning Specialization - DeepLearning.AI ═══════
   {
+    title: "Deep Learning Specialization",
+    issuer: "DeepLearning.AI / Coursera",
+    period: "Jun 2026",
+    description: "5-course specialization by Andrew Ng covering the foundations of deep learning: neural networks, hyperparameter tuning and optimization, ML strategy, convolutional networks for computer vision, and sequence models (RNNs, LSTMs, Transformers) that power modern LLMs.",
+    icon: Cpu,
+    certificateUrl: "/Coursera NANC9WTEWYDL.pdf",
+    verifyUrl: "https://coursera.org/verify/specialization/NANC9WTEWYDL"
+  },
+  {
     title: "Neural Networks and Deep Learning",
     issuer: "DeepLearning.AI / Coursera",
     period: "2025",
@@ -756,42 +765,51 @@ const certifications = [
     certificateUrl: "/generative-ai-advanced-fine-tuning-for-llms.png",
     verifyUrl: null
   },
-  {
-    title: "Future Skills Academy",
-    issuer: "UNDP / MBRF",
-    period: "2025",
-    description: "Structured learning pathway covering digital skills, AI fundamentals, and future-ready competencies for the modern workforce.",
-    icon: Layers,
-    certificateUrl: "/FutureSkillsAcademy_Learning Programmes_EN 2025_Final with links.pdf",
-    verifyUrl: null
-  },
 
-  // ═══════ Programming & Data Foundations ═══════
+  // ═══════ Government & Industry AI Programs ═══════
   {
-    title: "The Python and Django Learning Guide",
-    issuer: "Udemy",
-    period: "Jul 2024",
-    description: "9-hour comprehensive course on Python programming and the Django web framework for building data-driven backend applications.",
-    icon: Code,
-    certificateUrl: "/cert-image-1.png",
+    title: "IBM Data Science Professional Certificate",
+    issuer: "DEPI / Ministry of Communications & IT",
+    period: "Nov 2024 - May 2025",
+    description: "Government-sponsored data scientist track through the Digital Egypt Pioneers Initiative (DEPI), covering data analysis, machine learning, and data engineering through hands-on projects and real-world case studies.",
+    icon: TrendingUp,
+    certificateUrl: "/Screenshot 2025-10-24 232504.png",
     verifyUrl: null
   },
   {
-    title: "Introduction to Python",
-    issuer: "DataCamp",
-    period: "Sep 2024",
-    description: "Foundational Python course covering core syntax, data structures, functions, and packages - the backbone of modern AI development.",
-    icon: Code,
-    certificateUrl: "/cert-image-2.png",
+    title: "Machine Learning for Data Analysis",
+    issuer: "Digital Egypt Pioneers Initiative (DEPI)",
+    period: "Oct 2025 - Dec 2025",
+    description: "Intensive government program (90 technical hours + 30 freelancing hours) covering machine learning for data analysis, completed with a final score of 97%.",
+    icon: TrendingUp,
+    certificateUrl: "/Mohamed Mostafa Abdelsattar Metawea.pdf",
     verifyUrl: null
   },
   {
-    title: "Data Analytics Bootcamp",
-    issuer: "Alexander Freberg",
-    period: "2024",
-    description: "Comprehensive bootcamp covering core data analytics skills - data cleaning, exploration, visualization, and SQL for data-driven decision making.",
-    icon: BarChart3,
-    certificateUrl: "/cert-whatsapp.jpeg",
+    title: "AI Training Program",
+    issuer: "National Telecommunication Institute (NTI)",
+    period: "Oct 2025 - Jan 2026",
+    description: "Intensive government AI training program covering machine learning, deep learning, and practical AI system implementation for national tech development.",
+    icon: Cpu,
+    certificateUrl: null,
+    verifyUrl: null
+  },
+  {
+    title: "Orange AI Level 1 Certification",
+    issuer: "Orange Digital Center",
+    period: "Nov 2024",
+    description: "AI fundamentals certification (24 hours) covering core machine learning concepts, model building, and practical AI applications from Orange's flagship digital skills program, completed with a 96% score.",
+    icon: Sparkles,
+    certificateUrl: "/Screenshot 2025-11-07 061857.png",
+    verifyUrl: null
+  },
+  {
+    title: "AI & Machine Learning Bootcamp",
+    issuer: "Sprints × Microsoft Summer Camp",
+    period: "2025",
+    description: "40-hour intensive bootcamp in partnership with Microsoft covering artificial intelligence and machine learning fundamentals, model building, and applied AI development.",
+    icon: Brain,
+    certificateUrl: "/Screenshot 2025-11-07 061821.png",
     verifyUrl: null
   }
 ]
@@ -823,7 +841,7 @@ const aiResponses: Record<string, string> = {
   "education": "Mohamed holds a B.Sc. in Communication & Electronics Engineering from October 6 University (2020-2025) with a GPA of 3.44/4.0, specializing in AI & ML.",
   "medagent": "MedAgent is a production-grade clinical AI orchestrator (v5.3.0) featuring 14 specialized agents, RAG with FAISS over NIH/WHO guidelines, Tree-of-Thought reasoning, AES-256 encryption, and full observability via Prometheus.",
   "assistant": "The AI Personal Assistant is a multi-agent system with a central Orchestrator routing tasks across 9 sub-agents: Calendar, Email, Search, Weather, Notes, Reminders, Social Media, Data Analysis, and Web Automation. It supports WhatsApp & Telegram with voice/image processing!",
-  "certifications": "Mohamed has 40+ certifications including:\n🎓 IBM AI Engineering Professional Certificate\n🎓 Deep Learning Specialization (DeepLearning.AI)\n🎓 AI Engineering Specialization (Scrimba/Coursera)\n🎓 ML Specialization (Stanford/DeepLearning.AI)\n🎓 AWS AI Practitioner\n🎓 Generative AI Professional (DEPI)\n🎓 12 IBM Generative AI & Deep Learning courses\nAnd many more!",
+  "certifications": "Mohamed has 45+ certifications including:\n🎓 IBM AI Engineering Professional Certificate\n🎓 Deep Learning Specialization (DeepLearning.AI)\n🎓 AI Engineering Specialization (Scrimba/Coursera)\n🎓 ML Specialization (Stanford/DeepLearning.AI)\n🎓 AWS AI Practitioner\n🎓 Generative AI Professional (DEPI)\n🎓 Machine Learning for Data Analysis (DEPI, 97%)\n🎓 AI & Machine Learning Bootcamp (Sprints × Microsoft)\n🎓 12 IBM Generative AI & Deep Learning courses\nAnd many more!",
 }
 
 function getAIResponse(input: string): string {
@@ -922,7 +940,7 @@ function AIChatbot() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
             className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-48px)] bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-slate-900/20 border border-slate-200/60 overflow-hidden"
           >
             {/* Header */}
@@ -1047,7 +1065,7 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
       ref={ref}
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const }}
       className={className}
     >
       {children}
@@ -1236,7 +1254,7 @@ function SkillBar({ name, data, index }: { name: string; data: { skills: string[
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] as const }}
       whileHover={{ y: -6, boxShadow: "0 16px 40px -8px rgba(16,185,129,0.2)" }}
       className="bg-white rounded-xl p-5 shadow-lg border border-slate-100 hover:border-emerald-200 transition-all duration-300 cursor-default"
     >
@@ -1258,7 +1276,7 @@ function SkillBar({ name, data, index }: { name: string; data: { skills: string[
           <motion.div
             initial={{ width: 0 }}
             animate={isInView ? { width: `${data.level}%` } : {}}
-            transition={{ duration: 1.2, delay: index * 0.08 + 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.2, delay: index * 0.08 + 0.3, ease: [0.22, 1, 0.36, 1] as const }}
             className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full"
           />
         </div>
@@ -1295,7 +1313,7 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
         <motion.div
           variants={fadeInUp}
           whileHover={{ y: -8, boxShadow: "0 20px 40px -12px rgba(16,185,129,0.2)" }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }}
           className={`group relative overflow-hidden rounded-2xl h-full ${
             isFeatured 
               ? 'bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/30 border border-emerald-100/50' 
@@ -1532,8 +1550,26 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
 
 // ─── GitHub Repos Section ────────────────────────────────────────────
 
+interface GitHubRepo {
+  id: string
+  title: string
+  description: string
+  github: string
+  stars: number
+  forks: number
+  language: string | null
+  topics: string[]
+  updatedAt: string
+  tech: string[]
+  category: string
+  icon: typeof Code
+  featured: boolean
+  image: null
+  version: null
+}
+
 function GitHubRepos() {
-  const [repos, setRepos] = useState<typeof projects>([])
+  const [repos, setRepos] = useState<GitHubRepo[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -1786,7 +1822,7 @@ export default function Portfolio() {
           aria-label="Main navigation"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
           className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
             scrolled ? 'bg-white/90 backdrop-blur-xl shadow-lg shadow-slate-200/50' : 'bg-transparent'
           }`}
@@ -1815,7 +1851,7 @@ export default function Portfolio() {
                     key={item.id}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ delay: 0.3 + idx * 0.08, ease: [0.22, 1, 0.36, 1] as const }}
                     onClick={() => scrollToSection(item.id)}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
@@ -1853,7 +1889,7 @@ export default function Portfolio() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
                 className="md:hidden overflow-hidden"
               >
                 <div className="py-4 border-t border-slate-200">
@@ -1954,9 +1990,9 @@ export default function Portfolio() {
                     className="border-emerald-200 text-emerald-700 hover:bg-emerald-50 bg-white/50 backdrop-blur-sm"
                     asChild
                   >
-                    <a href="/Mohamed_Mostafa_Metawea_CV.pdf" download>
+                    <a href="/Mohamed_Mostafa_Metawea_Resume.pdf" download>
                       <Download className="mr-2 h-5 w-5" />
-                      Download CV
+                      Download Resume
                     </a>
                   </Button>
                 </MagneticButton>
@@ -1982,7 +2018,7 @@ export default function Portfolio() {
             <motion.div 
               initial={{ opacity: 0, scale: 0.8, rotate: -2 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] as const }}
               className="order-1 lg:order-2 flex justify-center"
             >
               <motion.div 
@@ -2058,7 +2094,7 @@ export default function Portfolio() {
                     whileHover={{ scale: 1.05 }}
                   >
                     <Award className="h-5 w-5 text-amber-500" />
-                    <span className="text-sm font-medium text-slate-700">40+ Certifications</span>
+                    <span className="text-sm font-medium text-slate-700">45+ Certifications</span>
                   </motion.div>
                 </motion.div>
               </motion.div>
@@ -2430,7 +2466,7 @@ export default function Portfolio() {
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
                 className="relative pl-20"
               >
                 <motion.div 

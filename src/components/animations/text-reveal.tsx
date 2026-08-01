@@ -47,7 +47,7 @@ export function TextReveal({
         stiffness: 100,
       },
     },
-  };
+  } as const;
 
   return (
     <motion.div
@@ -107,7 +107,7 @@ export function CharacterReveal({
         stiffness: 200,
       },
     },
-  };
+  } as const;
 
   return (
     <motion.div

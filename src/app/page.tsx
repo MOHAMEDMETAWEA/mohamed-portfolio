@@ -120,13 +120,13 @@ const linkHover = {
 const personalInfo = {
   name: "Mohamed Mostafa Metawea",
   role: "AI Engineer · Generative AI & Agentic Systems",
-  specialization: "Machine Learning · Deep Learning · LLM Applications · n8n Automation",
+  specialization: "Machine Learning · Generative AI · RAG · Agentic Systems",
   location: "6 October City, Giza, Egypt",
   phone: "+20 105 548 5561",
   email: "mohamedmostafametawea@gmail.com",
   linkedin: "https://www.linkedin.com/in/mohamed-mostafa-metawea",
   github: "https://github.com/MOHAMEDMETAWEA",
-  bio: "Motivated AI and Machine Learning engineer with a strong foundation in machine learning, deep learning, and generative AI. Experienced in building end-to-end projects, including data processing, model development, and deployment using modern tools and frameworks. Skilled in Python, NLP, and computer vision, with growing expertise in LLM applications and scalable AI systems. Eager to apply technical knowledge, learn quickly, and contribute to impactful real-world projects in a collaborative environment."
+  bio: "I build practical AI applications that connect data, models, and usable software—from machine learning pipelines to RAG and multi-agent systems. My engineering background informs a careful focus on reliable, real-world solutions."
 }
 
 const education = {
@@ -238,7 +238,7 @@ const projects = [
     tech: ["LangGraph", "GPT-4o", "RAG", "FAISS", "FastAPI", "Docker", "Prometheus", "OpenTelemetry"],
     category: "Agentic AI",
     icon: Bot,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/MedAgent",
     image: null,
     video: "/Med-Agent-Test.mp4"
   },
@@ -1306,6 +1306,7 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
   const Icon = project.icon
   const [isOpen, setIsOpen] = useState(false)
   const hasVideo = Boolean((project as any).video)
+  const hasDedicatedRepo = project.github !== personalInfo.github
 
   return (
     <>
@@ -1320,6 +1321,14 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
               : 'bg-white border border-slate-200'
           } shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer`}
           onClick={() => setIsOpen(true)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault()
+              setIsOpen(true)
+            }
+          }}
+          role="button"
+          tabIndex={0}
       >
         {/* Featured badge */}
         {isFeatured && (
@@ -1438,7 +1447,7 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
                   <Play className="h-3.5 w-3.5 mr-1 fill-white" />
                   Watch Demo
                 </Button>
-              ) : (
+              ) : hasDedicatedRepo ? (
                 <Button 
                   variant="ghost" 
                   size="sm" 
@@ -1450,6 +1459,18 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
                 >
                   <Github className="h-4 w-4 mr-1.5" />
                   View Code
+                </Button>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 h-8"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setIsOpen(true)
+                  }}
+                >
+                  View Details
                 </Button>
               )}
             </motion.div>
@@ -1534,9 +1555,9 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
             
             <div className="flex gap-3 pt-2">
               <Button asChild className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700">
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
+                <a href={hasDedicatedRepo ? project.github : personalInfo.github} target="_blank" rel="noopener noreferrer">
                   <Github className="h-4 w-4 mr-2" />
-                  View Code on GitHub
+                  {hasDedicatedRepo ? 'View Code on GitHub' : 'View GitHub Profile'}
                   <ExternalLink className="h-3 w-3 ml-2" />
                 </a>
               </Button>
@@ -1787,9 +1808,8 @@ export default function Portfolio() {
   ]
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-[#090d14] overflow-x-hidden">
       {/* Advanced Animation Layer */}
-      <CustomCursor />
       
       {/* Scroll Progress */}
       <ScrollProgressBar />
@@ -1797,12 +1817,9 @@ export default function Portfolio() {
       {/* Back to Top */}
       <BackToTop />
       
-      {/* AI Chatbot */}
-      <AIChatbot />
-
       {/* Animated Background */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950/40" />
         <motion.div
           className="absolute w-[600px] h-[600px] rounded-full opacity-30"
           style={{
@@ -1815,6 +1832,10 @@ export default function Portfolio() {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-teal-200/20 to-cyan-200/20 rounded-full blur-3xl" />
       </div>
 
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-emerald-400 focus:px-4 focus:py-2 focus:text-slate-950">
+        Skip to content
+      </a>
+
       {/* Navigation Header */}
       <header>
         <motion.nav 
@@ -1824,7 +1845,7 @@ export default function Portfolio() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
           className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-            scrolled ? 'bg-white/90 backdrop-blur-xl shadow-lg shadow-slate-200/50' : 'bg-transparent'
+            scrolled ? 'bg-slate-950/90 backdrop-blur-xl shadow-lg shadow-black/20' : 'bg-slate-950/30 backdrop-blur-sm'
           }`}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1867,6 +1888,9 @@ export default function Portfolio() {
                     {item.label}
                   </motion.button>
                 ))}
+                <Button size="sm" className="ml-3 bg-emerald-400 text-slate-950 hover:bg-emerald-300" onClick={() => scrollToSection('contact')}>
+                  Contact
+                </Button>
               </div>
 
               {/* Mobile Menu Button */}
@@ -1878,7 +1902,7 @@ export default function Portfolio() {
                 aria-expanded={isMenuOpen}
                 className="md:hidden p-2 rounded-lg hover:bg-slate-100"
               >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                  {isMenuOpen ? <X className="h-6 w-6 text-slate-100" /> : <Menu className="h-6 w-6 text-slate-100" />}
               </motion.button>
             </div>
 
@@ -1944,19 +1968,19 @@ export default function Portfolio() {
                 <motion.div whileHover={{ scale: 1.05 }} className="inline-block">
                   <Badge className="mb-4 bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-700 hover:from-emerald-200 hover:to-teal-200 px-4 py-1.5 border-0 cursor-default">
                     <Sparkles className="h-3.5 w-3.5 mr-1.5" />
-                    Available for Opportunities
+                    AI Engineer · Egypt
                   </Badge>
                 </motion.div>
               </motion.div>
               
               <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 leading-tight">
-                <CharacterReveal text="Hi, I'm" className="inline-flex mr-3" />
+                <CharacterReveal text="Mohamed Mostafa" className="inline-flex mr-3" />
                 <motion.span 
                   className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent bg-[length:200%_200%] inline-block"
                   animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  Mohamed
+                  Metawea
                 </motion.span>
               </motion.h1>
               
@@ -2079,7 +2103,7 @@ export default function Portfolio() {
                     whileHover={{ scale: 1.05 }}
                   >
                     <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse" />
-                    <span className="text-sm font-medium text-slate-700">18+ AI Projects</span>
+                    <span className="text-sm font-medium text-slate-700">AI · ML · GenAI</span>
                   </motion.div>
                 </motion.div>
                 
@@ -2094,7 +2118,7 @@ export default function Portfolio() {
                     whileHover={{ scale: 1.05 }}
                   >
                     <Award className="h-5 w-5 text-amber-500" />
-                    <span className="text-sm font-medium text-slate-700">45+ Certifications</span>
+                    <span className="text-sm font-medium text-slate-700">Data → Models → Software</span>
                   </motion.div>
                 </motion.div>
               </motion.div>

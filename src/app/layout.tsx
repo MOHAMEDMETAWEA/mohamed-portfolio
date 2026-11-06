@@ -14,9 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mohamedmostafaportfolio.vercel.app"),
+  metadataBase: new URL("https://mohamed-portfolio-87vu5qj1f.vercel.app"),
   title: "Mohamed Mostafa Metawea | AI Engineer Portfolio",
-  description: "AI Engineer specializing in Generative AI & Agentic Systems. Expert in Machine Learning, Deep Learning, Computer Vision, and NLP. Building intelligent ML systems with real-world impact.",
+  description: "Mohamed Mostafa Metawea is an AI Engineer building practical machine learning, generative AI, RAG, and agentic systems.",
+  alternates: { canonical: "/" },
   keywords: ["AI Engineer", "Machine Learning", "Deep Learning", "Generative AI", "Agentic AI", "Computer Vision", "NLP", "Python", "TensorFlow", "PyTorch", "Mohamed Metawea", "MedAgent", "n8n"],
   authors: [{ name: "Mohamed Mostafa Metawea" }],
   robots: {
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mohamed Mostafa Metawea | AI Engineer & Agentic Systems Specialist",
     description: "AI Engineer specializing in Generative AI, RAG Architectures, and Autonomous Agentic Systems.",
-    url: "https://mohamedmostafaportfolio.vercel.app",
+    url: "https://mohamed-portfolio-87vu5qj1f.vercel.app",
     siteName: "Mohamed Metawea Portfolio",
     type: "website",
     images: [
@@ -64,7 +65,7 @@ const jsonLd = {
   "jobTitle": "AI Engineer",
   "email": "mohamedmostafametawea@gmail.com",
   "telephone": "+201055485561",
-  "url": "https://mohamedmustafaportfolio.netlify.app",
+  "url": "https://mohamed-portfolio-87vu5qj1f.vercel.app",
   "sameAs": [
     "https://github.com/MOHAMEDMETAWEA",
     "https://www.linkedin.com/in/mohamed-mostafa-metawea"

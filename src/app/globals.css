@@ -407,3 +407,46 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Portfolio surface: a restrained dark-first system for stronger contrast and focus. */
+html, body {
+  background: #090d14;
+}
+
+body {
+  color: #e7edf5;
+}
+
+/* The existing component library uses light utility classes. These scoped overrides
+   preserve its layout while applying the portfolio's dark visual direction. */
+[class~="bg-white"], [class*="bg-white/"] {
+  background-color: rgba(17, 24, 39, 0.82) !important;
+}
+
+[class*="bg-slate-50"], [class*="bg-slate-100"] {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+}
+
+[class*="text-slate-900"], [class*="text-slate-800"] {
+  color: #f1f5f9 !important;
+}
+
+[class*="text-slate-600"], [class*="text-slate-500"] {
+  color: #b8c4d4 !important;
+}
+
+[class*="text-slate-400"] {
+  color: #94a3b8 !important;
+}
+
+[class*="border-slate-"], [class*="border-white/"] {
+  border-color: rgba(148, 163, 184, 0.18) !important;
+}
+
+section#projects, section#certifications {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), #090d14) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

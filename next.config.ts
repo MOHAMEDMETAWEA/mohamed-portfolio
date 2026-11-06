@@ -11,10 +11,7 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
 
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  reactStrictMode: false,
+  reactStrictMode: true,
 };
 
 export default nextConfig;

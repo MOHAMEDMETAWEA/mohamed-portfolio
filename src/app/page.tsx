@@ -16,7 +16,7 @@ import {
   Aperture, Activity, Server, BookOpen, Lightbulb, Menu, X, Workflow,
   TrendingUp, Users, GitFork, ArrowUpRight, Play, ChevronRight,
   Terminal, Cog, Gauge, BarChart3, RefreshCw, Cloud, Send, Loader2,
-  ArrowUp, Utensils
+  ArrowUp, Utensils, Sun, Moon
 } from 'lucide-react'
 
 import { useMagnetic } from "@/hooks/use-magnetic"
@@ -813,6 +813,31 @@ const certifications = [
   }
 ]
 
+
+function ThemeToggle() {
+  const [light, setLight] = useState(false)
+  useEffect(() => {
+    setLight(document.documentElement.getAttribute('data-theme') === 'light')
+  }, [])
+  const toggle = () => {
+    const next = !light
+    setLight(next)
+    if (next) document.documentElement.setAttribute('data-theme', 'light')
+    else document.documentElement.removeAttribute('data-theme')
+    try { localStorage.setItem('theme', next ? 'light' : 'dark') } catch (e) {}
+  }
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={light ? 'Switch to dark mode' : 'Switch to light mode'}
+      aria-pressed={light}
+      className="theme-toggle inline-flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-400/40 text-emerald-500 transition-colors hover:bg-emerald-500/10"
+    >
+      {light ? <Moon className="h-4 w-4" aria-hidden="true" /> : <Sun className="h-4 w-4" aria-hidden="true" />}
+    </button>
+  )
+}
 
 // Language colors for GitHub stats
 const languageColors: Record<string, string> = {
@@ -1875,11 +1900,13 @@ export default function Portfolio() {
                     {item.label}
                   </motion.button>
                 ))}
+                <span className="ml-2"><ThemeToggle /></span>
                 <Button size="sm" className="ml-3 bg-emerald-400 text-slate-950 hover:bg-emerald-300" onClick={() => scrollToSection('contact')}>
                   Contact
                 </Button>
               </div>
 
+              <span className="md:hidden ml-auto mr-2"><ThemeToggle /></span>
               {/* Mobile Menu Button */}
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -1960,8 +1987,8 @@ export default function Portfolio() {
                 </motion.div>
               </motion.div>
               
-              <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 leading-tight">
-                <CharacterReveal text="Mohamed Mostafa" className="inline-flex mr-3" />
+              <motion.h1 variants={fadeInUp} className="text-3xl sm:text-5xl lg:text-4xl xl:text-[2.75rem] font-bold text-slate-900 mb-4 leading-tight">
+                <CharacterReveal text="Mohamed Mostafa" className="inline-flex !flex-nowrap whitespace-nowrap mr-3" />
                 <motion.span 
                   className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent bg-[length:200%_200%] inline-block"
                   animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
@@ -1971,11 +1998,11 @@ export default function Portfolio() {
                 </motion.span>
               </motion.h1>
               
-              <motion.div variants={fadeInUp} className="text-xl sm:text-2xl text-slate-600 mb-4 font-medium h-8 overflow-hidden">
+              <motion.div variants={fadeInUp} className="text-xl sm:text-2xl text-slate-600 mb-4 font-medium min-h-8">
                 <TextReveal text={personalInfo.role} stagger={0.03} />
               </motion.div>
               
-              <motion.p variants={fadeInUp} className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 font-semibold mb-6 text-lg">
+              <motion.p variants={fadeInUp} className="accent-text text-emerald-600 font-semibold mb-6 text-lg">
                 {personalInfo.specialization}
               </motion.p>
               
@@ -1998,7 +2025,7 @@ export default function Portfolio() {
                   <Button 
                     variant="outline" 
                     size="lg"
-                    className="border-emerald-200 text-emerald-700 hover:bg-emerald-50 bg-white/50 backdrop-blur-sm"
+                    className="resume-btn border-emerald-200 text-emerald-700 hover:bg-emerald-50 bg-white/50 backdrop-blur-sm"
                     asChild
                   >
                     <a href="/Mohamed_Mostafa_Metawea_Resume.pdf" download>
@@ -2279,7 +2306,7 @@ export default function Portfolio() {
               AI System Pillars & Architecture
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
-              End-to-end engineering of intelligent multi-agent orchestrations, enterprise RAG systems, computer vision pipelines, and scalable MLOps.
+              End-to-end engineering of intelligent multi-agent orchestrations, RAG systems, computer vision pipelines, and scalable MLOps.
             </p>
           </AnimatedSection>
 
@@ -2289,14 +2316,14 @@ export default function Portfolio() {
                 icon: Bot,
                 title: "Agentic Systems",
                 subtitle: "Multi-Agent Orchestrations",
-                desc: "LangGraph, LangChain, n8n workflows, Tree-of-Thought planning, Model Context Protocol (MCP), and autonomous tool execution.",
+                desc: "LangGraph, LangChain, n8n workflows, Model Context Protocol (MCP), and autonomous tool execution.",
                 gradient: "from-emerald-500/20 to-teal-500/20",
                 badge: "LangGraph · MCP"
               },
               {
                 icon: Sparkles,
                 title: "Generative AI & RAG",
-                subtitle: "Enterprise Vector Search",
+                subtitle: "Vector Search",
                 desc: "FAISS vector indexing, hybrid search, cross-encoder reranking, prompt engineering, and LLM post-training fine-tuning (LoRA/PEFT).",
                 gradient: "from-teal-500/20 to-cyan-500/20",
                 badge: "FAISS · LoRA"
@@ -2305,9 +2332,9 @@ export default function Portfolio() {
                 icon: Eye,
                 title: "Computer Vision",
                 subtitle: "Deep Perception & Biometrics",
-                desc: "YOLO object detection, CNN emotion recognition, facial biometric authentication with anti-spoofing liveness detection.",
+                desc: "CNN emotion recognition, face recognition with an anti-spoofing liveness check, and image classification.",
                 gradient: "from-cyan-500/20 to-blue-500/20",
-                badge: "OpenCV · YOLO"
+                badge: "OpenCV · CNN"
               },
               {
                 icon: Server,

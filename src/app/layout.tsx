@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mohamed-portfolio-87vu5qj1f.vercel.app"),
+  metadataBase: new URL("https://mohamed-portfolio-black-chi.vercel.app"),
   title: "Mohamed Mostafa Metawea | AI Engineer Portfolio",
   description: "Mohamed Mostafa Metawea is an AI Engineer building practical machine learning, generative AI, RAG, and agentic systems.",
   alternates: { canonical: "/" },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mohamed Mostafa Metawea | AI Engineer & Agentic Systems Specialist",
     description: "AI Engineer specializing in Generative AI, RAG Architectures, and Autonomous Agentic Systems.",
-    url: "https://mohamed-portfolio-87vu5qj1f.vercel.app",
+    url: "https://mohamed-portfolio-black-chi.vercel.app",
     siteName: "Mohamed Metawea Portfolio",
     type: "website",
     images: [
@@ -65,7 +65,7 @@ const jsonLd = {
   "jobTitle": "AI Engineer",
   "email": "mohamedmostafametawea@gmail.com",
   "telephone": "+201055485561",
-  "url": "https://mohamed-portfolio-87vu5qj1f.vercel.app",
+  "url": "https://mohamed-portfolio-black-chi.vercel.app",
   "sameAs": [
     "https://github.com/MOHAMEDMETAWEA",
     "https://www.linkedin.com/in/mohamed-mostafa-metawea"

@@ -160,12 +160,12 @@ const skills = {
     icon: Code
   },
   "Machine Learning": { 
-    skills: ["Scikit-learn", "TensorFlow", "XGBoost", "LightGBM", "Feature Engineering", "Model Evaluation", "Ensemble Methods"],
+    skills: ["Scikit-learn", "TensorFlow", "Feature Engineering", "Model Evaluation", "Ensemble Methods"],
     level: 90,
     icon: Brain
   },
   "Deep Learning": { 
-    skills: ["Neural Networks", "CNN", "RNN", "LSTM", "Transformers", "Transfer Learning", "PyTorch", "Keras"],
+    skills: ["Neural Networks", "CNN", "RNN", "LSTM", "Transformers", "Transfer Learning", "Keras"],
     level: 88,
     icon: Cpu
   },
@@ -175,12 +175,12 @@ const skills = {
     icon: Sparkles
   },
   "Computer Vision": { 
-    skills: ["OpenCV", "YOLO", "CNN Vision Models", "Vision Transformers", "Face Recognition", "Image Classification", "Object Detection"],
+    skills: ["OpenCV", "CNN Vision Models", "Vision Transformers", "Face Recognition", "Image Classification"],
     level: 85,
     icon: Eye
   },
   "NLP & Text Analytics": { 
-    skills: ["Transformers", "BERT", "GPT Models", "Text Classification", "NER", "Sentiment Analysis", "Tokenization", "Word Embeddings"],
+    skills: ["Transformers", "Text Classification", "NER", "Sentiment Analysis", "Tokenization", "Word Embeddings"],
     level: 88,
     icon: MessageSquare
   },
@@ -195,7 +195,7 @@ const skills = {
     icon: Cloud
   },
   "Databases & Data": { 
-    skills: ["MongoDB", "PostgreSQL", "FAISS", "ChromaDB", "Data Pipelines", "Data Visualization"],
+    skills: ["MongoDB", "PostgreSQL", "FAISS", "Data Pipelines", "Data Visualization"],
     level: 78,
     icon: Database
   }
@@ -207,8 +207,8 @@ const projects = [
     title: "Restaurant n8n AI Agent",
     featured: true,
     isNew: true,
-    description: "Complete Restaurant Management System powered by n8n and AI Agents. Automates the entire workflow from customer ordering to kitchen management and inventory tracking. Features multi-modal interaction and real-time database synchronization with Supabase.",
-    tech: ["n8n", "AI Agents", "Supabase", "PostgreSQL", "WhatsApp API", "Automation"],
+    description: "Restaurant management assistant built with n8n, Supabase and LangChain. Customers and admins use it through a Telegram bot: menu questions answered with RAG over the menu PDFs, ordering with order-status tracking, loyalty points and promo codes, and an admin panel with daily sales reports.",
+    tech: ["n8n", "LangChain", "Supabase", "PostgreSQL", "OpenRouter", "Telegram Bot"],
     category: "Agentic AI",
     icon: Utensils,
     github: "https://github.com/MOHAMEDMETAWEA/Restaurant_n8n_AI_Agent",
@@ -230,12 +230,11 @@ const projects = [
   },
   {
     id: 1,
-    title: "MedAgent — Autonomous Clinical Orchestrator",
-    version: "v5.3.0",
+    title: "MedAgent — Bilingual Clinical Triage Assistant",
     featured: true,
     isNew: true,
-    description: "Production-grade clinical AI orchestrator built with 14 specialized agents (Triage, Diagnostic, Pharmacotherapy, Differential Diagnosis, Patient Safety, etc.). Features RAG with FAISS over medical guidelines (NIH, WHO), Tree-of-Thought reasoning with confidence scoring, AES-256 encryption, JWT-based RBAC, and full observability via Prometheus and OpenTelemetry.",
-    tech: ["LangGraph", "GPT-4o", "RAG", "FAISS", "FastAPI", "Docker", "Prometheus", "OpenTelemetry"],
+    description: "DEPI team project I contributed to: a bilingual (Arabic/English) clinical triage assistant. A ReAct agent with 14 clinical tools grounds its answers in a curated knowledge base (RAG), runs red-flag and hallucination safety checks, and can hand a structured summary to a doctor. Stack: FastAPI, Next.js, PostgreSQL with pgvector, Docker, Prometheus and OpenTelemetry. Status per the repo: MVP ready.",
+    tech: ["ReAct Agent", "RAG", "pgvector", "FastAPI", "Next.js", "PostgreSQL", "Docker", "Prometheus", "OpenTelemetry"],
     category: "Agentic AI",
     icon: Bot,
     github: "https://github.com/MOHAMEDMETAWEA/MedAgent",
@@ -247,62 +246,62 @@ const projects = [
     title: "AI Personal Assistant — Multi-Agent System",
     featured: true,
     isNew: true,
-    description: "Production-ready multi-agent AI system with central Orchestrator routing tasks across 9 specialized sub-agents (Calendar, Email, Search, Weather, Notes, Reminders, Social Media, Data Analysis, Web Automation). Features multi-modal input via WhatsApp & Telegram with voice and image processing.",
-    tech: ["n8n", "OpenRouter", "Groq", "Gemini", "Multi-Agent", "OAuth2", "WhatsApp API"],
+    description: "Multi-agent AI system built in n8n with central Orchestrator routing tasks across 9 specialized sub-agents (Calendar, Email, Search, Weather, Notes, Reminders, Social Media, Data Analysis, Web Automation). Supports voice (Groq Whisper) and image (Gemini) input through WhatsApp and Telegram.",
+    tech: ["n8n", "OpenRouter", "Groq", "Gemini", "Multi-Agent", "OAuth2"],
     category: "Agentic AI",
     icon: Bot,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/My-n8n-Assistant",
     image: "/project-ai-assistant.png"
   },
   {
     id: 3,
     title: "AI-Based Face Recognition Attendance System",
     featured: true,
-    description: "CNN-based face recognition system achieving 95% accuracy with sub-second inference latency. Implements liveness detection and anti-spoofing preventing 98% of replay attacks. Automated attendance workflow reducing manual effort by 80%.",
-    tech: ["Python", "CNN", "OpenCV", "Flask", "Liveness Detection", "Deep Learning"],
+    description: "Graduation project: a real-time face recognition attendance system with a liveness (anti-spoofing) check based on the open-source Silent-Face-Anti-Spoofing models. Flask web dashboard where admins register employees and view date-wise attendance logs, and employees are marked by webcam scan.",
+    tech: ["Python", "OpenCV", "Flask", "Deep Learning", "Liveness Detection"],
     category: "Computer Vision",
     icon: Eye,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/Graduation-project-Face-attendance-system-face-recognition-based-on-AI-",
     image: null
   },
   {
     id: 4,
     title: "Heart Disease Risk Prediction System",
     featured: false,
-    description: "LightGBM/XGBoost ensemble achieving 92% recall and 0.90 F1-score on held-out clinical data, optimized for high sensitivity. Applied SHAP for model interpretability and deployed as interactive Streamlit web app.",
-    tech: ["LightGBM", "XGBoost", "SHAP", "Streamlit", "Feature Engineering", "Scikit-learn"],
+    description: "Machine learning web app that estimates coronary artery disease risk from 7 clinical parameters and gives risk scores with recommendations, for healthcare professionals. The repo reports 89% accuracy. Built with Streamlit.",
+    tech: ["Python", "Machine Learning", "Streamlit", "Scikit-learn"],
     category: "Healthcare AI",
     icon: Heart,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/HeartDisease-Predictor",
     image: null
   },
   {
     id: 5,
     title: "Multilabel Comment Toxicity Detection",
     featured: false,
-    description: "Multi-label NLP classification model using TF-IDF and Scikit-learn. Reduced false positives by 18% using threshold optimization and feature engineering for detecting threats, obscenity, insults, and hate speech.",
-    tech: ["Python", "TF-IDF", "Scikit-learn", "NLP", "Threshold Optimization"],
+    description: "Multi-label text classifier that flags six types of toxicity (toxic, severe toxic, obscene, threat, insult, identity hate) using a Bidirectional LSTM trained on the Jigsaw Toxic Comment dataset. Includes evaluation (AUC-ROC, F1) and a Gradio demo; the repo reports a macro AUC of about 0.95.",
+    tech: ["Python", "TensorFlow", "Bidirectional LSTM", "NLP", "Gradio"],
     category: "NLP",
     icon: MessageSquare,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/CommentToxicity_project",
     image: null
   },
   {
     id: 6,
     title: "Job-Resume Matching System",
     featured: false,
-    description: "An intelligent recruitment assistant that matches candidate resumes with job descriptions using NLP and semantic similarity. Helps HR teams automate initial screening processes.",
-    tech: ["Python", "NLP", "Sentence Transformers", "Streamlit", "FAISS"],
+    description: "Flask web app where recruiters enter a job description, candidates upload resumes, and the system ranks resumes by similarity score using scikit-learn text matching.",
+    tech: ["Python", "Flask", "Scikit-learn", "NLP", "Bootstrap"],
     category: "NLP",
     icon: FileText,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/Building-a-Job-Description-and-Resume-Matching-System-With-Python-Using-Machine-Learning",
     image: null
   },
   {
     id: 7,
     title: "FashionGAN - Generative Fashion",
     featured: false,
-    description: "A Generative Adversarial Network for creating synthetic fashion images. Demonstrates expertise in GAN architectures, image generation, and creative AI applications.",
+    description: "A Generative Adversarial Network for creating synthetic fashion images. Personal deep learning project.",
     tech: ["Python", "TensorFlow", "GANs", "Deep Learning", "Computer Vision"],
     category: "Generative AI",
     icon: Sparkles,
@@ -313,8 +312,8 @@ const projects = [
     id: 8,
     title: "Deep Audio Classification",
     featured: false,
-    description: "A deep learning system for classifying audio files into different categories. Implements CNNs on spectrograms for accurate audio pattern recognition.",
-    tech: ["Python", "TensorFlow", "Librosa", "CNNs", "Audio Processing"],
+    description: "A deep learning system for classifying audio files into different categories. Personal deep learning project.",
+    tech: ["Python", "TensorFlow", "CNN", "Audio Processing"],
     category: "Deep Learning",
     icon: Music,
     github: "https://github.com/MOHAMEDMETAWEA",
@@ -324,30 +323,30 @@ const projects = [
     id: 9,
     title: "Potato Disease Classification",
     featured: false,
-    description: "Computer vision system for identifying potato plant diseases from leaf images. Helps farmers with early disease detection using CNN-based image classification.",
-    tech: ["Python", "TensorFlow", "CNNs", "Transfer Learning", "Plant Village Dataset"],
+    description: "CNN image classifier for potato plant diseases, trained on the PlantVillage potato images, with a FastAPI model server and web and mobile client apps (React, React Native).",
+    tech: ["Python", "TensorFlow", "CNN", "FastAPI", "React"],
     category: "Computer Vision",
     icon: Leaf,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/Potato-Disease-Classification-Using-CNN",
     image: null
   },
   {
     id: 10,
     title: "Iris Detection System",
     featured: false,
-    description: "Biometric iris recognition system implementing image processing and pattern matching for identity verification. Demonstrates classic computer vision techniques.",
-    tech: ["Python", "OpenCV", "Image Processing", "Pattern Recognition"],
+    description: "Eye and iris tracking project: captures and annotates webcam images, augments the data, and trains a ResNet50V2-based CNN to predict iris position, with a real-time webcam demo.",
+    tech: ["Python", "TensorFlow", "OpenCV", "ResNet50V2", "Data Augmentation"],
     category: "Computer Vision",
     icon: Aperture,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/IrisDetection-project",
     image: null
   },
   {
     id: 11,
     title: "Deep CNN Emotion Recognition",
     featured: false,
-    description: "Real-time facial emotion recognition using deep convolutional neural networks. Detects emotions from facial expressions for human-computer interaction applications.",
-    tech: ["Python", "Keras", "CNNs", "OpenCV", "FER2013 Dataset"],
+    description: "Facial emotion recognition using a deep convolutional neural network.",
+    tech: ["Python", "Keras", "CNN", "OpenCV"],
     category: "Computer Vision",
     icon: Activity,
     github: "https://github.com/MOHAMEDMETAWEA",
@@ -357,30 +356,30 @@ const projects = [
     id: 12,
     title: "Healthcare Predictive Analytics",
     featured: false,
-    description: "A comprehensive analytics platform for healthcare data prediction. Includes patient readmission prediction, resource optimization, and clinical decision support.",
+    description: "DEPI team project: a machine learning system for predicting patient health risks from healthcare data, with exploratory analysis, model development and a Streamlit app.",
     tech: ["Python", "Scikit-learn", "Pandas", "Streamlit", "Healthcare Analytics"],
     category: "Healthcare AI",
     icon: Activity,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/Depi_Graduation_project",
     image: null
   },
   {
     id: 13,
     title: "FastAPI Projects Collection",
     featured: false,
-    description: "A collection of production-ready REST APIs built with FastAPI. Includes authentication, database integration, and deployment best practices.",
-    tech: ["Python", "FastAPI", "PostgreSQL", "Docker", "JWT Authentication"],
+    description: "A learning collection of FastAPI projects and experiments: path and query parameters, validation, clean architecture, CQRS, dependency injection, Docker, React/Next.js/Vue integrations and small AI agent demos.",
+    tech: ["Python", "FastAPI", "Docker", "Supabase", "React"],
     category: "Backend",
     icon: Server,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/Fast_Api",
     image: null
   },
   {
     id: 14,
     title: "Deep Learning Book RAG",
     featured: false,
-    description: "Advanced RAG system built on Ian Goodfellow's Deep Learning book with hybrid search (vector + keyword), query expansion, multi-stage reranking, chapter filtering, and persistent conversation history. Features a Streamlit UI for interactive Q&A over deep learning concepts.",
-    tech: ["Python", "LangChain", "Streamlit", "FAISS", "RAG", "Hybrid Search", "Reranking"],
+    description: "RAG question-answering system over the Deep Learning book (Goodfellow, Bengio, Courville): hybrid search (70% vector, 30% keyword), query expansion, reranking, chapter filtering and saved chat history. FastAPI backend, PostgreSQL with pgvector, Streamlit UI.",
+    tech: ["Python", "FastAPI", "PostgreSQL", "pgvector", "Streamlit", "RAG", "Sentence Transformers"],
     category: "Generative AI",
     icon: BookOpen,
     github: "https://github.com/MOHAMEDMETAWEA/Deep-Learning-Book_RAG",
@@ -391,22 +390,22 @@ const projects = [
     id: 15,
     title: "Prompt Engineering",
     featured: false,
-    description: "A comprehensive exploration of prompt engineering techniques for LLMs. Includes best practices, optimization strategies, and practical examples for various use cases.",
+    description: "Hands-on notebooks for prompt engineering, LangChain and instruction-tuned LLM workflows, used for learning and prototyping.",
     tech: ["Python", "OpenAI API", "LangChain", "Prompt Engineering"],
     category: "Generative AI",
     icon: Lightbulb,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/Prompt-Engineering",
     image: null
   },
   {
     id: 16,
     title: "DEPI Generative & Agentic AI Projects",
     featured: false,
-    description: "Collection of projects completed during the DEPI Generative AI Professional program. Showcases advanced skills in LLMs, agentic systems, and AI application development.",
+    description: "Collection of projects completed during the DEPI Generative AI Professional program. Labs and projects on LLMs, RAG and autonomous agents.",
     tech: ["Python", "LangChain", "OpenAI", "RAG", "Multi-Agent Systems", "LLMs"],
     category: "Generative AI",
     icon: Rocket,
-    github: "https://github.com/MOHAMEDMETAWEA",
+    github: "https://github.com/MOHAMEDMETAWEA/DEPI_GENERATIVE---AGENTIC-AI-Professional_Laps-projects",
     image: null
   },
 ]
@@ -832,16 +831,16 @@ const languageColors: Record<string, string> = {
 const aiResponses: Record<string, string> = {
   "hello": "Hello! 👋 I'm Mohamed's AI Assistant. I can help you learn about his skills, projects, and experience. What would you like to know?",
   "hi": "Hi there! 👋 I'm Mohamed's AI Personal Assistant demo. Ask me about his projects, skills, or experience!",
-  "skills": "Mohamed's top skills include:\n• Python, TensorFlow, PyTorch\n• LangChain, RAG, AI Agents\n• Computer Vision (OpenCV, YOLO)\n• NLP (Transformers, BERT, GPT)\n• MLOps (Docker, FastAPI, MLflow)\n• n8n Workflow Automation",
-  "projects": "Mohamed has 18+ projects including:\n🍽️ Restaurant n8n AI Agent — Complete System\n✨ Dream AI Analyses — Data-Driven Insights\n🏥 MedAgent — Clinical AI with 14 agents\n🤖 AI Personal Assistant — 9 sub-agents\n👁️ Face Recognition Attendance System\n❤️ Heart Disease Prediction\n🧠 And many more in GenAI & CV!",
-  "restaurant": "The Restaurant n8n AI Agent is a complete management system that automates ordering, kitchen workflows, and inventory using n8n and Supabase. It features an AI agent that handles customer requests via WhatsApp/Telegram!",
+  "skills": "Mohamed's top skills include:\n• Python, TensorFlow, Keras\n• LangChain, RAG, AI Agents\n• Computer Vision (OpenCV, CNNs)\n• NLP (Transformers, text classification)\n• MLOps (Docker, FastAPI, MLflow)\n• n8n Workflow Automation",
+  "projects": "Mohamed has many projects including:\n🍽️ Restaurant n8n AI Agent — Complete System\n✨ Dream AI Analyses — Data-Driven Insights\n🏥 MedAgent — Clinical triage assistant (DEPI team project)\n🤖 AI Personal Assistant — 9 sub-agents\n👁️ Face Recognition Attendance System\n❤️ Heart Disease Predictor\n🧠 And many more in GenAI & CV!",
+  "restaurant": "The Restaurant n8n AI Agent is a complete management system that handles ordering, order tracking, loyalty points and admin reports using n8n and Supabase. Customers and admins use it through a Telegram bot!",
   "dream ai": "Dream AI Analyses is a project exploring data-driven insights through generative AI applications. It showcases the integration of NLP and Machine Learning for comprehensive data analysis.",
-  "experience": "Mohamed interned at Cellula Technologies (Feb-Mar 2025) as an ML Engineer, where he deployed 3 ML models as REST APIs using Flask and Docker, and developed predictive maintenance systems.",
+  "experience": "Mohamed interned at Cellula Technologies (Feb-Mar 2025) as a Machine Learning Intern, where he deployed 3 ML models as REST APIs using Flask and Docker, and developed predictive maintenance systems.",
   "contact": "You can reach Mohamed at:\n📧 mohamedmostafametawea@gmail.com\n📱 +20 105 548 5561\n🔗 LinkedIn: mohamed-mostafa-metawea\n💻 GitHub: MOHAMEDMETAWEA",
   "education": "Mohamed holds a B.Sc. in Communication & Electronics Engineering from October 6 University (2020-2025) with a GPA of 3.44/4.0, specializing in AI & ML.",
-  "medagent": "MedAgent is a production-grade clinical AI orchestrator (v5.3.0) featuring 14 specialized agents, RAG with FAISS over NIH/WHO guidelines, Tree-of-Thought reasoning, AES-256 encryption, and full observability via Prometheus.",
+  "medagent": "MedAgent is a bilingual (Arabic/English) clinical triage assistant built in the DEPI program as a team project. It uses a ReAct agent with 14 clinical tools, RAG over a curated knowledge base, safety checks, and Prometheus/OpenTelemetry observability.",
   "assistant": "The AI Personal Assistant is a multi-agent system with a central Orchestrator routing tasks across 9 sub-agents: Calendar, Email, Search, Weather, Notes, Reminders, Social Media, Data Analysis, and Web Automation. It supports WhatsApp & Telegram with voice/image processing!",
-  "certifications": "Mohamed has 45+ certifications including:\n🎓 IBM AI Engineering Professional Certificate\n🎓 Deep Learning Specialization (DeepLearning.AI)\n🎓 AI Engineering Specialization (Scrimba/Coursera)\n🎓 ML Specialization (Stanford/DeepLearning.AI)\n🎓 AWS AI Practitioner\n🎓 Generative AI Professional (DEPI)\n🎓 Machine Learning for Data Analysis (DEPI, 97%)\n🎓 AI & Machine Learning Bootcamp (Sprints × Microsoft)\n🎓 12 IBM Generative AI & Deep Learning courses\nAnd many more!",
+  "certifications": "Mohamed's certifications include:\n🎓 IBM AI Engineering Professional Certificate\n🎓 Deep Learning Specialization (DeepLearning.AI)\n🎓 AI Engineering Specialization (Scrimba/Coursera)\n🎓 ML Specialization (Stanford/DeepLearning.AI)\n🎓 AWS AI Practitioner\n🎓 Generative AI Professional (DEPI)\n🎓 Machine Learning for Data Analysis (DEPI, 97%)\n🎓 AI & Machine Learning Bootcamp (Sprints × Microsoft)\n🎓 12 IBM Generative AI & Deep Learning courses\nAnd many more!",
 }
 
 function getAIResponse(input: string): string {
@@ -1268,19 +1267,8 @@ function SkillBar({ name, data, index }: { name: string; data: { skills: string[
           </motion.div>
           <h3 className="font-semibold text-slate-900">{name}</h3>
         </div>
-        <span className="text-sm font-medium text-emerald-600">{data.level}%</span>
       </div>
       
-      <div className="mb-3">
-        <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={isInView ? { width: `${data.level}%` } : {}}
-            transition={{ duration: 1.2, delay: index * 0.08 + 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-            className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full"
-          />
-        </div>
-      </div>
       
       <div className="flex flex-wrap gap-1.5">
         {data.skills.map((skill, sIdx) => (

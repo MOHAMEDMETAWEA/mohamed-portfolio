@@ -1495,7 +1495,6 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
                 <DialogTitle className="text-xl">{project.title}</DialogTitle>
                 <div className="flex items-center gap-2 mt-1">
                   <Badge variant="outline">{project.category}</Badge>
-                  {project.version && <Badge variant="secondary">{project.version}</Badge>}
                   {hasVideo && <Badge className="bg-emerald-100 text-emerald-700">Interactive Video Demo</Badge>}
                 </div>
               </div>

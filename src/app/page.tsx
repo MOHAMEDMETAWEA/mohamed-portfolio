@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { motion, useInView, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
+import { motion, MotionConfig, useInView, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
+import { LIGHT_PHOTO } from './lightPhoto'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -1768,6 +1769,40 @@ function ParticleField() {
 
 // ─── Main Portfolio Component ────────────────────────────────────────
 
+// Visual polish layer: pointer spotlight on cards and heading reveals. Respects reduced motion.
+function FxEnhancer() {
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('main section [class*="rounded-2xl"][class*="border"], main section [class*="rounded-xl"][class*="border"]'))
+    cards.forEach((el) => {
+      el.classList.add('fx-card')
+      if (getComputedStyle(el).position === 'static') el.style.position = 'relative'
+    })
+    const onMove = (e: PointerEvent) => {
+      const el = (e.target as HTMLElement | null)?.closest?.('.fx-card') as HTMLElement | null
+      if (!el) return
+      const r = el.getBoundingClientRect()
+      el.style.setProperty('--mx', `${e.clientX - r.left}px`)
+      el.style.setProperty('--my', `${e.clientY - r.top}px`)
+    }
+    if (fine && !reduce) document.addEventListener('pointermove', onMove, { passive: true })
+    const heads = Array.from(document.querySelectorAll<HTMLElement>('main section h2'))
+    heads.forEach((h) => h.classList.add('fx-heading'))
+    let io: IntersectionObserver | null = null
+    if (reduce || !('IntersectionObserver' in window)) {
+      heads.forEach((h) => h.classList.add('fx-in'))
+    } else {
+      io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('fx-in'); io?.unobserve(en.target) } })
+      }, { threshold: 0.4 })
+      heads.forEach((h) => io!.observe(h))
+    }
+    return () => { document.removeEventListener('pointermove', onMove); io?.disconnect() }
+  }, [])
+  return null
+}
+
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('hero')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -1820,6 +1855,8 @@ export default function Portfolio() {
   ]
 
   return (
+    <MotionConfig reducedMotion="user">
+    <FxEnhancer />
     <div className="min-h-screen bg-[#090d14] overflow-x-hidden">
       {/* Advanced Animation Layer */}
       
@@ -2077,7 +2114,14 @@ export default function Portfolio() {
                 <motion.img
                   src="/my-photo.jpg"
                   alt={personalInfo.name}
-                  className="relative w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-3xl shadow-2xl border-4 border-white z-10"
+                  className="hero-photo-dark relative w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-3xl shadow-2xl border-4 border-white z-10"
+                  whileHover={{ scale: 1.03, rotate: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.img
+                  src={LIGHT_PHOTO}
+                  alt={personalInfo.name}
+                  className="hero-photo-light relative w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-3xl shadow-2xl border-4 border-white z-10"
                   whileHover={{ scale: 1.03, rotate: 1 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -2792,5 +2836,6 @@ export default function Portfolio() {
         </div>
       </footer>
     </div>
+    </MotionConfig>
   )
 }

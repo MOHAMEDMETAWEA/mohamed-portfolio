@@ -467,3 +467,47 @@ html[data-theme="light"] header nav [class*="text-slate-100"] { color: #0f172a !
 html[data-theme="light"] [class*="from-slate-950"][class*="absolute"] { background: linear-gradient(135deg, #f8fafc, #ecfdf5) !important; }
 html[data-theme="light"] .accent-text { color: #047857; }
 html[data-theme="light"] .resume-btn { background-color: #ffffff; color: #047857; border-color: #6ee7b7; }
+
+/* Hero portrait: dark photo in dark mode, white-background photo in light mode */
+.hero-photo-light { display: none; }
+html[data-theme="light"] .hero-photo-light { display: block; }
+html[data-theme="light"] .hero-photo-dark { display: none; }
+
+/* ===== Visual polish layer ===== */
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; }
+p, li { text-wrap: pretty; }
+main section[id] { padding-block: clamp(3.5rem, 8vw, 6rem); }
+a, button { transition: color .25s ease, background-color .25s ease, border-color .25s ease, box-shadow .25s ease, opacity .25s ease; }
+body { transition: background-color .4s ease, color .4s ease; }
+
+/* Hero: slow drifting aurora behind the content */
+#hero { isolation: isolate; }
+#hero::before, #hero::after { content: ''; position: absolute; z-index: -1; pointer-events: none; border-radius: 9999px; filter: blur(70px); opacity: .5; will-change: transform; }
+#hero::before { width: 38rem; height: 38rem; left: -10rem; top: 5%; background: radial-gradient(circle, rgba(16,185,129,.35), transparent 65%); animation: auroraA 18s ease-in-out infinite alternate; }
+#hero::after { width: 34rem; height: 34rem; right: -8rem; bottom: 0; background: radial-gradient(circle, rgba(6,182,212,.30), transparent 65%); animation: auroraB 22s ease-in-out infinite alternate; }
+@keyframes auroraA { to { transform: translate3d(8rem, 4rem, 0) scale(1.15); } }
+@keyframes auroraB { to { transform: translate3d(-7rem, -5rem, 0) scale(1.1); } }
+html[data-theme="light"] #hero::before, html[data-theme="light"] #hero::after { opacity: .35; }
+
+/* Section headings: accent underline that draws in on scroll */
+.fx-heading { position: relative; }
+.fx-heading::after { content: ''; display: block; height: 3px; width: 0; margin: .6rem auto 0; border-radius: 3px; background: linear-gradient(90deg, #10b981, #06b6d4); transition: width .9s cubic-bezier(.22,1,.36,1) .15s; }
+.fx-heading.fx-in::after { width: 4.5rem; }
+
+/* Cards: pointer spotlight + soft ring on hover */
+.fx-card::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s ease;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(16,185,129,.14), transparent 45%); }
+.fx-card:hover::after { opacity: 1; }
+.fx-card { transition: border-color .3s ease, box-shadow .3s ease; }
+.fx-card:hover { border-color: rgba(16,185,129,.45) !important; }
+
+/* Hero portrait: clear edge in light mode and a gentle ring */
+html[data-theme="light"] .hero-photo-light { border-color: #e2e8f0; box-shadow: 0 0 0 4px rgba(16,185,129,.35), 0 24px 50px -12px rgba(15,23,42,.35); }
+.hero-photo-dark { box-shadow: 0 0 0 4px rgba(16,185,129,.25), 0 24px 50px -12px rgba(0,0,0,.6); }
+
+@media (prefers-reduced-motion: reduce) {
+  #hero::before, #hero::after { animation: none; }
+  .fx-heading::after { transition: none; width: 4.5rem; }
+  .fx-card::after { display: none; }
+}

@@ -409,44 +409,61 @@ html {
 }
 
 /* Portfolio surface: a restrained dark-first system for stronger contrast and focus. */
-html, body {
+html:not([data-theme="light"]), html:not([data-theme="light"]) body {
   background: #090d14;
 }
 
-body {
+html:not([data-theme="light"]) body {
   color: #e7edf5;
 }
 
 /* The existing component library uses light utility classes. These scoped overrides
    preserve its layout while applying the portfolio's dark visual direction. */
-[class~="bg-white"], [class*="bg-white/"] {
+html:not([data-theme="light"]) [class~="bg-white"], html:not([data-theme="light"]) [class*="bg-white/"] {
   background-color: rgba(17, 24, 39, 0.82) !important;
 }
 
-[class*="bg-slate-50"], [class*="bg-slate-100"] {
+html:not([data-theme="light"]) [class*="bg-slate-50"], html:not([data-theme="light"]) [class*="bg-slate-100"] {
   background-color: rgba(15, 23, 42, 0.9) !important;
 }
 
-[class*="text-slate-900"], [class*="text-slate-800"] {
+html:not([data-theme="light"]) [class*="text-slate-900"], html:not([data-theme="light"]) [class*="text-slate-800"] {
   color: #f1f5f9 !important;
 }
 
-[class*="text-slate-600"], [class*="text-slate-500"] {
+html:not([data-theme="light"]) [class*="text-slate-600"], html:not([data-theme="light"]) [class*="text-slate-500"] {
   color: #b8c4d4 !important;
 }
 
-[class*="text-slate-400"] {
+html:not([data-theme="light"]) [class*="text-slate-400"] {
   color: #94a3b8 !important;
 }
 
-[class*="border-slate-"], [class*="border-white/"] {
+html:not([data-theme="light"]) [class*="border-slate-"], html:not([data-theme="light"]) [class*="border-white/"] {
   border-color: rgba(148, 163, 184, 0.18) !important;
 }
 
-section#projects, section#certifications {
+html:not([data-theme="light"]) section#projects, html:not([data-theme="light"]) section#certifications {
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), #090d14) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Readable accent text and resume button in dark mode */
+html:not([data-theme="light"]) .accent-text { color: #34d399 !important; }
+html:not([data-theme="light"]) .resume-btn { color: #6ee7b7 !important; border-color: rgba(52, 211, 153, 0.6) !important; background-color: rgba(16, 185, 129, 0.12) !important; }
+html:not([data-theme="light"]) .resume-btn:hover { background-color: rgba(16, 185, 129, 0.25) !important; }
+
+/* Visible keyboard focus */
+:focus-visible { outline: 2px solid #34d399; outline-offset: 2px; }
+
+/* Light mode: the base utility classes already describe the light design */
+html[data-theme="light"], html[data-theme="light"] body { background: #f8fafc; color: #0f172a; }
+html[data-theme="light"] [class*="bg-[#090d14]"] { background-color: #f8fafc !important; }
+html[data-theme="light"] header nav { background-color: rgba(255, 255, 255, 0.88) !important; box-shadow: 0 1px 12px rgba(15, 23, 42, 0.08); }
+html[data-theme="light"] header nav [class*="text-slate-100"] { color: #0f172a !important; }
+html[data-theme="light"] [class*="from-slate-950"][class*="absolute"] { background: linear-gradient(135deg, #f8fafc, #ecfdf5) !important; }
+html[data-theme="light"] .accent-text { color: #047857; }
+html[data-theme="light"] .resume-btn { background-color: #ffffff; color: #047857; border-color: #6ee7b7; }

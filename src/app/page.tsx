@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, MotionConfig, useInView, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
-import { LIGHT_PHOTO } from './lightPhoto'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -127,6 +126,7 @@ const personalInfo = {
   email: "mohamedmostafametawea@gmail.com",
   linkedin: "https://www.linkedin.com/in/mohamed-mostafa-metawea",
   github: "https://github.com/MOHAMEDMETAWEA",
+  whatsapp: "https://wa.me/201055485561",
   bio: "I build practical AI applications that connect data, models, and usable software—from machine learning pipelines to RAG and multi-agent systems. My engineering background informs a careful focus on reliable, real-world solutions."
 }
 
@@ -213,13 +213,19 @@ const projects = [
     category: "Agentic AI",
     icon: Utensils,
     github: "https://github.com/MOHAMEDMETAWEA/Restaurant_n8n_AI_Agent",
-    image: null,
-    video: "/restaurant_management_system.mp4"
+    image: "https://raw.githubusercontent.com/MOHAMEDMETAWEA/Restaurant_n8n_AI_Agent/main/assets/Screenshot%202026-04-24%20065955.png",
+    video: "/restaurant_management_system.mp4",
+    caseStudy: {
+      problem: "A restaurant needs one place where customers can ask about the menu and order, and admins can manage orders and see sales.",
+      solution: "A Telegram bot for both sides. Customers browse the menu, order and track order status, with loyalty points and promo codes. Admins get a control panel and daily sales reports.",
+      how: "An n8n workflow routes each message to an AI agent (OpenRouter LLM with memory and tools). Menu and restaurant questions are answered with RAG over the menu PDFs stored in a Supabase vector store; orders and stats live in Supabase PostgreSQL."
+    },
+    diagram: { steps: ["Telegram message", "n8n workflow", "AI agent (OpenRouter)", "RAG over menu PDFs / Supabase", "Reply, order, admin report"] },
   },
   {
     id: 17,
     title: "Dream AI Analyses Project",
-    featured: true,
+    featured: false,
     isNew: true,
     description: "Comprehensive AI analyses project exploring data-driven insights through generative AI applications.",
     tech: ["Python", "Generative AI", "Data Analysis", "NLP", "Machine Learning"],
@@ -240,7 +246,15 @@ const projects = [
     icon: Bot,
     github: "https://github.com/MOHAMEDMETAWEA/MedAgent",
     image: null,
-    video: "/Med-Agent-Test.mp4"
+    video: "/Med-Agent-Test.mp4",
+    caseStudy: {
+      problem: "Arabic-speaking patients need to triage symptoms in plain language and know how serious it is, instead of getting a generic 'see a doctor' answer.",
+      solution: "Bilingual (Arabic and English) assistant that gives a severity level (Emergency, Urgent or Routine), the most likely possibilities in hedged language, what to do now and when to escalate, and can hand a structured clinical summary to a doctor.",
+      how: "A ReAct agent with 14 clinical tools works in three phases (provisional differential, safety intake, grounded plan). Answers are grounded in a curated knowledge base with RAG, with red-flag and hallucination safety checks.",
+      role: "Team lead on this DEPI team project. Built the first demo and explained the project and the experiment to the team, then everyone worked together on the same work.",
+      status: "Status per the repo: MVP ready."
+    },
+    diagram: { steps: ["User symptoms (Arabic or English)", "Phase 1: provisional differential", "Phase 2: safety intake and red-flag checks", "Phase 3: grounded plan (RAG)", "Severity and doctor handoff"] },
   },
   {
     id: 2,
@@ -252,7 +266,14 @@ const projects = [
     category: "Agentic AI",
     icon: Bot,
     github: "https://github.com/MOHAMEDMETAWEA/My-n8n-Assistant",
-    image: "/project-ai-assistant.png"
+    image: "/project-ai-assistant.png",
+    caseStudy: {
+      problem: "Everyday tasks (calendar, email, search, notes) are spread across many apps and need one command center in the messaging apps people already use.",
+      solution: "A personal assistant on WhatsApp and Telegram that handles calendar, email, search, weather, notes, reminders, social posting, data work and web requests, with voice and image input.",
+      how: "A central orchestrator with a Think Tool breaks each request into steps and routes it to one of 9 specialized sub-agents. Voice is transcribed with Groq Whisper and images are analyzed with Gemini."
+    },
+    diagram: { steps: ["WhatsApp / Telegram (text, voice, image)", "Orchestrator with Think Tool", "9 specialized sub-agents", "Result back to the user"] },
+    schematic: { src: "https://raw.githubusercontent.com/MOHAMEDMETAWEA/My-n8n-Assistant/main/assets/n8n_workflow.png", caption: "n8n workflow snapshot from the project repo" },
   },
   {
     id: 3,
@@ -263,7 +284,14 @@ const projects = [
     category: "Computer Vision",
     icon: Eye,
     github: "https://github.com/MOHAMEDMETAWEA/Graduation-project-Face-attendance-system-face-recognition-based-on-AI-",
-    image: null
+    image: null,
+    caseStudy: {
+      problem: "Attendance tracking needs to be automatic and hard to fake with a photo or a video.",
+      solution: "Employees are marked present by a webcam scan. Admins register employees and view date-wise attendance logs on a web dashboard.",
+      how: "Real-time face recognition in Python and OpenCV, with a liveness (anti-spoofing) check based on the open-source Silent-Face-Anti-Spoofing models. Flask serves the dashboard.",
+      status: "Graduation project."
+    },
+    diagram: { steps: ["Webcam scan", "Face recognition", "Liveness check", "Attendance log", "Admin dashboard"] },
   },
   {
     id: 4,
@@ -274,7 +302,8 @@ const projects = [
     category: "Healthcare AI",
     icon: Heart,
     github: "https://github.com/MOHAMEDMETAWEA/HeartDisease-Predictor",
-    image: null
+    image: null,
+    diagram: { steps: ["7 clinical inputs", "ML model", "Risk score", "Recommendations"] },
   },
   {
     id: 5,
@@ -285,7 +314,8 @@ const projects = [
     category: "NLP",
     icon: MessageSquare,
     github: "https://github.com/MOHAMEDMETAWEA/CommentToxicity_project",
-    image: null
+    image: null,
+    diagram: { steps: ["Comment text", "Embedding layer", "Bidirectional LSTM", "6 toxicity labels"] },
   },
   {
     id: 6,
@@ -296,7 +326,8 @@ const projects = [
     category: "NLP",
     icon: FileText,
     github: "https://github.com/MOHAMEDMETAWEA/Building-a-Job-Description-and-Resume-Matching-System-With-Python-Using-Machine-Learning",
-    image: null
+    image: null,
+    diagram: { steps: ["Job description + resumes", "Text similarity", "Similarity score", "Ranked resumes"] },
   },
   {
     id: 7,
@@ -307,7 +338,8 @@ const projects = [
     category: "Generative AI",
     icon: Sparkles,
     github: "https://github.com/MOHAMEDMETAWEA",
-    image: null
+    image: null,
+    diagram: { steps: ["Fashion images", "Generator and discriminator", "Synthetic fashion images"] },
   },
   {
     id: 8,
@@ -318,7 +350,8 @@ const projects = [
     category: "Deep Learning",
     icon: Music,
     github: "https://github.com/MOHAMEDMETAWEA",
-    image: null
+    image: null,
+    diagram: { steps: ["Audio files", "Audio processing", "CNN", "Category"] },
   },
   {
     id: 9,
@@ -329,7 +362,8 @@ const projects = [
     category: "Computer Vision",
     icon: Leaf,
     github: "https://github.com/MOHAMEDMETAWEA/Potato-Disease-Classification-Using-CNN",
-    image: null
+    image: null,
+    diagram: { steps: ["Potato leaf image", "CNN classifier", "FastAPI model server", "Web and mobile apps"] },
   },
   {
     id: 10,
@@ -340,7 +374,8 @@ const projects = [
     category: "Computer Vision",
     icon: Aperture,
     github: "https://github.com/MOHAMEDMETAWEA/IrisDetection-project",
-    image: null
+    image: null,
+    diagram: { steps: ["Webcam images", "Annotate and augment", "ResNet50V2-based CNN", "Iris position"] },
   },
   {
     id: 11,
@@ -351,7 +386,8 @@ const projects = [
     category: "Computer Vision",
     icon: Activity,
     github: "https://github.com/MOHAMEDMETAWEA",
-    image: null
+    image: null,
+    diagram: { steps: ["Face image", "Deep CNN", "Emotion label"] },
   },
   {
     id: 12,
@@ -362,7 +398,8 @@ const projects = [
     category: "Healthcare AI",
     icon: Activity,
     github: "https://github.com/MOHAMEDMETAWEA/Depi_Graduation_project",
-    image: null
+    image: null,
+    diagram: { steps: ["Healthcare data", "Exploratory analysis", "ML models", "Streamlit app"] },
   },
   {
     id: 13,
@@ -373,7 +410,8 @@ const projects = [
     category: "Backend",
     icon: Server,
     github: "https://github.com/MOHAMEDMETAWEA/Fast_Api",
-    image: null
+    image: null,
+    diagram: { steps: ["FastAPI basics", "Architecture patterns", "AI agent demos"] },
   },
   {
     id: 14,
@@ -385,7 +423,8 @@ const projects = [
     icon: BookOpen,
     github: "https://github.com/MOHAMEDMETAWEA/Deep-Learning-Book_RAG",
     image: null,
-    video: "/RAG_DeepLearningBook.mp4"
+    video: "/RAG_DeepLearningBook.mp4",
+    diagram: { steps: ["Question", "Query expansion", "Hybrid search (vector + keyword)", "Reranking", "Answer with chapter context"] },
   },
   {
     id: 15,
@@ -396,7 +435,8 @@ const projects = [
     category: "Generative AI",
     icon: Lightbulb,
     github: "https://github.com/MOHAMEDMETAWEA/Prompt-Engineering",
-    image: null
+    image: null,
+    diagram: { steps: ["Prompt design", "LangChain workflows", "Instruction-tuned LLMs"] },
   },
   {
     id: 16,
@@ -407,7 +447,8 @@ const projects = [
     category: "Generative AI",
     icon: Rocket,
     github: "https://github.com/MOHAMEDMETAWEA/DEPI_GENERATIVE---AGENTIC-AI-Professional_Laps-projects",
-    image: null
+    image: null,
+    diagram: { steps: ["LLM labs", "RAG", "Autonomous agents"] },
   },
 ]
 
@@ -1316,11 +1357,29 @@ function SkillBar({ name, data, index }: { name: string; data: { skills: string[
 
 // ─── Project Card ────────────────────────────────────────────────────
 
+function DiagramCard({ steps, compact = false }: { steps: string[]; compact?: boolean }) {
+  return (
+    <div className="diagram-card relative w-full h-full flex flex-col justify-center px-4 py-4">
+      <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-2">
+        {steps.map((s, i) => (
+          <React.Fragment key={s}>
+            <span className="diagram-node rounded-lg px-2.5 py-1.5 text-[11px] font-medium text-center leading-tight">{s}</span>
+            {i < steps.length - 1 && <ChevronRight className="diagram-arrow h-3.5 w-3.5 shrink-0" aria-hidden />}
+          </React.Fragment>
+        ))}
+      </div>
+      <span className="absolute bottom-1.5 right-2.5 text-[9px] uppercase tracking-wider diagram-label">Illustrative diagram, not a screenshot</span>
+    </div>
+  )
+}
+
 function ProjectCard({ project, isFeatured = false }: { project: typeof projects[0]; isFeatured?: boolean }) {
   const Icon = project.icon
   const [isOpen, setIsOpen] = useState(false)
   const hasVideo = Boolean((project as any).video)
   const hasDedicatedRepo = project.github !== personalInfo.github
+  const diagram = (project as any).diagram as { steps: string[] } | undefined
+  const cs = (project as any).caseStudy as Record<string, string> | undefined
 
   return (
     <>
@@ -1364,6 +1423,9 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
         )}
 
         {/* Media preview if available */}
+        {!project.image && !hasVideo && diagram && (
+          <div className="h-48 overflow-hidden relative diagram-bg"><DiagramCard steps={diagram.steps} /></div>
+        )}
         {(project.image || hasVideo) && (
           <div className="h-48 overflow-hidden relative bg-slate-900 group">
             {hasVideo ? (
@@ -1429,9 +1491,12 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
             </div>
           </div>
           
-          <p className="text-sm text-slate-600 mb-3 line-clamp-2">
-            {project.description}
+          <p className={`text-sm text-slate-600 mb-3 ${cs ? 'line-clamp-3' : 'line-clamp-2'}`}>
+            {cs ? cs.solution : project.description}
           </p>
+          {cs?.role && isFeatured && (
+            <p className="text-xs text-slate-500 mb-3 line-clamp-2"><span className="font-semibold text-slate-700">Role: </span>{cs.role}</p>
+          )}
           
           <div className="flex flex-wrap gap-1.5 mb-4">
             {project.tech.slice(0, 3).map((tech) => (
@@ -1529,6 +1594,9 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
           
           <div className="space-y-4 mt-4">
             {/* Media in modal */}
+            {!project.image && !hasVideo && diagram && (
+              <div className="rounded-xl overflow-hidden diagram-bg min-h-[9rem]"><DiagramCard steps={diagram.steps} /></div>
+            )}
             {(project.image || hasVideo) && (
               <div className="rounded-xl overflow-hidden bg-black flex justify-center items-center relative border border-slate-800">
                 {hasVideo ? (
@@ -1551,9 +1619,32 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
               </div>
             )}
             
-            <DialogDescription className="text-slate-600 text-base leading-relaxed">
-              {project.description}
-            </DialogDescription>
+            {(project as any).schematic && (
+              <div>
+                <img src={(project as any).schematic.src} alt={`${project.title} workflow`} className="w-full max-h-80 object-contain rounded-xl border border-slate-200 bg-white" />
+                <p className="text-xs text-slate-500 mt-1">{(project as any).schematic.caption}</p>
+              </div>
+            )}
+            {diagram && (project.image || hasVideo) && (
+              <div className="rounded-xl overflow-hidden diagram-bg min-h-[9rem]"><DiagramCard steps={diagram.steps} /></div>
+            )}
+            {hasVideo && project.image && (
+              <div>
+                <img src={project.image} alt={`${project.title} screenshot`} className="w-full max-h-80 object-contain rounded-xl border border-slate-200" />
+                <p className="text-xs text-slate-500 mt-1">Screenshot from the project repo</p>
+              </div>
+            )}
+            {cs ? (
+              <div className="space-y-3 text-slate-600 text-sm leading-relaxed">
+                {([['The problem', cs.problem], ['What it does', cs.solution], ['How it works', cs.how], ['My role', cs.role], ['Status', cs.status]] as [string, string | undefined][]).filter(([, v]) => v).map(([k, v]) => (
+                  <div key={k}><h4 className="font-semibold text-slate-900">{k}</h4><p>{v}</p></div>
+                ))}
+              </div>
+            ) : (
+              <DialogDescription className="text-slate-600 text-base leading-relaxed">
+                {project.description}
+              </DialogDescription>
+            )}
             
             <div>
               <h4 className="font-medium text-slate-900 mb-2">Technologies Used</h4>
@@ -2077,6 +2168,7 @@ export default function Portfolio() {
                 {[
                   { href: personalInfo.github, icon: Github },
                   { href: personalInfo.linkedin, icon: Linkedin },
+                  { href: personalInfo.whatsapp, icon: MessageSquare },
                   { href: `mailto:${personalInfo.email}`, icon: Mail }
                 ].map(({ href, icon: Icon }, idx) => (
                   <MagneticButton key={idx}>
@@ -2115,13 +2207,6 @@ export default function Portfolio() {
                   src="/my-photo.jpg"
                   alt={personalInfo.name}
                   className="hero-photo-dark relative w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-3xl shadow-2xl border-4 border-white z-10"
-                  whileHover={{ scale: 1.03, rotate: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <motion.img
-                  src={LIGHT_PHOTO}
-                  alt={personalInfo.name}
-                  className="hero-photo-light relative w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-3xl shadow-2xl border-4 border-white z-10"
                   whileHover={{ scale: 1.03, rotate: 1 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -2314,7 +2399,7 @@ export default function Portfolio() {
             <motion.div 
               whileHover={{ y: -3 }}
               transition={{ duration: 0.3 }}
-              className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-6 md:p-8 shadow-2xl"
+              className="lt-panel bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-6 md:p-8 shadow-2xl"
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
@@ -2337,7 +2422,7 @@ export default function Portfolio() {
       </section>
 
       {/* ═══════════════════════════ AI ENGINEERING PILLARS ═══════════════════════════ */}
-      <section className="py-16 px-4 relative bg-slate-900 text-white my-8 rounded-3xl mx-4 lg:mx-auto max-w-7xl overflow-hidden shadow-2xl border border-slate-800">
+      <section className="lt-panel py-16 px-4 relative bg-slate-900 text-white my-8 rounded-3xl mx-4 lg:mx-auto max-w-7xl overflow-hidden shadow-2xl border border-slate-800">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
         
@@ -2469,9 +2554,9 @@ export default function Portfolio() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid md:grid-cols-2 gap-6"
             >
-              {projects.filter(p => p.featured).map((project) => (
+              {[1, 18, 2, 3].map((id) => projects.find(p => p.id === id)!).map((project) => (
                 <ProjectCard key={project.id} project={project} isFeatured />
               ))}
             </motion.div>
@@ -2481,7 +2566,7 @@ export default function Portfolio() {
           <AnimatedSection delay={0.2}>
             <div className="flex items-center gap-2 mb-6">
               <GitBranch className="h-5 w-5 text-slate-400" />
-              <h3 className="text-xl font-semibold text-slate-900">All Projects</h3>
+              <h3 className="text-xl font-semibold text-slate-900">More Projects</h3>
             </div>
             <motion.div 
               variants={staggerContainer}
@@ -2711,8 +2796,8 @@ export default function Portfolio() {
       </section>
 
       {/* ═══════════════════════════ CONTACT SECTION ═══════════════════════════ */}
-      <section id="contact" className="py-20 px-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+      <section id="contact" className="lt-panel lt-contact py-20 px-4 relative">
+        <div className="lt-contact-bg absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 via-transparent to-transparent" />
         
         <div className="max-w-7xl mx-auto relative z-10">
@@ -2736,11 +2821,12 @@ export default function Portfolio() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12"
+            className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto mb-12"
           >
             {[
               { icon: Mail, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-              { icon: Phone, label: 'Phone', value: personalInfo.phone, href: `tel:${personalInfo.phone}` },
+              { icon: Phone, label: 'Phone', value: personalInfo.phone, href: 'tel:+201055485561' },
+              { icon: MessageSquare, label: 'WhatsApp', value: 'Message me', href: personalInfo.whatsapp },
               { icon: MapPin, label: 'Location', value: personalInfo.location, href: null },
               { icon: Linkedin, label: 'LinkedIn', value: 'Connect', href: personalInfo.linkedin }
             ].map(({ icon: Icon, label, value, href }, idx) => (
@@ -2759,7 +2845,7 @@ export default function Portfolio() {
                       </motion.div>
                       <p className="text-slate-400 text-sm mb-1">{label}</p>
                       {href ? (
-                        <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className="text-white hover:text-emerald-400 transition-colors text-sm break-all">
+                        <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className="break-words text-white hover:text-emerald-400 transition-colors text-sm break-all">
                           {value}
                         </a>
                       ) : (
@@ -2801,7 +2887,7 @@ export default function Portfolio() {
     </main>
 
       {/* Footer */}
-      <footer className="py-8 px-4 bg-slate-900 border-t border-slate-800 relative z-10">
+      <footer className="lt-panel lt-footer py-8 px-4 bg-slate-900 border-t border-slate-800 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <motion.div 
@@ -2821,6 +2907,7 @@ export default function Portfolio() {
               {[
                 { href: personalInfo.github, icon: Github, label: "GitHub Profile" },
                 { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn Profile" },
+                { href: personalInfo.whatsapp, icon: MessageSquare, label: "WhatsApp" },
                 { href: `mailto:${personalInfo.email}`, icon: Mail, label: "Email Mohamed" }
               ].map(({ href, icon: Icon, label }, idx) => (
                 <motion.div key={idx} whileHover={{ scale: 1.15, y: -3 }} whileTap={{ scale: 0.9 }}>

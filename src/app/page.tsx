@@ -23,6 +23,11 @@ import { useMagnetic } from "@/hooks/use-magnetic"
 import { TextReveal, CharacterReveal } from "@/components/animations/text-reveal"
 import { TiltCard } from "@/components/animations/tilt-card"
 import { CustomCursor } from "@/components/animations/custom-cursor"
+import { MEDIAA } from "@/lib/mediaA"
+import { MEDIAB } from "@/lib/mediaB"
+import { MEDIAC } from "@/lib/mediaC"
+const MEDIA: Record<string, string> = { ...MEDIAA, ...MEDIAB, ...MEDIAC }
+
 
 // ─── Animation Components ──────────────────────────────────────────
 
@@ -220,7 +225,6 @@ const projects = [
       solution: "A Telegram bot for both sides. Customers browse the menu, order and track order status, with loyalty points and promo codes. Admins get a control panel and daily sales reports.",
       how: "An n8n workflow routes each message to an AI agent (OpenRouter LLM with memory and tools). Menu and restaurant questions are answered with RAG over the menu PDFs stored in a Supabase vector store; orders and stats live in Supabase PostgreSQL."
     },
-    diagram: { steps: ["Telegram message", "n8n workflow", "AI agent (OpenRouter)", "RAG over menu PDFs / Supabase", "Reply, order, admin report"] },
   },
   {
     id: 17,
@@ -254,7 +258,6 @@ const projects = [
       role: "Team lead on this DEPI team project. Built the first demo and explained the project and the experiment to the team, then everyone worked together on the same work.",
       status: "Status per the repo: MVP ready."
     },
-    diagram: { steps: ["User symptoms (Arabic or English)", "Phase 1: provisional differential", "Phase 2: safety intake and red-flag checks", "Phase 3: grounded plan (RAG)", "Severity and doctor handoff"] },
   },
   {
     id: 2,
@@ -272,7 +275,6 @@ const projects = [
       solution: "A personal assistant on WhatsApp and Telegram that handles calendar, email, search, weather, notes, reminders, social posting, data work and web requests, with voice and image input.",
       how: "A central orchestrator with a Think Tool breaks each request into steps and routes it to one of 9 specialized sub-agents. Voice is transcribed with Groq Whisper and images are analyzed with Gemini."
     },
-    diagram: { steps: ["WhatsApp / Telegram (text, voice, image)", "Orchestrator with Think Tool", "9 specialized sub-agents", "Result back to the user"] },
     schematic: { src: "https://raw.githubusercontent.com/MOHAMEDMETAWEA/My-n8n-Assistant/main/assets/n8n_workflow.png", caption: "n8n workflow snapshot from the project repo" },
   },
   {
@@ -284,14 +286,14 @@ const projects = [
     category: "Computer Vision",
     icon: Eye,
     github: "https://github.com/MOHAMEDMETAWEA/Graduation-project-Face-attendance-system-face-recognition-based-on-AI-",
-    image: null,
+    image: MEDIA["face.jpg"],
+    caption: "The project's real Flask app running locally: home, login and register pages (no camera in this capture).",
     caseStudy: {
       problem: "Attendance tracking needs to be automatic and hard to fake with a photo or a video.",
       solution: "Employees are marked present by a webcam scan. Admins register employees and view date-wise attendance logs on a web dashboard.",
       how: "Real-time face recognition in Python and OpenCV, with a liveness (anti-spoofing) check based on the open-source Silent-Face-Anti-Spoofing models. Flask serves the dashboard.",
       status: "Graduation project."
     },
-    diagram: { steps: ["Webcam scan", "Face recognition", "Liveness check", "Attendance log", "Admin dashboard"] },
   },
   {
     id: 4,
@@ -302,8 +304,10 @@ const projects = [
     category: "Healthcare AI",
     icon: Heart,
     github: "https://github.com/MOHAMEDMETAWEA/HeartDisease-Predictor",
-    image: null,
-    diagram: { steps: ["7 clinical inputs", "ML model", "Risk score", "Recommendations"] },
+    image: MEDIA["heart_result.jpg"],
+    video: MEDIA["heart.mp4"],
+    gallery: [MEDIA["heart_form.jpg"]],
+    caption: "The project's real Streamlit app running locally with its trained model (Low Risk result shown).",
   },
   {
     id: 5,
@@ -314,8 +318,10 @@ const projects = [
     category: "NLP",
     icon: MessageSquare,
     github: "https://github.com/MOHAMEDMETAWEA/CommentToxicity_project",
-    image: null,
-    diagram: { steps: ["Comment text", "Embedding layer", "Bidirectional LSTM", "6 toxicity labels"] },
+    image: MEDIA["tox_result1.jpg"],
+    video: MEDIA["tox.mp4"],
+    gallery: [MEDIA["tox_form.jpg"]],
+    caption: "The project's real Gradio app running locally with its trained toxicity.keras model.",
   },
   {
     id: 6,
@@ -326,8 +332,10 @@ const projects = [
     category: "NLP",
     icon: FileText,
     github: "https://github.com/MOHAMEDMETAWEA/Building-a-Job-Description-and-Resume-Matching-System-With-Python-Using-Machine-Learning",
-    image: null,
-    diagram: { steps: ["Job description + resumes", "Text similarity", "Similarity score", "Ranked resumes"] },
+    image: MEDIA["resume_result.jpg"],
+    video: MEDIA["resume.mp4"],
+    gallery: [MEDIA["resume_form.jpg"]],
+    caption: "The project's real Flask app running locally on its 12 sample resumes.",
   },
   {
     id: 7,
@@ -337,9 +345,9 @@ const projects = [
     tech: ["Python", "TensorFlow", "GANs", "Deep Learning", "Computer Vision"],
     category: "Generative AI",
     icon: Sparkles,
-    github: "https://github.com/MOHAMEDMETAWEA",
-    image: null,
-    diagram: { steps: ["Fashion images", "Generator and discriminator", "Synthetic fashion images"] },
+    github: "https://github.com/MOHAMEDMETAWEA/FashionGAN-project",
+    image: MEDIA["gan.jpg"],
+    caption: "Real output from the project's training notebook: generated 4x4 grid and training loss.",
   },
   {
     id: 8,
@@ -349,9 +357,9 @@ const projects = [
     tech: ["Python", "TensorFlow", "CNN", "Audio Processing"],
     category: "Deep Learning",
     icon: Music,
-    github: "https://github.com/MOHAMEDMETAWEA",
-    image: null,
-    diagram: { steps: ["Audio files", "Audio processing", "CNN", "Category"] },
+    github: "https://github.com/MOHAMEDMETAWEA/DeepAudioClassification_Project",
+    image: MEDIA["audio.jpg"],
+    caption: "Real project output: the exported results.csv from the forest-recording inference run (100 recordings).",
   },
   {
     id: 9,
@@ -362,8 +370,9 @@ const projects = [
     category: "Computer Vision",
     icon: Leaf,
     github: "https://github.com/MOHAMEDMETAWEA/Potato-Disease-Classification-Using-CNN",
-    image: null,
-    diagram: { steps: ["Potato leaf image", "CNN classifier", "FastAPI model server", "Web and mobile apps"] },
+    image: MEDIA["potato_result1.jpg"],
+    video: MEDIA["potato.mp4"],
+    caption: "The project's real Streamlit app running locally with the trained CNN on a sample leaf image.",
   },
   {
     id: 10,
@@ -374,8 +383,8 @@ const projects = [
     category: "Computer Vision",
     icon: Aperture,
     github: "https://github.com/MOHAMEDMETAWEA/IrisDetection-project",
-    image: null,
-    diagram: { steps: ["Webcam images", "Annotate and augment", "ResNet50V2-based CNN", "Iris position"] },
+    image: MEDIA["iris.jpg"],
+    caption: "Real output from the project's notebook: test-image predictions (red) vs labels (green) and training loss.",
   },
   {
     id: 11,
@@ -385,9 +394,9 @@ const projects = [
     tech: ["Python", "Keras", "CNN", "OpenCV"],
     category: "Computer Vision",
     icon: Activity,
-    github: "https://github.com/MOHAMEDMETAWEA",
-    image: null,
-    diagram: { steps: ["Face image", "Deep CNN", "Emotion label"] },
+    github: "https://github.com/MOHAMEDMETAWEA/Deep-CNN-emotion-recognition",
+    image: MEDIA["emo.jpg"],
+    caption: "Real output from the project's training notebook: sample data, confusion matrix and a test prediction.",
   },
   {
     id: 12,
@@ -398,8 +407,8 @@ const projects = [
     category: "Healthcare AI",
     icon: Activity,
     github: "https://github.com/MOHAMEDMETAWEA/Depi_Graduation_project",
-    image: null,
-    diagram: { steps: ["Healthcare data", "Exploratory analysis", "ML models", "Streamlit app"] },
+    image: MEDIA["health.jpg"],
+    caption: "Real output from the project's EDA notebook: class and feature distributions.",
   },
   {
     id: 13,
@@ -410,8 +419,10 @@ const projects = [
     category: "Backend",
     icon: Server,
     github: "https://github.com/MOHAMEDMETAWEA/Fast_Api",
-    image: null,
-    diagram: { steps: ["FastAPI basics", "Architecture patterns", "AI agent demos"] },
+    image: MEDIA["fa_exec.jpg"],
+    video: MEDIA["fa.mp4"],
+    gallery: [MEDIA["fa_docs.jpg"]],
+    caption: "The collection's FastAPI books app running locally: Swagger docs and a live request.",
   },
   {
     id: 14,
@@ -424,7 +435,6 @@ const projects = [
     github: "https://github.com/MOHAMEDMETAWEA/Deep-Learning-Book_RAG",
     image: null,
     video: "/RAG_DeepLearningBook.mp4",
-    diagram: { steps: ["Question", "Query expansion", "Hybrid search (vector + keyword)", "Reranking", "Answer with chapter context"] },
   },
   {
     id: 15,
@@ -435,8 +445,8 @@ const projects = [
     category: "Generative AI",
     icon: Lightbulb,
     github: "https://github.com/MOHAMEDMETAWEA/Prompt-Engineering",
-    image: null,
-    diagram: { steps: ["Prompt design", "LangChain workflows", "Instruction-tuned LLMs"] },
+    image: MEDIA["prompt.jpg"],
+    caption: "Real prompt and model response from the project's notebook.",
   },
   {
     id: 16,
@@ -447,8 +457,8 @@ const projects = [
     category: "Generative AI",
     icon: Rocket,
     github: "https://github.com/MOHAMEDMETAWEA/DEPI_GENERATIVE---AGENTIC-AI-Professional_Laps-projects",
-    image: null,
-    diagram: { steps: ["LLM labs", "RAG", "Autonomous agents"] },
+    image: MEDIA["depi.jpg"],
+    caption: "Real output from a DEPI course lab notebook (CNN digit classifier).",
   },
 ]
 
@@ -1378,7 +1388,6 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
   const [isOpen, setIsOpen] = useState(false)
   const hasVideo = Boolean((project as any).video)
   const hasDedicatedRepo = project.github !== personalInfo.github
-  const diagram = (project as any).diagram as { steps: string[] } | undefined
   const cs = (project as any).caseStudy as Record<string, string> | undefined
 
   return (
@@ -1423,9 +1432,6 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
         )}
 
         {/* Media preview if available */}
-        {!project.image && !hasVideo && diagram && (
-          <div className="h-48 overflow-hidden relative diagram-bg"><DiagramCard steps={diagram.steps} /></div>
-        )}
         {(project.image || hasVideo) && (
           <div className="h-48 overflow-hidden relative bg-slate-900 group">
             {hasVideo ? (
@@ -1594,9 +1600,6 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
           
           <div className="space-y-4 mt-4">
             {/* Media in modal */}
-            {!project.image && !hasVideo && diagram && (
-              <div className="rounded-xl overflow-hidden diagram-bg min-h-[9rem]"><DiagramCard steps={diagram.steps} /></div>
-            )}
             {(project.image || hasVideo) && (
               <div className="rounded-xl overflow-hidden bg-black flex justify-center items-center relative border border-slate-800">
                 {hasVideo ? (
@@ -1619,14 +1622,17 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
               </div>
             )}
             
+            {(project as any).caption && (
+              <p className="text-xs text-slate-500 -mt-2">{(project as any).caption}</p>
+            )}
+            {((project as any).gallery as string[] | undefined)?.map((g) => (
+              <img key={g} src={g} alt={`${project.title} screenshot`} className="w-full max-h-80 object-contain rounded-xl border border-slate-200" />
+            ))}
             {(project as any).schematic && (
               <div>
                 <img src={(project as any).schematic.src} alt={`${project.title} workflow`} className="w-full max-h-80 object-contain rounded-xl border border-slate-200 bg-white" />
                 <p className="text-xs text-slate-500 mt-1">{(project as any).schematic.caption}</p>
               </div>
-            )}
-            {diagram && (project.image || hasVideo) && (
-              <div className="rounded-xl overflow-hidden diagram-bg min-h-[9rem]"><DiagramCard steps={diagram.steps} /></div>
             )}
             {hasVideo && project.image && (
               <div>

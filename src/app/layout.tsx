@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "Mohamed Mostafa Metawea | AI Engineer Portfolio",
   description: "Mohamed Mostafa Metawea is an AI Engineer building practical machine learning, generative AI, RAG, and agentic systems.",
   alternates: { canonical: "/" },
-  keywords: ["AI Engineer", "Machine Learning", "Deep Learning", "Generative AI", "Agentic AI", "Computer Vision", "NLP", "Python", "TensorFlow", "PyTorch", "Mohamed Metawea", "MedAgent", "n8n"],
+  keywords: ["AI Engineer", "Machine Learning", "Deep Learning", "Generative AI", "Agentic AI", "Computer Vision", "NLP", "Python", "TensorFlow", "Mohamed Metawea", "MedAgent", "n8n"],
   authors: [{ name: "Mohamed Mostafa Metawea" }],
   robots: {
     index: true,
@@ -94,6 +94,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
+        <script
+          dangerouslySetInnerHTML={{ __html: "try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}" }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

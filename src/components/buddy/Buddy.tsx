@@ -4,12 +4,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 type Props = {
-  /** Fixed, pre-written answers about Mohamed. No model is called. */
+  /** Pre-written answers, used for the chips and as the fallback when the AI is unavailable. */
   answer: (question: string) => string;
 };
 
 const SECTION_LINES: Record<string, string> = {
-  hero: "Oh! Hi! I'm Buddy. I'll show you around Mohamed's portfolio.",
+  hero: "Oh! Hi! I'm Hamo. I'll show you around Mohamed's portfolio.",
   about: "Mohamed is an AI engineer. B.Sc. in Communication & Electronics Engineering, October 6 University, GPA 3.44/4.0.",
   skills: "Python, TensorFlow, Keras, LangChain, RAG, FastAPI, Docker. The full list is right here.",
   projects: "Real repos with real code. Team projects are labelled as team projects.",
@@ -31,6 +31,7 @@ const CHIPS: { label: string; q: string }[] = [
 ];
 
 const DROP = 72;
+const HAMO_API = "https://hamo-api.mohamedmostafametawea.workers.dev";
 
 function cleanForSpeech(t: string) {
   return t
@@ -53,6 +54,7 @@ function pickVoice(): SpeechSynthesisVoice | null {
 }
 
 export function Buddy({ answer }: Props) {
+  const [thinking, setThinking] = useState(false);
   const [booted, setBooted] = useState(false);
   const [reduce, setReduce] = useState(false);
   const [open, setOpen] = useState(false);
@@ -230,12 +232,26 @@ export function Buddy({ answer }: Props) {
     if (hideTimer.current) clearTimeout(hideTimer.current);
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const q = input.trim();
-    if (!q) return;
+    const q = input.trim().slice(0, 300);
+    if (!q || thinking) return;
     setInput("");
-    ask(q, q);
+    setAsked(q);
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    setThinking(true);
+    setTyped("…");
+    let a: string | null = null;
+    try {
+      const ctl = new AbortController();
+      const to = setTimeout(() => ctl.abort(), 12000);
+      const r = await fetch(HAMO_API, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ q }), signal: ctl.signal });
+      clearTimeout(to);
+      const d = await r.json();
+      if (d && typeof d.answer === "string" && d.answer.trim()) a = d.answer.trim();
+    } catch {}
+    setThinking(false);
+    say(a ?? answer(q));
   };
 
   useEffect(() => {
@@ -266,11 +282,11 @@ export function Buddy({ answer }: Props) {
             className="buddy-bubble mb-3 w-[min(21rem,calc(100vw-2rem))] rounded-2xl p-3.5 text-[13px] leading-relaxed"
             style={{ pointerEvents: "auto", transformOrigin: "bottom left" }}
             role={open ? "dialog" : undefined}
-            aria-label={open ? "Ask Buddy about Mohamed" : undefined}
+            aria-label={open ? "Ask Hamo about Mohamed" : undefined}
           >
             {open && (
               <div className="mb-2 flex items-center justify-between">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-300">Ask Buddy</span>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-300">Ask Hamo | حمو</span>
                 <button type="button" onClick={() => setOpen(false)} className="rounded px-1.5 text-slate-300 hover:text-white" aria-label="Close">×</button>
               </div>
             )}
@@ -294,13 +310,13 @@ export function Buddy({ answer }: Props) {
                   <input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Try: skills, projects, contact"
+                    placeholder="Ask me anything about Mohamed"
                     aria-label="Ask a question"
                     className="min-w-0 flex-1 rounded-lg border border-slate-600 bg-slate-900/80 px-2.5 py-1.5 text-[12px] text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none"
                   />
                   <button type="submit" className="rounded-lg bg-emerald-500 px-3 py-1.5 text-[12px] font-semibold text-slate-900 hover:bg-emerald-400">Ask</button>
                 </form>
-                <p className="mt-2 text-[10px] text-slate-500">Pre-written answers from Mohamed&apos;s CV. No AI model is guessing.</p>
+                <p className="mt-2 text-[10px] text-slate-500">Hamo answers only from Mohamed&apos;s CV and portfolio. If it does not know, it says so.</p>
               </>
             )}
           </motion.div>
@@ -320,7 +336,7 @@ export function Buddy({ answer }: Props) {
         <motion.button
           type="button"
           onClick={() => { setOpen((o) => { const n = !o; if (n) { if (hideTimer.current) clearTimeout(hideTimer.current); setAsked(null); say("Hi! Pick a topic or type a question. I only know what is on this page and Mohamed's CV."); } else { setCaption(null); } return n; }); }}
-          aria-label="Buddy: ask about Mohamed"
+          aria-label="Hamo: ask about Mohamed"
           aria-expanded={open}
           className={`buddy-chrome absolute inset-0 ${talking || speaking ? "buddy-talk" : ""}`}
           initial={{ opacity: 0, scale: 0.6 }}
@@ -340,9 +356,9 @@ export function Buddy({ answer }: Props) {
         <button
           type="button"
           onClick={toggleMute}
-          aria-label={muted ? "Unmute Buddy" : "Mute Buddy"}
+          aria-label={muted ? "Unmute Hamo" : "Mute Hamo"}
           aria-pressed={muted}
-          title={muted ? "Unmute Buddy" : "Mute Buddy"}
+          title={muted ? "Unmute Hamo" : "Mute Hamo"}
           className="buddy-mute"
           style={{ pointerEvents: "auto" }}
         >

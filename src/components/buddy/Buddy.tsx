@@ -98,7 +98,7 @@ export function Buddy({ answer }: Props) {
     mutedRef.current = m;
     if (ok) { window.speechSynthesis.getVoices(); }
     setBooted(true);
-    Promise.all([import("./clips-s"), import("./clips-c")]).then(([a, b]) => { clipsRef.current = { ...a.default, ...b.default }; }).catch(() => {});
+    Promise.all([import("./clips-s"), import("./clips-c1"), import("./clips-c2")]).then(([a, b, c]) => { clipsRef.current = { ...a.default, ...b.default, ...c.default }; }).catch(() => {});
   }, []);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);

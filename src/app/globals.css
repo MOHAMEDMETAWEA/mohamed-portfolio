@@ -729,3 +729,34 @@ html:not([data-theme="light"]) [data-slot="card-title"] { color: #f8fafc; }
 .buddy-fall .buddy-ripple2 { animation-delay: 1.0s; }
 @keyframes buddy-ripple { 0% { transform: scale(0.4); opacity: 0.85; } 100% { transform: scale(2.6); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .buddy-fall, .buddy-fall .buddy-ripple { animation: none !important; } }
+
+/* Perf pass: compositor-only animation (transform/opacity), no animated box-shadow, filter or border-radius */
+.buddy-shell { perspective: none !important; transform-style: flat !important; filter: none !important; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35); will-change: transform; }
+.buddy-chrome {
+  transform-style: flat;
+  box-shadow: inset 0 -8px 14px rgba(0, 0, 0, 0.42), inset 0 5px 9px rgba(255, 255, 255, 0.38), inset 0 0 18px rgba(56, 189, 248, 0.22);
+  animation: buddy-bob 4.6s ease-in-out infinite !important;
+  will-change: transform;
+}
+.buddy-chrome.buddy-talk { animation: buddy-bob 1.4s ease-in-out infinite !important; }
+.buddy-chrome::before {
+  content: ""; position: absolute; inset: -12px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0 45%, rgba(56, 189, 248, 0) 70%);
+  opacity: 0.55; animation: buddy-halo 4.6s ease-in-out infinite;
+}
+.buddy-chrome.buddy-talk::before {
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.5) 0 45%, rgba(52, 211, 153, 0) 70%);
+  animation: buddy-halo-talk 0.9s ease-out infinite;
+}
+@keyframes buddy-halo { 0%, 100% { opacity: 0.4; transform: scale(0.95); } 50% { opacity: 0.8; transform: scale(1.08); } }
+@keyframes buddy-halo-talk { 0% { opacity: 0.9; transform: scale(0.95); } 100% { opacity: 0; transform: scale(1.5); } }
+@media (max-width: 640px) { .buddy-chrome::before { animation-duration: 6s; } .buddy-ripple { display: none; } }
+@media (prefers-reduced-motion: reduce) { .buddy-chrome::before { animation: none !important; } }
+
+/* squish wobble on transform only (replaces the old border-radius morph) */
+@keyframes buddy-bob {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  25% { transform: translateY(-2px) scale(1.035, 0.97); }
+  50% { transform: translateY(-5px) scale(0.98, 1.045); }
+  75% { transform: translateY(-2px) scale(1.03, 0.975); }
+}

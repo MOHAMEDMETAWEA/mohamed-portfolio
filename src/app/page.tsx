@@ -160,47 +160,38 @@ const experience = {
 const skills = {
   "Programming & APIs": { 
     skills: ["Python", "SQL", "C++", "FastAPI", "Flask", "REST APIs", "Object-Oriented Programming"],
-    level: 92,
     icon: Code
   },
   "Machine Learning": { 
     skills: ["Scikit-learn", "TensorFlow", "Feature Engineering", "Model Evaluation", "Ensemble Methods"],
-    level: 90,
     icon: Brain
   },
   "Deep Learning": { 
     skills: ["Neural Networks", "CNN", "RNN", "LSTM", "Transformers", "Transfer Learning", "Keras"],
-    level: 88,
     icon: Cpu
   },
   "Generative AI & LLMs": { 
     skills: ["LangChain", "OpenAI API", "RAG", "AI Agents", "Prompt Engineering", "Fine-tuning", "RLHF", "Vector Databases", "MCP"],
-    level: 92,
     icon: Sparkles
   },
   "Computer Vision": { 
     skills: ["OpenCV", "CNN Vision Models", "Vision Transformers", "Face Recognition", "Image Classification"],
-    level: 85,
     icon: Eye
   },
   "NLP & Text Analytics": { 
     skills: ["Transformers", "Text Classification", "NER", "Sentiment Analysis", "Tokenization", "Word Embeddings"],
-    level: 88,
     icon: MessageSquare
   },
   "MLOps & Deployment": { 
     skills: ["Docker", "FastAPI", "MLflow", "CI/CD", "Cloud Deployment", "Prometheus", "API Integration"],
-    level: 82,
     icon: Server
   },
   "Cloud & Automation": { 
     skills: ["Microsoft Azure", "AWS", "Cloudflare Workers", "n8n", "Git", "Power BI"],
-    level: 80,
     icon: Cloud
   },
   "Databases & Data": { 
     skills: ["MongoDB", "PostgreSQL", "FAISS", "Data Pipelines", "Data Visualization"],
-    level: 78,
     icon: Database
   }
 }
@@ -1318,7 +1309,7 @@ function GitHubStats() {
 
 // ─── Skills Visualization ────────────────────────────────────────────
 
-function SkillBar({ name, data, index }: { name: string; data: { skills: string[]; level: number; icon: React.ComponentType<{ className?: string }> }; index: number }) {
+function SkillBar({ name, data, index }: { name: string; data: { skills: string[]; icon: React.ComponentType<{ className?: string }> }; index: number }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   const Icon = data.icon

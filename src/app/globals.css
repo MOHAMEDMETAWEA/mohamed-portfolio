@@ -540,3 +540,6 @@ html[data-theme="light"] .lt-footer { background: #ffffff !important; box-shadow
 
 html[data-theme="light"] .hero-photo-dark { border-color: #e2e8f0; box-shadow: 0 0 0 4px rgba(16,185,129,.35), 0 24px 50px -12px rgba(15,23,42,.35); }
 .break-email{overflow-wrap:anywhere}
+
+/* Dark mode: card titles must stay readable */
+html:not([data-theme="light"]) [data-slot="card-title"] { color: #f8fafc; }

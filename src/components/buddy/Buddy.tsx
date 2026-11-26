@@ -69,16 +69,42 @@ export function Buddy({ answer }: Props) {
     setPlaying(false);
   };
   // Tap-to-play only: nothing ever plays by itself.
-  const listen = () => {
-    if (!spokenKey || !CLIPS[spokenKey]) return;
+  const playKey = (key: string) => {
+    if (!CLIPS[key]) return;
     if (playing) { stopAudio(); return; }
     const a = audioRef.current ?? new Audio();
     audioRef.current = a;
-    a.src = CLIPS[spokenKey];
-    a.onended = () => setPlaying(false);
-    a.onerror = () => setPlaying(false);
-    a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    a.src = CLIPS[key];
+    a.onended = () => { setPlaying(false); setIntroPlaying(false); };
+    a.onerror = () => { setPlaying(false); setIntroPlaying(false); };
+    a.play().then(() => setPlaying(true)).catch(() => { setPlaying(false); setIntroPlaying(false); });
   };
+  const listen = () => { if (spokenKey) playKey(spokenKey); };
+
+  // First-visit welcome card: asks before playing anything.
+  const [welcome, setWelcome] = useState(false);
+  const [introPlaying, setIntroPlaying] = useState(false);
+  useEffect(() => {
+    try { if (!localStorage.getItem("hamo-intro-seen")) setWelcome(true); } catch { /* ignore */ }
+  }, []);
+  const closeWelcome = () => {
+    try { localStorage.setItem("hamo-intro-seen", "1"); } catch { /* ignore */ }
+    stopAudio();
+    setIntroPlaying(false);
+    setWelcome(false);
+  };
+  const playIntro = () => {
+    try { localStorage.setItem("hamo-intro-seen", "1"); } catch { /* ignore */ }
+    setIntroPlaying(true);
+    playKey("intro");
+  };
+
+  // Stop any voice when the tab goes to the background.
+  useEffect(() => {
+    const h = () => { if (document.hidden) { const a = audioRef.current; if (a) { a.pause(); a.currentTime = 0; } setPlaying(false); setIntroPlaying(false); } };
+    document.addEventListener("visibilitychange", h);
+    return () => document.removeEventListener("visibilitychange", h);
+  }, []);
 
   const drop = useRef<HTMLDivElement>(null);
   const eyes = useRef<HTMLDivElement>(null);
@@ -121,6 +147,7 @@ export function Buddy({ answer }: Props) {
     if (!booted) return;
     const t = setTimeout(() => {
       if (openRef.current) return;
+      try { if (!localStorage.getItem("hamo-intro-seen")) return; } catch { /* ignore */ }
       const hold = say(SECTION_LINES.hero);
       hideLater(hold + 2500);
     }, 700);
@@ -223,6 +250,19 @@ export function Buddy({ answer }: Props) {
 
   return (
     <div className="buddy-root fixed bottom-4 left-4 z-[60] sm:bottom-6 sm:left-6" style={{ pointerEvents: "none" }}>
+      {welcome && !open && !caption && (
+        <div className="buddy-bubble mb-3 w-[min(21rem,calc(100vw-2rem))] rounded-2xl p-3.5 text-[13px] leading-relaxed" style={{ pointerEvents: "auto" }} role="region" aria-label="Meet Hamo">
+          <div className="mb-1.5 flex items-start justify-between gap-2">
+            <p className="font-semibold text-slate-100">Meet Hamo | حمو</p>
+            <button type="button" onClick={closeWelcome} className="rounded px-1.5 text-slate-300 hover:text-white" aria-label="Dismiss">×</button>
+          </div>
+          <p className="text-slate-200">Tap to hear Hamo introduce himself. It is a short clip, and it only plays if you tap.</p>
+          <div className="mt-2.5 flex gap-2">
+            <button type="button" onClick={introPlaying ? closeWelcome : playIntro} className="rounded-lg bg-emerald-500 px-3 py-1.5 text-[12px] font-semibold text-slate-900 hover:bg-emerald-400">{introPlaying ? "■ Stop" : "▶ Hear intro"}</button>
+            <button type="button" onClick={closeWelcome} className="rounded-lg border border-slate-600 px-3 py-1.5 text-[12px] text-slate-200 hover:bg-slate-700/50">No thanks</button>
+          </div>
+        </div>
+      )}
       {/* Speech bubble / Q&A panel */}
       <AnimatePresence>
         {(open || caption) && (

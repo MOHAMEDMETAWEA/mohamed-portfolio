@@ -660,3 +660,6 @@ html:not([data-theme="light"]) [data-slot="card-title"] { color: #f8fafc; }
 @media (prefers-reduced-motion: reduce) {
   .buddy-chrome, .buddy-chrome.buddy-talk, .buddy-eye, .buddy-caret, .buddy-talk .buddy-mouth { animation: none !important; }
 }
+.buddy-mute{position:absolute;left:56px;bottom:-2px;width:24px;height:24px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:#cbd5e1;background:rgba(15,23,42,.72);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);opacity:.75;transition:opacity .2s,transform .2s;cursor:pointer}
+.buddy-mute:hover,.buddy-mute:focus-visible{opacity:1;transform:scale(1.1)}
+html[data-theme="light"] .buddy-mute{color:#334155;background:rgba(255,255,255,.85);border-color:rgba(15,23,42,.18)}

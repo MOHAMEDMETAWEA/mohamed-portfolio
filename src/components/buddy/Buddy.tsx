@@ -84,15 +84,22 @@ export function Buddy({ answer }: Props) {
     if (a) { a.pause(); a.currentTime = 0; }
     setPlaying(false);
   };
-  // Tap-to-play only: nothing ever plays by itself.
-  const playKey = (key: string) => {
-    if (!FAMILY[key]) return;
-    if (playing) { stopAudio(); return; }
+  // Plays only after a tap. The element is "unlocked" synchronously inside the tap (needed by Safari and some desktop
+  // browsers, which reject play() once the lazy clip chunk has loaded asynchronously).
+  const SILENT = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+  const unlock = () => {
     const a = audioRef.current ?? new Audio();
     audioRef.current = a;
+    if (a.paused && !a.src) { a.src = SILENT; a.play().catch(() => { /* ignore */ }); }
+    return a;
+  };
+  const playKey = (key: string, force = false) => {
+    if (!FAMILY[key]) return;
+    if (playing && !force) { stopAudio(); return; }
+    const a = unlock();
     a.onended = () => { setPlaying(false); setIntroPlaying(false); };
     a.onerror = () => { setPlaying(false); setIntroPlaying(false); };
-    const go = (src: string) => { a.src = src; a.play().then(() => setPlaying(true)).catch(() => { setPlaying(false); setIntroPlaying(false); }); };
+    const go = (src: string) => { a.src = src; a.currentTime = 0; a.play().then(() => setPlaying(true)).catch(() => { setPlaying(false); setIntroPlaying(false); }); };
     if (clipCache[key]) go(clipCache[key]);
     else loadClip(key).then((src) => { if (src) go(src); else { setPlaying(false); setIntroPlaying(false); } });
   };
@@ -310,6 +317,7 @@ export function Buddy({ answer }: Props) {
     setSpokenKey(q);
     setAsked(label);
     say(answer(q));
+    playKey(q, true);
     if (hideTimer.current) clearTimeout(hideTimer.current);
   };
 
@@ -416,7 +424,7 @@ export function Buddy({ answer }: Props) {
                   />
                   <button type="submit" className="rounded-lg bg-emerald-500 px-3 py-1.5 text-[12px] font-semibold text-slate-900 hover:bg-emerald-400">Ask</button>
                 </form>
-                <p className="mt-2 text-[10px] text-slate-500">Hamo answers only from Mohamed&apos;s CV and portfolio. If it does not know, it says so.</p>
+                <p className="mt-2 text-[10px] text-slate-500">Hamo answers only from Mohamed&apos;s CV, GitHub, LinkedIn and portfolio. If it does not know, it says so.</p>
               </>
             )}
           </motion.div>
@@ -438,7 +446,7 @@ export function Buddy({ answer }: Props) {
         {/* chrome droplet layer */}
         <motion.button
           type="button"
-          onClick={() => { setOpen((o) => { const n = !o; if (n) { if (hideTimer.current) clearTimeout(hideTimer.current); setAsked(null); say("Hi! Pick a topic or type a question. I only know what is on this page and Mohamed's CV."); } else { setCaption(null); } return n; }); }}
+          onClick={() => { setOpen((o) => { const n = !o; if (n) { if (hideTimer.current) clearTimeout(hideTimer.current); setAsked(null); say("Hi! Pick a topic or type a question. I answer from Mohamed's CV, GitHub, LinkedIn and portfolio."); } else { setCaption(null); } return n; }); }}
           aria-label="Hamo: ask about Mohamed"
           aria-expanded={open}
           className={`buddy-chrome absolute inset-0 ${talking ? "buddy-talk" : ""} ${gl ? "buddy-gl-on" : ""}`}

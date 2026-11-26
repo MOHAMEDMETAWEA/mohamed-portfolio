@@ -1907,6 +1907,7 @@ function FxEnhancer() {
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('hero')
+  const [showAllCerts, setShowAllCerts] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -2282,7 +2283,7 @@ export default function Portfolio() {
         </div>
 
         <motion.button 
-          onClick={() => scrollToSection('about')}
+          aria-label="Scroll to About section" onClick={() => scrollToSection('about')}
           animate={{ y: [0, 12, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-slate-400 hover:text-emerald-600 transition-colors"
@@ -2396,7 +2397,7 @@ export default function Portfolio() {
               AI System Pillars & Architecture
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
-              End-to-end engineering of intelligent multi-agent orchestrations, RAG systems, computer vision pipelines, and scalable MLOps.
+              Building multi-agent orchestrations, RAG systems, computer vision pipelines, and deployment tooling.
             </p>
           </AnimatedSection>
 
@@ -2414,9 +2415,9 @@ export default function Portfolio() {
                 icon: Sparkles,
                 title: "Generative AI & RAG",
                 subtitle: "Vector Search",
-                desc: "FAISS vector indexing, hybrid search, cross-encoder reranking, prompt engineering, and LLM post-training fine-tuning (LoRA/PEFT).",
+                desc: "FAISS vector indexing, hybrid search, reranking, prompt engineering, and LLM fine-tuning and RLHF concepts from coursework.",
                 gradient: "from-teal-500/20 to-cyan-500/20",
-                badge: "FAISS · LoRA"
+                badge: "FAISS · RAG"
               },
               {
                 icon: Eye,
@@ -2429,8 +2430,8 @@ export default function Portfolio() {
               {
                 icon: Server,
                 title: "MLOps & Deployment",
-                subtitle: "Production Infrastructure",
-                desc: "Docker containerization, FastAPI RESTful services, CI/CD pipelines, MLflow experiment tracking, and Prometheus observability.",
+                subtitle: "Deployment Tooling",
+                desc: "Docker containerization, FastAPI RESTful services, CI/CD, MLflow experiment tracking, and Prometheus monitoring.",
                 gradient: "from-blue-500/20 to-emerald-500/20",
                 badge: "Docker · FastAPI"
               }
@@ -2652,7 +2653,7 @@ export default function Portfolio() {
             viewport={{ once: true, margin: "-50px" }}
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
           >
-            {certifications.map((cert, idx) => {
+            {(showAllCerts ? certifications : certifications.slice(0, 12)).map((cert, idx) => {
               const Icon = cert.icon
               return (
                 <motion.div key={idx} variants={fadeInUp}>
@@ -2733,6 +2734,18 @@ export default function Portfolio() {
               )
             })}
           </motion.div>
+          {certifications.length > 12 && (
+            <div className="mt-8 text-center">
+              <Button
+                variant="outline"
+                onClick={() => setShowAllCerts(v => !v)}
+                aria-expanded={showAllCerts}
+                className="border-emerald-300 text-emerald-700 hover:bg-emerald-50"
+              >
+                {showAllCerts ? 'Show fewer certifications' : `Show all ${certifications.length} certifications`}
+              </Button>
+            </div>
+          )}
         </div>
       </section>
 

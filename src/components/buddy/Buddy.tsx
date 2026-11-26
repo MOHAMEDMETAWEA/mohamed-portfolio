@@ -91,18 +91,45 @@ export function Buddy({ answer }: Props) {
   useEffect(() => {
     setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     const ok = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
-    setCanSpeak(ok);
+    setCanSpeak(true);
     let m = false;
     try { m = localStorage.getItem("buddy-muted") === "1"; } catch {}
     setMuted(m);
     mutedRef.current = m;
     if (ok) { window.speechSynthesis.getVoices(); }
     setBooted(true);
+    Promise.all([import("./clips-s"), import("./clips-c")]).then(([a, b]) => { clipsRef.current = { ...a.default, ...b.default }; }).catch(() => {});
   }, []);
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const clipsRef = useRef<Record<string, string>>({});
+  const stopAudio = () => {
+    const a = audioRef.current;
+    if (a) { try { a.pause(); } catch {} audioRef.current = null; }
+  };
 
   const speak = useCallback((text: string) => {
     currentText.current = text;
-    if (typeof window === "undefined" || !("speechSynthesis" in window) || mutedRef.current) return;
+    if (typeof window === "undefined" || mutedRef.current) return;
+    // Fixed lines use pre-generated neural voice clips: they sound the same on every device and need no system voices.
+    const clip = clipsRef.current[text];
+    if (clip) {
+      try {
+        stopAudio();
+        try { window.speechSynthesis?.cancel(); } catch {}
+        const a = new Audio(clip);
+        audioRef.current = a;
+        a.onplay = () => { pendingSpeech.current = null; setSpeaking(true); };
+        a.onended = () => setSpeaking(false);
+        a.onerror = () => setSpeaking(false);
+        pendingSpeech.current = text;
+        const pr = a.play();
+        if (pr && typeof pr.catch === "function") pr.catch(() => { setSpeaking(false); pendingSpeech.current = text; });
+      } catch {}
+      return;
+    }
+    if (!("speechSynthesis" in window)) return;
+    stopAudio();
     try {
       const ss = window.speechSynthesis;
       ss.cancel();
@@ -218,10 +245,10 @@ export function Buddy({ answer }: Props) {
     };
     ["pointerdown", "keydown", "touchend", "click"].forEach((n) => window.addEventListener(n, go, { passive: true }));
     const vc = () => { /* voices loaded */ };
-    window.speechSynthesis.addEventListener?.("voiceschanged", vc);
+    window.speechSynthesis?.addEventListener?.("voiceschanged", vc);
     return () => {
       ["pointerdown", "keydown", "touchend", "click"].forEach((n) => window.removeEventListener(n, go));
-      window.speechSynthesis.removeEventListener?.("voiceschanged", vc);
+      window.speechSynthesis?.removeEventListener?.("voiceschanged", vc);
     };
   }, [booted, canSpeak, speak]);
 
@@ -230,7 +257,7 @@ export function Buddy({ answer }: Props) {
     mutedRef.current = m;
     setMuted(m);
     try { localStorage.setItem("buddy-muted", m ? "1" : "0"); } catch {}
-    if (m) { try { window.speechSynthesis.cancel(); } catch {} setSpeaking(false); }
+    if (m) { stopAudio(); try { window.speechSynthesis.cancel(); } catch {} setSpeaking(false); }
     else if (currentText.current && caption) speak(currentText.current);
   };
 
@@ -275,6 +302,7 @@ export function Buddy({ answer }: Props) {
     if (typeTimer.current) clearInterval(typeTimer.current);
     if (hideTimer.current) clearTimeout(hideTimer.current);
     try { window.speechSynthesis?.cancel(); } catch {}
+    stopAudio();
   }, []);
 
   if (!booted) return null;

@@ -76,12 +76,14 @@ export function Buddy({ answer }: Props) {
   const [talking, setTalking] = useState(false);
   const [input, setInput] = useState("");
   const [spokenKey, setSpokenKey] = useState<string | null>(null);
+  const [spokenText, setSpokenText] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const stopAudio = () => {
     const a = audioRef.current;
     if (a) { a.pause(); a.currentTime = 0; }
+    try { window.speechSynthesis?.cancel(); } catch { /* ignore */ }
     setPlaying(false);
   };
   // Plays only after a tap. The element is "unlocked" synchronously inside the tap (needed by Safari and some desktop
@@ -103,7 +105,28 @@ export function Buddy({ answer }: Props) {
     if (clipCache[key]) go(clipCache[key]);
     else loadClip(key).then((src) => { if (src) go(src); else { setPlaying(false); setIntroPlaying(false); } });
   };
-  const listen = () => { if (spokenKey) playKey(spokenKey); };
+  // Free-typed answers have no recorded clip, so they use the browser's own voice (free, no server). Tap only.
+  const speakText = (text: string) => {
+    const syn = typeof window !== "undefined" ? window.speechSynthesis : undefined;
+    if (!syn) return;
+    if (playing) { stopAudio(); return; }
+    const ar = /[\u0600-\u06ff]/.test(text);
+    const clean = text.replace(/[*_`#]/g, "").slice(0, 700);
+    const u = new SpeechSynthesisUtterance(clean);
+    const voices = syn.getVoices();
+    const lang = ar ? "ar" : "en";
+    const pool = voices.filter((v) => v.lang.toLowerCase().startsWith(lang));
+    const best = (ar ? pool.find((v) => /ar-EG/i.test(v.lang)) : pool.find((v) => /william/i.test(v.name)) || pool.find((v) => /natural|online/i.test(v.name) && /male|guy|andrew|brian|ryan|christopher|eric|davis|william/i.test(v.name)) || pool.find((v) => /en-AU/i.test(v.lang))) || pool[0];
+    if (best) u.voice = best;
+    u.lang = best?.lang || (ar ? "ar-EG" : "en-US");
+    u.rate = 1;
+    u.onend = () => setPlaying(false);
+    u.onerror = () => setPlaying(false);
+    syn.cancel();
+    syn.speak(u);
+    setPlaying(true);
+  };
+  const listen = () => { if (spokenKey) playKey(spokenKey); else if (spokenText) speakText(spokenText); };
 
   // First-visit welcome card: asks before playing anything.
   const [welcome, setWelcome] = useState(false);
@@ -189,10 +212,10 @@ export function Buddy({ answer }: Props) {
     hideTimer.current = setTimeout(() => setCaption(null), ms);
   }, []);
 
-  // Droplet landing: caption "Hi, I'm Hamo" with the splash, voice on first gesture (autoplay is tried first).
+  // Droplet landing: caption "I'm Hamo" with the splash, voice on first gesture (autoplay is tried first).
   useEffect(() => {
     if (!booted) return;
-    const t = setTimeout(() => { if (!openRef.current) { const h = say("Hi, I'm Hamo", 3000); hideLater(h > 3000 ? 3000 : h); } }, reduce ? 300 : 1250);
+    const t = setTimeout(() => { if (!openRef.current) { const h = say("I'm Hamo", 3000); hideLater(h > 3000 ? 3000 : h); } }, reduce ? 300 : 1250);
     let done = false;
     try { if (sessionStorage.getItem("hamo-hi")) done = true; } catch { /* ignore */ }
     let armed = false;
@@ -315,6 +338,7 @@ export function Buddy({ answer }: Props) {
   const ask = (label: string, q: string) => {
     stopAudio();
     setSpokenKey(q);
+    setSpokenText(null);
     setAsked(label);
     say(answer(q));
     playKey(q, true);
@@ -328,6 +352,7 @@ export function Buddy({ answer }: Props) {
     setInput("");
     stopAudio();
     setSpokenKey(null);
+    setSpokenText(null);
     setAsked(q);
     if (hideTimer.current) clearTimeout(hideTimer.current);
     setThinking(true);
@@ -342,7 +367,9 @@ export function Buddy({ answer }: Props) {
       if (d && typeof d.answer === "string" && d.answer.trim()) a = d.answer.trim();
     } catch {}
     setThinking(false);
-    say(a ?? offline(q));
+    const fin = a ?? offline(q);
+    setSpokenText(fin);
+    say(fin);
   };
 
   useEffect(() => {
@@ -391,7 +418,7 @@ export function Buddy({ answer }: Props) {
               <div className="mb-2 flex items-center justify-between">
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-300">Ask Hamo | حمو</span>
                 <div className="flex items-center gap-1">
-                  {spokenKey && FAMILY[spokenKey] && (
+                  {((spokenKey && FAMILY[spokenKey]) || spokenText) && (
                     <button type="button" onClick={listen} className="rounded-full border border-emerald-400/40 px-2 py-0.5 text-[11px] text-emerald-200 hover:bg-emerald-400/15" aria-label={playing ? "Stop voice" : "Listen to this answer"}>{playing ? "■ Stop" : "▶ Listen"}</button>
                   )}
                   <button type="button" onClick={() => { stopAudio(); setOpen(false); }} className="rounded px-1.5 text-slate-300 hover:text-white" aria-label="Close">×</button>

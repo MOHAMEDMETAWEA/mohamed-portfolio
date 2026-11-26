@@ -33,7 +33,6 @@ const CHIPS: { label: string; q: string }[] = [
 const DROP = 72;
 
 export function Buddy({ answer }: Props) {
-  const [phase, setPhase] = useState<"card" | "drop">("drop");
   const [booted, setBooted] = useState(false);
   const [reduce, setReduce] = useState(false);
   const [open, setOpen] = useState(false);
@@ -42,34 +41,18 @@ export function Buddy({ answer }: Props) {
   const [asked, setAsked] = useState<string | null>(null);
   const [talking, setTalking] = useState(false);
   const [input, setInput] = useState("");
-  const [lines, setLines] = useState(0);
 
   const drop = useRef<HTMLDivElement>(null);
   const eyes = useRef<HTMLDivElement>(null);
   const lastSection = useRef<string>("");
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const typeTimer = useRef<ReturnType<typeof setInterval> | null>(null);
-  const phaseRef = useRef(phase);
-  phaseRef.current = phase;
 
-  // Boot: first visit shows the terminal card, later visits go straight to the droplet.
+  // Boot: the droplet is always there, and it greets by itself on every load.
   useEffect(() => {
-    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setReduce(rm);
-    let seen = false;
-    try { seen = sessionStorage.getItem("buddy-intro") === "1"; } catch {}
-    setPhase(rm || seen ? "drop" : "card");
+    setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     setBooted(true);
   }, []);
-
-  // Typed terminal lines.
-  useEffect(() => {
-    if (!booted || phase !== "card") return;
-    const t = [setTimeout(() => setLines(1), 500), setTimeout(() => setLines(2), 1300), setTimeout(() => setLines(3), 2000)];
-    const auto = setTimeout(() => melt(), 11000);
-    return () => { t.forEach(clearTimeout); clearTimeout(auto); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [booted, phase]);
 
   const say = useCallback((text: string, hold = 6500) => {
     if (typeTimer.current) clearInterval(typeTimer.current);
@@ -95,14 +78,16 @@ export function Buddy({ answer }: Props) {
     hideTimer.current = setTimeout(() => setCaption(null), ms);
   }, []);
 
-  const melt = useCallback(() => {
-    try { sessionStorage.setItem("buddy-intro", "1"); } catch {}
-    setPhase("drop");
-    setTimeout(() => {
-      const hold = say(SECTION_LINES[lastSection.current || "hero"]);
+  // Greeting starts on its own shortly after load, no click needed.
+  useEffect(() => {
+    if (!booted) return;
+    const t = setTimeout(() => {
+      if (openRef.current) return;
+      const hold = say(SECTION_LINES.hero);
       hideLater(hold + 2500);
-    }, reduce ? 0 : 1100);
-  }, [say, hideLater, reduce]);
+    }, 700);
+    return () => clearTimeout(t);
+  }, [booted, say, hideLater]);
 
   // Eyes follow the pointer.
   useEffect(() => {
@@ -138,7 +123,7 @@ export function Buddy({ answer }: Props) {
         ratios.forEach((r, id) => { if (r > bestR) { bestR = r; best = id; } });
         if (best && best !== lastSection.current) {
           lastSection.current = best;
-          if (phaseRef.current === "drop" && !openRef.current && best !== "hero") {
+          if (!openRef.current && best !== "hero") {
             const hold = say(SECTION_LINES[best]);
             hideLater(hold + 1500);
           }
@@ -173,13 +158,6 @@ export function Buddy({ answer }: Props) {
     return () => window.removeEventListener("keydown", k);
   }, []);
 
-  useEffect(() => {
-    if (phase !== "card") return;
-    const k = (e: KeyboardEvent) => { if (e.key === "Enter" && lines >= 3) melt(); };
-    window.addEventListener("keydown", k);
-    return () => window.removeEventListener("keydown", k);
-  }, [phase, lines, melt]);
-
   useEffect(() => () => {
     if (typeTimer.current) clearInterval(typeTimer.current);
     if (hideTimer.current) clearTimeout(hideTimer.current);
@@ -187,13 +165,11 @@ export function Buddy({ answer }: Props) {
 
   if (!booted) return null;
 
-  const isCard = phase === "card";
-
   return (
     <div className="buddy-root fixed bottom-4 left-4 z-[60] sm:bottom-6 sm:left-6" style={{ pointerEvents: "none" }}>
       {/* Speech bubble / Q&A panel */}
       <AnimatePresence>
-        {!isCard && (open || caption) && (
+        {(open || caption) && (
           <motion.div
             key={open ? "panel" : "bubble"}
             initial={{ opacity: 0, y: 12, scale: 0.92 }}
@@ -244,42 +220,15 @@ export function Buddy({ answer }: Props) {
         )}
       </AnimatePresence>
 
-      {/* Terminal card that melts into the droplet */}
+      {/* Chrome droplet */}
       <motion.div
         ref={drop}
         className="buddy-shell relative overflow-hidden"
         style={{ pointerEvents: "auto", transformOrigin: "bottom left" }}
         initial={false}
-        animate={
-          isCard
-            ? { width: 300, height: 176, borderRadius: 18 }
-            : { width: DROP, height: DROP, borderRadius: 999 }
-        }
-        transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 120, damping: 15, mass: 0.9 }}
+        animate={{ width: DROP, height: DROP, borderRadius: 999 }}
+        transition={{ duration: 0 }}
       >
-        {/* glass terminal layer */}
-        <motion.div
-          className="buddy-glass absolute inset-0"
-          animate={{ opacity: isCard ? 1 : 0 }}
-          transition={{ duration: reduce ? 0 : 0.45, delay: isCard ? 0 : 0.15 }}
-        >
-          <div className="flex items-center gap-1.5 px-3 pt-2.5">
-            <span className="h-2 w-2 rounded-full bg-rose-400/80" />
-            <span className="h-2 w-2 rounded-full bg-amber-300/80" />
-            <span className="h-2 w-2 rounded-full bg-emerald-400/80" />
-            <span className="ml-2 text-[10px] text-slate-400">metawea ~ zsh</span>
-          </div>
-          <div className="px-3.5 pt-3 font-mono text-[11.5px] leading-5 text-slate-200">
-            <p style={{ opacity: lines >= 1 ? 1 : 0 }}><span className="text-emerald-300">$</span> npx start @metawea</p>
-            <p style={{ opacity: lines >= 2 ? 1 : 0 }}><span className="text-sky-300">&gt;</span> meet buddy<span className="buddy-caret">_</span></p>
-          </div>
-          <div className="absolute inset-x-3 bottom-3 flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-2.5 py-1.5 text-[11px] text-slate-200 backdrop-blur" style={{ opacity: lines >= 3 ? 1 : 0.0, transition: "opacity .4s" }}>
-            <span className="flex-1">Press <kbd className="rounded bg-black/40 px-1 font-mono">Return</kbd> or</span>
-            <button type="button" onClick={melt} className="rounded-lg bg-emerald-400 px-2.5 py-1 font-semibold text-slate-900 hover:bg-emerald-300">Run ↵</button>
-          </div>
-          <button type="button" onClick={melt} className="absolute right-2.5 top-2 text-[10px] text-slate-400 hover:text-slate-200" aria-label="Skip intro">skip</button>
-        </motion.div>
-
         {/* chrome droplet layer */}
         <motion.button
           type="button"
@@ -287,9 +236,9 @@ export function Buddy({ answer }: Props) {
           aria-label="Buddy: ask about Mohamed"
           aria-expanded={open}
           className={`buddy-chrome absolute inset-0 ${talking ? "buddy-talk" : ""}`}
-          animate={{ opacity: isCard ? 0 : 1, scale: isCard ? 0.6 : 1 }}
-          transition={{ duration: reduce ? 0 : 0.5, delay: isCard ? 0 : 0.35 }}
-          tabIndex={isCard ? -1 : 0}
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: reduce ? 0 : 0.4 }}
         >
           <span className="buddy-gloss" />
           <span ref={eyes} className="buddy-eyes">

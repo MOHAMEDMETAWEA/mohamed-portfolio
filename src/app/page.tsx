@@ -166,31 +166,35 @@ const skills = {
     icon: Code
   },
   "Machine Learning": { 
-    skills: ["Scikit-learn", "TensorFlow", "Feature Engineering", "Model Evaluation", "Ensemble Methods"],
+    skills: ["Scikit-learn", "TensorFlow", "Regression", "Classification", "Clustering", "SVM", "KNN", "Decision Trees", "Random Forest", "Feature Engineering", "Model Evaluation", "Ensemble Methods", "SHAP Explainability"],
     icon: Brain
   },
   "Deep Learning": { 
-    skills: ["Neural Networks", "CNN", "RNN", "LSTM", "Transformers", "Transfer Learning", "Keras"],
+    skills: ["Neural Networks", "CNN", "RNN", "LSTM", "GRU", "Transformers", "Transfer Learning", "Keras"],
     icon: Cpu
   },
   "Generative AI & LLMs": { 
-    skills: ["LangChain", "LangGraph", "OpenAI API", "GPT-4o", "RAG", "AI Agents", "Prompt Engineering", "Fine-tuning", "RLHF", "Vector Databases", "MCP"],
+    skills: ["LangChain", "LangGraph", "OpenAI API", "GPT-4o", "RAG", "AI Agents", "Prompt Engineering", "Fine-tuning (LoRA, PEFT)", "RLHF", "Embeddings", "Multimodal AI", "Vector Databases", "MCP"],
     icon: Sparkles
   },
   "Computer Vision": { 
-    skills: ["OpenCV", "CNN Vision Models", "Vision Transformers", "Face Recognition", "Image Classification"],
+    skills: ["OpenCV", "YOLO", "CNN Vision Models", "Vision Transformers", "Face Recognition", "Image Classification"],
     icon: Eye
   },
   "NLP & Text Analytics": { 
-    skills: ["Transformers", "Text Classification", "NER", "Sentiment Analysis", "Tokenization", "Word Embeddings"],
+    skills: ["Transformers", "Text Classification", "NER", "Sentiment Analysis", "Tokenization", "Word Embeddings", "TF-IDF", "Word2Vec", "GloVe", "Summarization", "Question Answering"],
     icon: MessageSquare
   },
   "MLOps & Deployment": { 
     skills: ["Docker", "FastAPI", "MLflow", "CI/CD", "Cloud Deployment", "Prometheus", "API Integration"],
     icon: Server
   },
+  "Networking": { 
+    skills: ["VLANs & 802.1Q Trunking", "Inter-VLAN Routing", "RIP / EIGRP / OSPF", "ACLs", "NAT", "DHCP", "STP", "EtherChannel", "Port Security", "Hikvision HCSA (Networking, CCTV, Audio, Installer)"],
+    icon: Server
+  },
   "Cloud & Automation": { 
-    skills: ["Microsoft Azure", "AWS", "Cloudflare Workers", "n8n", "Git", "Power BI"],
+    skills: ["Microsoft Azure", "AWS", "Cloudflare Workers", "n8n", "Git", "Jupyter", "Power BI"],
     icon: Cloud
   },
   "Databases & Data": { 
@@ -256,7 +260,7 @@ const projects = [
     title: "AI Personal Assistant — Multi-Agent System",
     featured: true,
     isNew: true,
-    description: "Multi-agent AI system built in n8n with central Orchestrator routing tasks across 9 specialized sub-agents (Calendar, Email, Search, Weather, Notes, Reminders, Social Media, Data Analysis, Web Automation). Supports voice (Groq Whisper) and image (Gemini) input through WhatsApp and Telegram.",
+    description: "Multi-agent AI system built in n8n with central Orchestrator routing tasks across 9 specialized sub-agents (Calendar, Email, Search, Weather, Notes, Reminders, Social Media, Data Analysis, Web Automation). Supports voice (Groq Whisper) and image (Gemini) input through WhatsApp and Telegram. Per his CV, it integrates Google Calendar, Gmail and Sheets via OAuth2, and cost went from about $120 a month to $0 by moving to free-tier APIs.",
     tech: ["n8n", "OpenRouter", "Groq", "Gemini", "Multi-Agent", "OAuth2"],
     category: "Agentic AI",
     icon: Bot,
@@ -273,7 +277,7 @@ const projects = [
     id: 3,
     title: "AI-Based Face Recognition Attendance System",
     featured: true,
-    description: "Graduation project: a real-time face recognition attendance system with a liveness (anti-spoofing) check based on the open-source Silent-Face-Anti-Spoofing models. Flask web dashboard where admins register employees and view date-wise attendance logs, and employees are marked by webcam scan. CNN-based face recognition with 95% accuracy and sub-second inference latency (per his CV).",
+    description: "Graduation project: a real-time face recognition attendance system with a liveness (anti-spoofing) check based on the open-source Silent-Face-Anti-Spoofing models. Flask web dashboard where admins register employees and view date-wise attendance logs, and employees are marked by webcam scan. CNN-based face recognition with 95% accuracy and sub-second inference latency. Per his CV, liveness detection and anti-spoofing blocked 98% of replay attacks and the automated attendance workflow cut manual administrative effort by 80%.",
     tech: ["Python", "OpenCV", "Flask", "CNN", "Liveness Detection"],
     category: "Computer Vision",
     icon: Eye,
@@ -291,7 +295,7 @@ const projects = [
     id: 4,
     title: "Heart Disease Risk Prediction System",
     featured: false,
-    description: "Machine learning web app that estimates coronary artery disease risk from 7 clinical parameters and gives risk scores with recommendations, for healthcare professionals. Personal Streamlit demo using logistic regression and random forest. A related LightGBM/XGBoost heart-disease model was built in the DEPI graduation team project.",
+    description: "Machine learning web app that estimates coronary artery disease risk from 7 clinical parameters and gives risk scores with recommendations, for healthcare professionals. Personal Streamlit demo using logistic regression and random forest. A related LightGBM/XGBoost heart-disease model was built in the DEPI graduation team project. His CV also lists a LightGBM/XGBoost ensemble with 92% recall and a 0.90 F1-score, with SHAP explainability.",
     tech: ["Python", "Machine Learning", "Streamlit", "Scikit-learn"],
     category: "Healthcare AI",
     icon: Heart,
@@ -305,7 +309,7 @@ const projects = [
     id: 5,
     title: "Multilabel Comment Toxicity Detection",
     featured: false,
-    description: "Multi-label text classifier that flags six types of toxicity (toxic, severe toxic, obscene, threat, insult, identity hate) using a Bidirectional LSTM trained on the Jigsaw Toxic Comment dataset. Ships with a trained Keras model and a Gradio demo for scoring comments.",
+    description: "Multi-label text classifier that flags six types of toxicity (toxic, severe toxic, obscene, threat, insult, identity hate) using a Bidirectional LSTM trained on the Jigsaw Toxic Comment dataset. Ships with a trained Keras model and a Gradio demo for scoring comments. His CV also lists a TF-IDF and scikit-learn version that cut false positives by 18% through threshold optimization.",
     tech: ["Python", "TensorFlow", "Bidirectional LSTM", "NLP", "Gradio"],
     category: "NLP",
     icon: MessageSquare,
@@ -2415,17 +2419,17 @@ export default function Portfolio() {
                 icon: Sparkles,
                 title: "Generative AI & RAG",
                 subtitle: "Vector Search",
-                desc: "FAISS vector indexing, hybrid search, reranking, prompt engineering, and LLM fine-tuning and RLHF concepts from coursework.",
+                desc: "FAISS vector indexing, hybrid search, reranking, prompt engineering, and fine-tuning (LoRA, PEFT) and RLHF.",
                 gradient: "from-teal-500/20 to-cyan-500/20",
-                badge: "FAISS · RAG"
+                badge: "FAISS · LoRA"
               },
               {
                 icon: Eye,
                 title: "Computer Vision",
                 subtitle: "Deep Perception & Biometrics",
-                desc: "CNN emotion recognition, face recognition with an anti-spoofing liveness check, and image classification.",
+                desc: "CNN emotion recognition, YOLO object detection, face recognition with an anti-spoofing liveness check, and image classification.",
                 gradient: "from-cyan-500/20 to-blue-500/20",
-                badge: "OpenCV · CNN"
+                badge: "OpenCV · YOLO"
               },
               {
                 icon: Server,

@@ -760,3 +760,28 @@ html:not([data-theme="light"]) [data-slot="card-title"] { color: #f8fafc; }
   50% { transform: translateY(-5px) scale(0.98, 1.045); }
   75% { transform: translateY(-2px) scale(1.03, 0.975); }
 }
+
+/* Background particles: CSS transform/opacity only (compositor), paused when offscreen */
+.pf-p { animation-name: pf-float; animation-timing-function: ease-in-out; animation-iteration-count: infinite; will-change: transform, opacity; }
+@keyframes pf-float {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.2; }
+  50% { transform: translate3d(var(--dx, 0px), -30px, 0); opacity: 0.6; }
+}
+.pfield[data-off="1"] .pf-p, #hero.hero-off::before, #hero.hero-off::after { animation-play-state: paused; }
+@media (max-width: 640px) { .pf-p:nth-child(n+11) { display: none; } }
+@media (prefers-reduced-motion: reduce) { .pf-p, #hero::before, #hero::after { animation: none !important; } }
+
+/* Hero decorations moved from the JS animation loop to CSS (same motion), paused when the hero is offscreen */
+.fx-grad { animation: fx-grad 4s ease-in-out infinite; }
+@keyframes fx-grad { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+.fx-spin { animation: fx-rot 20s linear infinite; will-change: transform; }
+.fx-spin3 { animation: fx-rot 3s linear infinite; }
+@keyframes fx-rot { to { transform: rotate(360deg); } }
+.fx-fa { animation: fx-fa 4s ease-in-out infinite; will-change: transform; }
+.fx-fb { animation: fx-fb 5s ease-in-out 0.5s infinite; will-change: transform; }
+.fx-fc { animation: fx-fc 3.5s ease-in-out 1s infinite; will-change: transform; }
+@keyframes fx-fa { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-10px) rotate(5deg); } }
+@keyframes fx-fb { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(10px) rotate(-5deg); } }
+@keyframes fx-fc { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.1); } }
+.hero-off .fx-grad, .hero-off .fx-spin, .hero-off .fx-fa, .hero-off .fx-fb, .hero-off .fx-fc { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .fx-grad, .fx-spin, .fx-spin3, .fx-fa, .fx-fb, .fx-fc { animation: none !important; } }

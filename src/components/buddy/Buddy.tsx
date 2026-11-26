@@ -288,6 +288,17 @@ export function Buddy({ answer }: Props) {
       const d = await r.json();
       if (d && typeof d.answer === "string" && d.answer.trim()) a = d.answer.trim();
     } catch {}
+    // Spoken typed answers: free Cloudflare Workers AI voice. If it is unavailable, the browser voice is used.
+    if (a && !mutedRef.current && (a.match(/[A-Za-z]/g) || []).length > a.length * 0.6) {
+      try {
+        const ctl2 = new AbortController();
+        const to2 = setTimeout(() => ctl2.abort(), 7000);
+        const rr = await fetch(HAMO_API + "/tts", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text: cleanForSpeech(a).slice(0, 300) }), signal: ctl2.signal });
+        clearTimeout(to2);
+        const dd = await rr.json();
+        if (dd && typeof dd.audio === "string" && dd.audio.length > 100) clipsRef.current[a] = "data:audio/mpeg;base64," + dd.audio;
+      } catch {}
+    }
     setThinking(false);
     say(a ?? offline(q));
   };

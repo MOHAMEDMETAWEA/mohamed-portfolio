@@ -33,26 +33,6 @@ const CHIPS: { label: string; q: string }[] = [
 const DROP = 72;
 const HAMO_API = "https://hamo-api.mohamedmostafametawea.workers.dev";
 
-function cleanForSpeech(t: string) {
-  return t
-    .replace(/https?:\/\/\S+/g, "the link on this page")
-    .replace(/[\w.+-]+@[\w-]+\.[\w.]+/g, "the email on this page")
-    .replace(/\bGPA 3\.44\/4\.0/g, "GPA 3.44 out of 4")
-    .replace(/\s*\n+\s*/g, ". ");
-}
-
-function pickVoice(): SpeechSynthesisVoice | null {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return null;
-  const vs = window.speechSynthesis.getVoices().filter((v) => /^en([-_]|$)/i.test(v.lang));
-  if (!vs.length) return null;
-  const prefs = [/natural|online/i, /google us english/i, /samantha|ava|allison|zoe|karen|daniel/i, /en[-_]us/i];
-  for (const re of prefs) {
-    const v = vs.find((x) => re.test(x.name) || re.test(x.lang));
-    if (v) return v;
-  }
-  return vs[0];
-}
-
 export function Buddy({ answer }: Props) {
   const offline = (q: string) => {
     const t = q.toLowerCase();
@@ -73,12 +53,6 @@ export function Buddy({ answer }: Props) {
   const [typed, setTyped] = useState("");
   const [asked, setAsked] = useState<string | null>(null);
   const [talking, setTalking] = useState(false);
-  const [speaking, setSpeaking] = useState(false);
-  const [muted, setMuted] = useState(false);
-  const [canSpeak, setCanSpeak] = useState(false);
-  const mutedRef = useRef(false);
-  const pendingSpeech = useRef<string | null>(null);
-  const currentText = useRef<string | null>(null);
   const [input, setInput] = useState("");
 
   const drop = useRef<HTMLDivElement>(null);
@@ -90,65 +64,7 @@ export function Buddy({ answer }: Props) {
   // Boot: the droplet is always there, and it greets by itself on every load.
   useEffect(() => {
     setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-    const ok = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
-    setCanSpeak(true);
-    let m = false;
-    try { m = localStorage.getItem("buddy-muted") === "1"; } catch {}
-    setMuted(m);
-    mutedRef.current = m;
-    if (ok) { window.speechSynthesis.getVoices(); }
     setBooted(true);
-    Promise.all([import("./clips-s"), import("./clips-c1"), import("./clips-c2")]).then(([a, b, c]) => { clipsRef.current = { ...a.default, ...b.default, ...c.default }; }).catch(() => {});
-  }, []);
-
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const clipsRef = useRef<Record<string, string>>({});
-  const stopAudio = () => {
-    const a = audioRef.current;
-    if (a) { try { a.pause(); } catch {} audioRef.current = null; }
-  };
-
-  const speak = useCallback((text: string) => {
-    currentText.current = text;
-    if (typeof window === "undefined" || mutedRef.current) return;
-    // Fixed lines use pre-generated neural voice clips: they sound the same on every device and need no system voices.
-    const clip = clipsRef.current[text];
-    if (clip) {
-      try {
-        stopAudio();
-        try { window.speechSynthesis?.cancel(); } catch {}
-        const a = new Audio(clip);
-        audioRef.current = a;
-        a.onplay = () => { pendingSpeech.current = null; setSpeaking(true); };
-        a.onended = () => setSpeaking(false);
-        a.onerror = () => setSpeaking(false);
-        pendingSpeech.current = text;
-        const pr = a.play();
-        if (pr && typeof pr.catch === "function") pr.catch(() => { setSpeaking(false); pendingSpeech.current = text; });
-      } catch {}
-      return;
-    }
-    if (!("speechSynthesis" in window)) return;
-    stopAudio();
-    try {
-      const ss = window.speechSynthesis;
-      ss.cancel();
-      const u = new SpeechSynthesisUtterance(cleanForSpeech(text));
-      const v = pickVoice();
-      if (v) { u.voice = v; u.lang = v.lang; } else { u.lang = "en-US"; }
-      u.rate = 1.03;
-      u.pitch = 1.12;
-      u.onstart = () => { pendingSpeech.current = null; setSpeaking(true); };
-      u.onend = () => setSpeaking(false);
-      u.onerror = (e) => {
-        setSpeaking(false);
-        // Blocked until the visitor interacts with the page: remember it and say it on the first gesture.
-        if ((e as SpeechSynthesisErrorEvent).error === "not-allowed") pendingSpeech.current = text;
-      };
-      ss.speak(u);
-      // Some engines drop the error event when blocked: keep it pending until speech actually starts.
-      pendingSpeech.current = text;
-    } catch {}
   }, []);
 
   const say = useCallback((text: string, hold = 6500) => {
@@ -157,7 +73,6 @@ export function Buddy({ answer }: Props) {
     setCaption(text);
     setTyped("");
     setTalking(true);
-    speak(text);
     let i = 0;
     const step = reduce ? text.length : 3;
     typeTimer.current = setInterval(() => {
@@ -169,7 +84,7 @@ export function Buddy({ answer }: Props) {
       }
     }, 18);
     return hold;
-  }, [reduce, speak]);
+  }, [reduce]);
 
   const hideLater = useCallback((ms: number) => {
     if (hideTimer.current) clearTimeout(hideTimer.current);
@@ -233,34 +148,6 @@ export function Buddy({ answer }: Props) {
     return () => io.disconnect();
   }, [booted, say, hideLater]);
 
-  // Browsers only allow speech after a real gesture (click, tap or key press; scroll and mouse move do not count).
-  // The first one speaks whatever Buddy is currently saying, without any visible prompt.
-  useEffect(() => {
-    if (!booted || !canSpeak) return;
-    const go = () => {
-      const t = pendingSpeech.current;
-      if (t && !mutedRef.current && currentText.current === t) speak(t);
-      pendingSpeech.current = null;
-      ["pointerdown", "keydown", "touchend", "click"].forEach((n) => window.removeEventListener(n, go));
-    };
-    ["pointerdown", "keydown", "touchend", "click"].forEach((n) => window.addEventListener(n, go, { passive: true }));
-    const vc = () => { /* voices loaded */ };
-    window.speechSynthesis?.addEventListener?.("voiceschanged", vc);
-    return () => {
-      ["pointerdown", "keydown", "touchend", "click"].forEach((n) => window.removeEventListener(n, go));
-      window.speechSynthesis?.removeEventListener?.("voiceschanged", vc);
-    };
-  }, [booted, canSpeak, speak]);
-
-  const toggleMute = () => {
-    const m = !mutedRef.current;
-    mutedRef.current = m;
-    setMuted(m);
-    try { localStorage.setItem("buddy-muted", m ? "1" : "0"); } catch {}
-    if (m) { stopAudio(); try { window.speechSynthesis.cancel(); } catch {} setSpeaking(false); }
-    else if (currentText.current && caption) speak(currentText.current);
-  };
-
   const openRef = useRef(open);
   openRef.current = open;
 
@@ -288,17 +175,6 @@ export function Buddy({ answer }: Props) {
       const d = await r.json();
       if (d && typeof d.answer === "string" && d.answer.trim()) a = d.answer.trim();
     } catch {}
-    // Spoken typed answers: free Cloudflare Workers AI voice. If it is unavailable, the browser voice is used.
-    if (a && !mutedRef.current && (a.match(/[A-Za-z]/g) || []).length > a.length * 0.6) {
-      try {
-        const ctl2 = new AbortController();
-        const to2 = setTimeout(() => ctl2.abort(), 7000);
-        const rr = await fetch(HAMO_API + "/tts", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text: cleanForSpeech(a).slice(0, 300) }), signal: ctl2.signal });
-        clearTimeout(to2);
-        const dd = await rr.json();
-        if (dd && typeof dd.audio === "string" && dd.audio.length > 100) clipsRef.current[a] = "data:audio/mpeg;base64," + dd.audio;
-      } catch {}
-    }
     setThinking(false);
     say(a ?? offline(q));
   };
@@ -312,8 +188,6 @@ export function Buddy({ answer }: Props) {
   useEffect(() => () => {
     if (typeTimer.current) clearInterval(typeTimer.current);
     if (hideTimer.current) clearTimeout(hideTimer.current);
-    try { window.speechSynthesis?.cancel(); } catch {}
-    stopAudio();
   }, []);
 
   if (!booted) return null;
@@ -388,7 +262,7 @@ export function Buddy({ answer }: Props) {
           onClick={() => { setOpen((o) => { const n = !o; if (n) { if (hideTimer.current) clearTimeout(hideTimer.current); setAsked(null); say("Hi! Pick a topic or type a question. I only know what is on this page and Mohamed's CV."); } else { setCaption(null); } return n; }); }}
           aria-label="Hamo: ask about Mohamed"
           aria-expanded={open}
-          className={`buddy-chrome absolute inset-0 ${talking || speaking ? "buddy-talk" : ""}`}
+          className={`buddy-chrome absolute inset-0 ${talking ? "buddy-talk" : ""}`}
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: reduce ? 0 : 0.4 }}
@@ -401,23 +275,6 @@ export function Buddy({ answer }: Props) {
           <span className="buddy-mouth" />
         </motion.button>
       </motion.div>
-
-      {canSpeak && (
-        <button
-          type="button"
-          onClick={toggleMute}
-          aria-label={muted ? "Unmute Hamo" : "Mute Hamo"}
-          aria-pressed={muted}
-          title={muted ? "Unmute Hamo" : "Mute Hamo"}
-          className="buddy-mute"
-          style={{ pointerEvents: "auto" }}
-        >
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor" stroke="none" />
-            {muted ? (<><path d="m17 9 5 6" /><path d="m22 9-5 6" /></>) : (<><path d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M18.5 5.5a9 9 0 0 1 0 13" /></>)}
-          </svg>
-        </button>
-      )}
     </div>
   );
 }

@@ -125,6 +125,10 @@ export function Buddy({ answer }: Props) {
     return () => document.removeEventListener("visibilitychange", h);
   }, []);
 
+  const glRef = useRef<HTMLCanvasElement>(null);
+  const [gl, setGl] = useState(false);
+  const talkRef = useRef(false);
+  talkRef.current = talking || playing;
   const drop = useRef<HTMLDivElement>(null);
   const eyes = useRef<HTMLDivElement>(null);
   const lastSection = useRef<string>("");
@@ -136,6 +140,23 @@ export function Buddy({ answer }: Props) {
     setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     setBooted(true);
   }, []);
+
+  // 3D orb: lazy WebGL after first paint. Falls back to the CSS orb on low-end, reduced-motion or no WebGL.
+  useEffect(() => {
+    if (!booted || reduce) return;
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    if ((nav.hardwareConcurrency || 4) <= 3 || (nav.deviceMemory || 4) <= 2) return;
+    let stop: (() => void) | null = null;
+    let dead = false;
+    const t = setTimeout(() => {
+      import("./orbgl").then((m) => {
+        if (dead || !glRef.current) return;
+        stop = m.startOrb(glRef.current, () => talkRef.current, () => setGl(false));
+        if (stop) setGl(true);
+      }).catch(() => { /* keep the CSS orb */ });
+    }, 2200);
+    return () => { dead = true; clearTimeout(t); if (stop) stop(); };
+  }, [booted, reduce]);
 
   const say = useCallback((text: string, hold = 6500) => {
     if (typeTimer.current) clearInterval(typeTimer.current);
@@ -420,11 +441,12 @@ export function Buddy({ answer }: Props) {
           onClick={() => { setOpen((o) => { const n = !o; if (n) { if (hideTimer.current) clearTimeout(hideTimer.current); setAsked(null); say("Hi! Pick a topic or type a question. I only know what is on this page and Mohamed's CV."); } else { setCaption(null); } return n; }); }}
           aria-label="Hamo: ask about Mohamed"
           aria-expanded={open}
-          className={`buddy-chrome absolute inset-0 ${talking ? "buddy-talk" : ""}`}
+          className={`buddy-chrome absolute inset-0 ${talking ? "buddy-talk" : ""} ${gl ? "buddy-gl-on" : ""}`}
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: reduce ? 0 : 0.4 }}
         >
+          <canvas ref={glRef} className="buddy-gl" aria-hidden="true" />
           <span className="buddy-gloss" />
           <span ref={eyes} className="buddy-eyes">
             <i className="buddy-eye"><b /></i>

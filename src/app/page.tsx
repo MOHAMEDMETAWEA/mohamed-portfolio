@@ -153,9 +153,7 @@ const experience = {
   period: "Feb 2025 – Mar 2025",
   responsibilities: [
     "Developed machine learning models for predictive maintenance, improving model performance using cross-validation and feature engineering",
-    "Containerized and deployed 3 ML models as REST APIs using Flask and Docker, enabling real-time inference and consistent deployment environments",
-    "Collaborated with cross-functional teams on AI-driven solutions for industrial applications",
-    "Implemented data preprocessing and feature engineering workflows for production ML pipelines"
+    "Containerized and deployed 3 ML models as REST APIs using Flask and Docker, enabling real-time inference and consistent deployment environments"
   ]
 }
 
@@ -2300,7 +2298,7 @@ export default function Portfolio() {
             </h2>
           </AnimatedSection>
 
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
+          <div className="max-w-3xl mx-auto mb-12">
             {/* Education Card */}
             <AnimatedSection delay={0.1}>
               <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.3 }}>
@@ -2352,52 +2350,6 @@ export default function Portfolio() {
               </motion.div>
             </AnimatedSection>
 
-            {/* Experience Card */}
-            <AnimatedSection delay={0.2}>
-              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.3 }}>
-                <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-shadow duration-300 h-full">
-                  <CardHeader>
-                    <div className="flex items-center gap-4">
-                      <motion.div 
-                        whileHover={{ rotate: -10, scale: 1.1 }}
-                        className="p-3 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-xl"
-                      >
-                        <Briefcase className="h-6 w-6 text-teal-600" />
-                      </motion.div>
-                      <div>
-                        <CardTitle className="text-xl">Experience</CardTitle>
-                        <CardDescription>{experience.period}</CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <h3 className="font-semibold text-lg text-slate-900 mb-1">{experience.title}</h3>
-                    <p className="text-teal-600 font-medium mb-4">{experience.company}</p>
-                    <ul className="space-y-2">
-                      {experience.responsibilities.map((resp, idx) => (
-                        <motion.li 
-                          key={idx} 
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: idx * 0.12 }}
-                          className="flex items-start gap-2 text-sm text-slate-600"
-                        >
-                          <motion.div 
-                            className="w-1.5 h-1.5 bg-teal-500 rounded-full mt-2 flex-shrink-0"
-                            initial={{ scale: 0 }}
-                            whileInView={{ scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: idx * 0.12 + 0.1, type: "spring" }}
-                          />
-                          {resp}
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </AnimatedSection>
           </div>
 
           {/* GitHub Stats */}

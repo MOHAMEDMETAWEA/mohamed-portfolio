@@ -54,6 +54,17 @@ function pickVoice(): SpeechSynthesisVoice | null {
 }
 
 export function Buddy({ answer }: Props) {
+  const offline = (q: string) => {
+    const t = q.toLowerCase();
+    const map: [RegExp, string][] = [
+      [/medagent|triage/, "medagent"], [/skill|python|tensorflow|langchain|stack|technolog|tools/, "skills"],
+      [/project|built|build|portfolio/, "projects"], [/experience|intern|cellula|work|job|employ/, "experience"],
+      [/educat|degree|universit|study|gpa|graduat/, "education"], [/certif|course|coursera|ibm|training/, "certifications"],
+      [/contact|email|phone|reach|hire|linkedin|github/, "contact"],
+    ];
+    for (const [re, k] of map) if (re.test(t)) return answer(k);
+    return "I can't reach my AI brain right now, and I have no pre-written answer for that. Please contact Mohamed directly using the links in the Contact section.";
+  };
   const [thinking, setThinking] = useState(false);
   const [booted, setBooted] = useState(false);
   const [reduce, setReduce] = useState(false);
@@ -251,7 +262,7 @@ export function Buddy({ answer }: Props) {
       if (d && typeof d.answer === "string" && d.answer.trim()) a = d.answer.trim();
     } catch {}
     setThinking(false);
-    say(a ?? answer(q));
+    say(a ?? offline(q));
   };
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CLIPS_A } from "./clips-va";
 import { CLIPS_B } from "./clips-vb";
 import { CLIPS_C } from "./clips-vc";
+import { HI_CLIP } from "./clips-hi";
 
 const CLIPS: Record<string, string> = { ...CLIPS_A, ...CLIPS_B, ...CLIPS_C };
 
@@ -141,6 +142,39 @@ export function Buddy({ answer }: Props) {
     if (hideTimer.current) clearTimeout(hideTimer.current);
     hideTimer.current = setTimeout(() => setCaption(null), ms);
   }, []);
+
+  // Droplet landing: caption "Hi, I'm Hamo" with the splash, voice on first gesture (autoplay is tried first).
+  useEffect(() => {
+    if (!booted) return;
+    const t = setTimeout(() => { if (!openRef.current) { const h = say("Hi, I'm Hamo", 3000); hideLater(h > 3000 ? 3000 : h); } }, reduce ? 300 : 1250);
+    let done = false;
+    try { if (sessionStorage.getItem("hamo-hi")) done = true; } catch { /* ignore */ }
+    let armed = false;
+    const events = ["pointerdown", "keydown", "touchend", "click"] as const;
+    const disarm = () => { events.forEach((e) => window.removeEventListener(e, onGesture, true)); armed = false; };
+    const playHi = () => {
+      if (done) return Promise.resolve();
+      const a = new Audio(HI_CLIP);
+      return a.play().then(() => { done = true; try { sessionStorage.setItem("hamo-hi", "1"); } catch { /* ignore */ } });
+    };
+    function onGesture(ev: Event) {
+      const tgt = ev.target as Element | null;
+      if (tgt && tgt.closest && tgt.closest(".buddy-root")) { disarm(); return; }
+      disarm();
+      playHi().catch(() => { /* ignore */ });
+    }
+    const start = setTimeout(() => {
+      if (done) return;
+      playHi().catch(() => {
+        if (done) return;
+        armed = true;
+        events.forEach((e) => window.addEventListener(e, onGesture, true));
+      });
+    }, reduce ? 300 : 900);
+    const giveUp = setTimeout(() => { if (armed) disarm(); }, 20000);
+    return () => { clearTimeout(t); clearTimeout(start); clearTimeout(giveUp); if (armed) disarm(); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [booted, reduce]);
 
   // Greeting starts on its own shortly after load, no click needed.
   useEffect(() => {
@@ -340,6 +374,9 @@ export function Buddy({ answer }: Props) {
       </AnimatePresence>
 
       {/* Chrome droplet */}
+      <div className={reduce ? "buddy-fall-wrap" : "buddy-fall-wrap buddy-fall"} style={{ position: "relative", width: DROP, height: DROP }}>
+      <span className="buddy-ripple" aria-hidden="true" />
+      <span className="buddy-ripple buddy-ripple2" aria-hidden="true" />
       <motion.div
         ref={drop}
         className="buddy-shell relative overflow-hidden"
@@ -367,6 +404,7 @@ export function Buddy({ answer }: Props) {
           <span className="buddy-mouth" />
         </motion.button>
       </motion.div>
+      </div>
     </div>
   );
 }

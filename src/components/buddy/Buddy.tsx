@@ -167,12 +167,30 @@ export function Buddy({ answer }: Props) {
       const k = Math.min(1, dist / 220);
       e.style.setProperty("--ex", `${(dx / dist) * 4.5 * k}px`);
       e.style.setProperty("--ey", `${(dy / dist) * 4 * k}px`);
+      d.style.setProperty("--ry", `${(dx / dist) * 14 * k}deg`);
+      d.style.setProperty("--rx", `${-(dy / dist) * 12 * k}deg`);
+      d.style.setProperty("--gx", `${(dx / dist) * 3 * k}px`);
+      d.style.setProperty("--gy", `${(dy / dist) * 3 * k}px`);
+      lastLook = Date.now();
     };
+    let lastLook = 0;
+    // Idle glances when nobody is moving a pointer.
+    const idle = setInterval(() => {
+      if (Date.now() - lastLook < 4000 || document.hidden) return;
+      const a = Math.random() * Math.PI * 2;
+      const d = drop.current;
+      const r = d ? d.getBoundingClientRect() : null;
+      if (!r) return;
+      const cx = r.left + r.width / 2 + Math.cos(a) * 160;
+      const cy = r.top + r.height / 2 + Math.sin(a) * 120;
+      look(cx, cy);
+      lastLook = 0;
+    }, 3200);
     const m = (ev: MouseEvent) => look(ev.clientX, ev.clientY);
     const t = (ev: TouchEvent) => ev.touches[0] && look(ev.touches[0].clientX, ev.touches[0].clientY);
     window.addEventListener("mousemove", m);
     window.addEventListener("touchmove", t, { passive: true });
-    return () => { window.removeEventListener("mousemove", m); window.removeEventListener("touchmove", t); };
+    return () => { clearInterval(idle); window.removeEventListener("mousemove", m); window.removeEventListener("touchmove", t); };
   }, []);
 
   // Scroll captions: one short line per section, using only facts shown on the page.

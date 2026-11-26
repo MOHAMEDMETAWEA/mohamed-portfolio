@@ -785,3 +785,10 @@ html:not([data-theme="light"]) [data-slot="card-title"] { color: #f8fafc; }
 @keyframes fx-fc { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.1); } }
 .hero-off .fx-grad, .hero-off .fx-spin, .hero-off .fx-fa, .hero-off .fx-fb, .hero-off .fx-fc { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .fx-grad, .fx-spin, .fx-spin3, .fx-fa, .fx-fb, .fx-fc { animation: none !important; } }
+
+/* WebGL orb */
+.buddy-gl { display: none; position: absolute; left: -12px; top: -12px; width: 96px; height: 96px; pointer-events: none; }
+.buddy-chrome.buddy-gl-on { background: transparent; box-shadow: none; }
+.buddy-chrome.buddy-gl-on .buddy-gl { display: block; }
+.buddy-chrome.buddy-gl-on .buddy-gloss, .buddy-chrome.buddy-gl-on::after, .buddy-chrome.buddy-gl-on::before { display: none; }
+.buddy-chrome { overflow: visible; }

@@ -26,7 +26,8 @@ import { CustomCursor } from "@/components/animations/custom-cursor"
 import { MEDIAA } from "@/lib/mediaA"
 import { MEDIAB } from "@/lib/mediaB"
 import { MEDIAC } from "@/lib/mediaC"
-const MEDIA: Record<string, string> = { ...MEDIAA, ...MEDIAB, ...MEDIAC }
+import { MEDIAD } from "@/lib/mediaD"
+const MEDIA: Record<string, string> = { ...MEDIAA, ...MEDIAB, ...MEDIAC, ...MEDIAD }
 
 
 // ─── Animation Components ──────────────────────────────────────────
@@ -373,7 +374,8 @@ const projects = [
     icon: Aperture,
     github: "https://github.com/MOHAMEDMETAWEA/IrisDetection-project",
     image: MEDIA["iris.jpg"],
-    caption: "Real output from the project's notebook: test-image predictions (red) vs labels (green) and training loss.",
+    video: MEDIA["iris.mp4"],
+    caption: "Notebook outputs, not a live run: labelled samples, training loss and test predictions (dots mark the points). Model weights are not in the repo.",
   },
   {
     id: 11,
@@ -385,7 +387,8 @@ const projects = [
     icon: Activity,
     github: "https://github.com/MOHAMEDMETAWEA/Deep-CNN-emotion-recognition",
     image: MEDIA["emo.jpg"],
-    caption: "Real output from the project's training notebook: sample data, confusion matrix and a test prediction.",
+    video: MEDIA["emotion.mp4"],
+    caption: "Real run of the saved model on dataset sample images (happy vs sad only, not a general emotion detector). Notebook test accuracy: 93.3% on 15 images.",
   },
   {
     id: 12,

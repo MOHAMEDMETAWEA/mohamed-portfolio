@@ -2397,9 +2397,9 @@ export default function Portfolio() {
                 icon: Bot,
                 title: "Agentic Systems",
                 subtitle: "Multi-Agent Orchestrations",
-                desc: "LangGraph, LangChain, n8n workflows, Model Context Protocol (MCP), and autonomous tool execution.",
+                desc: "LangChain, n8n workflows, Model Context Protocol (MCP), and autonomous tool execution.",
                 gradient: "from-emerald-500/20 to-teal-500/20",
-                badge: "LangGraph · MCP"
+                badge: "LangChain · MCP"
               },
               {
                 icon: Sparkles,

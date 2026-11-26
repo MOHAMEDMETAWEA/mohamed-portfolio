@@ -1852,26 +1852,32 @@ function GitHubRepos() {
 // ─── Particle Background ─────────────────────────────────────────────
 
 function ParticleField() {
+  const box = useRef<HTMLDivElement>(null)
+  // Pause the background animation while the hero is offscreen or the tab is hidden.
+  useEffect(() => {
+    const el = box.current
+    const hero = el?.closest('#hero') as HTMLElement | null
+    if (!el) return
+    const set = (off: boolean) => { el.dataset.off = off ? '1' : '0'; hero?.classList.toggle('hero-off', off) }
+    let visible = true
+    const upd = () => set(!visible || document.hidden)
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; upd() })
+    io.observe(el)
+    document.addEventListener('visibilitychange', upd)
+    return () => { io.disconnect(); document.removeEventListener('visibilitychange', upd) }
+  }, [])
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div ref={box} className="pfield absolute inset-0 overflow-hidden pointer-events-none">
       {Array.from({ length: 20 }).map((_, i) => (
-        <motion.div
+        <span
           key={i}
-          className="absolute w-1 h-1 bg-emerald-400/30 rounded-full"
+          className="pf-p absolute w-1 h-1 bg-emerald-400/30 rounded-full"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, Math.random() * 20 - 10, 0],
-            opacity: [0.2, 0.6, 0.2],
-          }}
-          transition={{
-            duration: 4 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 3,
-            ease: "easeInOut",
+            ['--dx' as string]: `${Math.random() * 20 - 10}px`,
+            animationDuration: `${4 + Math.random() * 4}s`,
+            animationDelay: `${Math.random() * 3}s`,
           }}
         />
       ))}
@@ -2147,9 +2153,7 @@ export default function Portfolio() {
               <motion.h1 variants={fadeInUp} className="text-3xl sm:text-5xl lg:text-4xl xl:text-[2.75rem] font-bold text-slate-900 mb-4 leading-tight">
                 <CharacterReveal text="Mohamed Mostafa" className="inline-flex !flex-nowrap whitespace-nowrap mr-3" />
                 <motion.span 
-                  className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent bg-[length:200%_200%] inline-block"
-                  animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="fx-grad bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent bg-[length:200%_200%] inline-block"
                 >
                   Metawea
                 </motion.span>
@@ -2225,9 +2229,7 @@ export default function Portfolio() {
               >
                 {/* Decorative elements */}
                 <motion.div 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute -inset-4 bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 rounded-full blur-2xl"
+                  className="fx-spin absolute -inset-4 bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 rounded-full blur-2xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-400 rounded-3xl transform rotate-6 opacity-20" />
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-400 rounded-3xl transform -rotate-3 opacity-20" />
@@ -2242,23 +2244,17 @@ export default function Portfolio() {
 
                 {/* Floating Tech Icons */}
                 <motion.div 
-                  className="absolute -top-6 -right-6 p-3 bg-white rounded-2xl shadow-lg border border-emerald-100 z-20"
-                  animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="fx-fa absolute -top-6 -right-6 p-3 bg-white rounded-2xl shadow-lg border border-emerald-100 z-20"
                 >
                   <Brain className="h-6 w-6 text-emerald-500" />
                 </motion.div>
                 <motion.div 
-                  className="absolute top-1/2 -left-10 p-2.5 bg-white rounded-2xl shadow-lg border border-teal-100 z-20"
-                  animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  className="fx-fb absolute top-1/2 -left-10 p-2.5 bg-white rounded-2xl shadow-lg border border-teal-100 z-20"
                 >
                   <Code className="h-5 w-5 text-teal-500" />
                 </motion.div>
                 <motion.div 
-                  className="absolute bottom-10 -right-8 p-2 bg-white rounded-2xl shadow-lg border border-cyan-100 z-20"
-                  animate={{ y: [0, -8, 0], scale: [1, 1.1, 1] }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="fx-fc absolute bottom-10 -right-8 p-2 bg-white rounded-2xl shadow-lg border border-cyan-100 z-20"
                 >
                   <Sparkles className="h-4 w-4 text-cyan-500" />
                 </motion.div>
@@ -2553,10 +2549,7 @@ export default function Portfolio() {
           <AnimatedSection className="mt-12" delay={0.3}>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                >
+                <motion.div className="fx-spin3">
                   <RefreshCw className="h-5 w-5 text-emerald-500" />
                 </motion.div>
                 <h3 className="text-xl font-semibold text-slate-900">Latest from GitHub</h3>

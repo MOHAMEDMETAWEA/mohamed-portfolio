@@ -452,6 +452,17 @@ const projects = [
     image: MEDIA["depi.jpg"],
     caption: "Real output from a DEPI course lab notebook (CNN digit classifier).",
   },
+  {
+    id: 17,
+    title: "Arabic OCR with Fine-tuned Vision-Language Models",
+    featured: false,
+    description: "Learning project from a course: working through the open-source fine-tuning of a vision-language model for Arabic document OCR (checkpoints, scripts and evaluation notebooks). Based on the public arabic-legal-documents-ocr model; the model is not my own and no results are claimed.",
+    tech: ["Python", "Vision-Language Models", "Fine-tuning", "Arabic OCR"],
+    category: "Computer Vision",
+    icon: Eye,
+    github: "https://github.com/MOHAMEDMETAWEA/Finetune-VLMs-for-Complex-Arabic-OCR",
+    image: null,
+  },
 ]
 
 const certifications = [

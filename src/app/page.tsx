@@ -25,11 +25,17 @@ import { TiltCard } from "@/components/animations/tilt-card"
 import { CustomCursor } from "@/components/animations/custom-cursor"
 import { Buddy } from "@/components/buddy/Buddy"
 import { KineticHeading } from "@/components/buddy/KineticHeading"
-import { MEDIAA } from "@/lib/mediaA"
-import { MEDIAB } from "@/lib/mediaB"
-import { MEDIAC } from "@/lib/mediaC"
-import { MEDIAD } from "@/lib/mediaD"
-const MEDIA: Record<string, string> = { ...MEDIAA, ...MEDIAB, ...MEDIAC, ...MEDIAD }
+// Project screenshots and demo clips load in separate chunks after the page is interactive.
+const MEDIA: Record<string, string> = {}
+let mediaLoad: Promise<void> | null = null
+function loadMedia(): Promise<void> {
+  if (!mediaLoad) {
+    mediaLoad = Promise.all([import("@/lib/mediaA"), import("@/lib/mediaB"), import("@/lib/mediaC"), import("@/lib/mediaD")])
+      .then(([a, b, c, d]) => { Object.assign(MEDIA, a.MEDIAA, b.MEDIAB, c.MEDIAC, d.MEDIAD) })
+      .catch(() => { mediaLoad = null })
+  }
+  return mediaLoad
+}
 
 
 // ─── Animation Components ──────────────────────────────────────────
@@ -282,7 +288,7 @@ const projects = [
     category: "Computer Vision",
     icon: Eye,
     github: "https://github.com/MOHAMEDMETAWEA/Graduation-project-Face-attendance-system-face-recognition-based-on-AI-",
-    image: MEDIA["face.jpg"],
+    get image() { return MEDIA["face.jpg"] },
     caption: "The project's real Flask app running locally: home, login and register pages (no camera in this capture).",
     caseStudy: {
       problem: "Attendance tracking needs to be automatic and hard to fake with a photo or a video.",
@@ -300,9 +306,9 @@ const projects = [
     category: "Healthcare AI",
     icon: Heart,
     github: "https://github.com/MOHAMEDMETAWEA/HeartDisease-Predictor",
-    image: MEDIA["heart_result.jpg"],
-    video: MEDIA["heart.mp4"],
-    gallery: [MEDIA["heart_form.jpg"]],
+    get image() { return MEDIA["heart_result.jpg"] },
+    get video() { return MEDIA["heart.mp4"] },
+    get gallery() { return [MEDIA["heart_form.jpg"]] },
     caption: "The project's real Streamlit app running locally with its trained model (Low Risk result shown).",
   },
   {
@@ -314,9 +320,9 @@ const projects = [
     category: "NLP",
     icon: MessageSquare,
     github: "https://github.com/MOHAMEDMETAWEA/CommentToxicity_project",
-    image: MEDIA["tox_result1.jpg"],
-    video: MEDIA["tox.mp4"],
-    gallery: [MEDIA["tox_form.jpg"]],
+    get image() { return MEDIA["tox_result1.jpg"] },
+    get video() { return MEDIA["tox.mp4"] },
+    get gallery() { return [MEDIA["tox_form.jpg"]] },
     caption: "The project's real Gradio app running locally with its trained toxicity.keras model.",
   },
   {
@@ -328,9 +334,9 @@ const projects = [
     category: "NLP",
     icon: FileText,
     github: "https://github.com/MOHAMEDMETAWEA/Building-a-Job-Description-and-Resume-Matching-System-With-Python-Using-Machine-Learning",
-    image: MEDIA["resume_result.jpg"],
-    video: MEDIA["resume.mp4"],
-    gallery: [MEDIA["resume_form.jpg"]],
+    get image() { return MEDIA["resume_result.jpg"] },
+    get video() { return MEDIA["resume.mp4"] },
+    get gallery() { return [MEDIA["resume_form.jpg"]] },
     caption: "The project's real Flask app running locally on its 12 sample resumes.",
   },
   {
@@ -342,7 +348,7 @@ const projects = [
     category: "Generative AI",
     icon: Sparkles,
     github: "https://github.com/MOHAMEDMETAWEA/FashionGAN-project",
-    image: MEDIA["gan.jpg"],
+    get image() { return MEDIA["gan.jpg"] },
     caption: "Real output from the project's training notebook: generated 4x4 grid and training loss.",
   },
   {
@@ -354,7 +360,7 @@ const projects = [
     category: "Deep Learning",
     icon: Music,
     github: "https://github.com/MOHAMEDMETAWEA/DeepAudioClassification_Project",
-    image: MEDIA["audio.jpg"],
+    get image() { return MEDIA["audio.jpg"] },
     caption: "Real project output: the exported results.csv from the forest-recording inference run (100 recordings).",
   },
   {
@@ -366,8 +372,8 @@ const projects = [
     category: "Computer Vision",
     icon: Leaf,
     github: "https://github.com/MOHAMEDMETAWEA/Potato-Disease-Classification-Using-CNN",
-    image: MEDIA["potato_result1.jpg"],
-    video: MEDIA["potato.mp4"],
+    get image() { return MEDIA["potato_result1.jpg"] },
+    get video() { return MEDIA["potato.mp4"] },
     caption: "The project's real Streamlit app running locally with the trained CNN on a sample leaf image.",
   },
   {
@@ -379,8 +385,8 @@ const projects = [
     category: "Computer Vision",
     icon: Aperture,
     github: "https://github.com/MOHAMEDMETAWEA/IrisDetection-project",
-    image: MEDIA["iris.jpg"],
-    video: MEDIA["iris.mp4"],
+    get image() { return MEDIA["iris.jpg"] },
+    get video() { return MEDIA["iris.mp4"] },
     caption: "Notebook outputs, not a live run: labelled samples, training loss and test predictions (dots mark the points). Model weights are not in the repo.",
   },
   {
@@ -392,8 +398,8 @@ const projects = [
     category: "Computer Vision",
     icon: Activity,
     github: "https://github.com/MOHAMEDMETAWEA/Deep-CNN-emotion-recognition",
-    image: MEDIA["emo.jpg"],
-    video: MEDIA["emotion.mp4"],
+    get image() { return MEDIA["emo.jpg"] },
+    get video() { return MEDIA["emotion.mp4"] },
     caption: "Real run of the saved model on dataset sample images (happy vs sad only, not a general emotion detector). Notebook test accuracy: 93.3% on 15 images.",
   },
   {
@@ -405,7 +411,7 @@ const projects = [
     category: "Healthcare AI",
     icon: Activity,
     github: "https://github.com/MOHAMEDMETAWEA/Depi_Graduation_project",
-    image: MEDIA["health.jpg"],
+    get image() { return MEDIA["health.jpg"] },
     caption: "Real output from the project's EDA notebook: class and feature distributions.",
   },
   {
@@ -417,9 +423,9 @@ const projects = [
     category: "Backend",
     icon: Server,
     github: "https://github.com/MOHAMEDMETAWEA/Fast_Api",
-    image: MEDIA["fa_exec.jpg"],
-    video: MEDIA["fa.mp4"],
-    gallery: [MEDIA["fa_docs.jpg"]],
+    get image() { return MEDIA["fa_exec.jpg"] },
+    get video() { return MEDIA["fa.mp4"] },
+    get gallery() { return [MEDIA["fa_docs.jpg"]] },
     caption: "The collection's FastAPI books app running locally: Swagger docs and a live request.",
   },
   {
@@ -443,7 +449,7 @@ const projects = [
     category: "Generative AI",
     icon: Lightbulb,
     github: "https://github.com/MOHAMEDMETAWEA/Prompt-Engineering",
-    image: MEDIA["prompt.jpg"],
+    get image() { return MEDIA["prompt.jpg"] },
     caption: "Real prompt and model response from the project's notebook.",
   },
   {
@@ -455,7 +461,7 @@ const projects = [
     category: "Generative AI",
     icon: Rocket,
     github: "https://github.com/MOHAMEDMETAWEA/DEPI_GENERATIVE---AGENTIC-AI-Professional_Laps-projects",
-    image: MEDIA["depi.jpg"],
+    get image() { return MEDIA["depi.jpg"] },
     caption: "Real output from a DEPI course lab notebook (CNN digit classifier).",
   },
   {
@@ -917,7 +923,7 @@ const languageColors: Record<string, string> = {
 const aiResponses: Record<string, string> = {
   "hello": "Hello! 👋 I'm Mohamed's AI Assistant. I can help you learn about his skills, projects, and experience. What would you like to know?",
   "hi": "Hi there! 👋 I'm Mohamed's AI Personal Assistant demo. Ask me about his projects, skills, or experience!",
-  "skills": "Mohamed's top skills include:\n• Python, TensorFlow, Keras\n• LangChain, RAG, AI Agents\n• Computer Vision (OpenCV, CNNs)\n• NLP (Transformers, text classification)\n• MLOps (Docker, FastAPI, MLflow)\n• n8n Workflow Automation",
+  "skills": "Mohamed's top skills include:\n• Python, TensorFlow, Keras\n• LangChain, LangGraph, RAG with FAISS, AI Agents\n• GPT-4o and other LLM APIs\n• Computer Vision (OpenCV, CNNs, YOLO)\n• NLP (Transformers, text classification)\n• MLOps (Docker, FastAPI, MLflow)\n• n8n Workflow Automation",
   "projects": "Mohamed has many projects including:\n🍽️ Restaurant n8n AI Agent — Complete System\n✨ Dream AI Analyses — Data-Driven Insights\n🏥 MedAgent — Clinical triage assistant (DEPI team project)\n🤖 AI Personal Assistant — 9 sub-agents\n👁️ Face Recognition Attendance System\n❤️ Heart Disease Predictor\n🧠 And many more in GenAI & CV!",
   "restaurant": "The Restaurant n8n AI Agent is a complete management system that handles ordering, order tracking, loyalty points and admin reports using n8n and Supabase. Customers and admins use it through a Telegram bot!",
   "dream ai": "Dream AI Analyses is a project exploring data-driven insights through generative AI applications. It showcases the integration of NLP and Machine Learning for comprehensive data analysis.",
@@ -1910,6 +1916,12 @@ function FxEnhancer() {
 }
 
 export default function Portfolio() {
+  const [, setMediaReady] = useState(false)
+  useEffect(() => {
+    const go = () => { void loadMedia().then(() => setMediaReady(true)) }
+    const w = window as unknown as { requestIdleCallback?: (f: () => void) => void }
+    if (w.requestIdleCallback) w.requestIdleCallback(go); else setTimeout(go, 800)
+  }, [])
   const [activeSection, setActiveSection] = useState('hero')
   const [showAllCerts, setShowAllCerts] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)

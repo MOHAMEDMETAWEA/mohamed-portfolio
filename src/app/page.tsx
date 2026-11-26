@@ -23,6 +23,8 @@ import { useMagnetic } from "@/hooks/use-magnetic"
 import { TextReveal, CharacterReveal } from "@/components/animations/text-reveal"
 import { TiltCard } from "@/components/animations/tilt-card"
 import { CustomCursor } from "@/components/animations/custom-cursor"
+import { Buddy } from "@/components/buddy/Buddy"
+import { KineticHeading } from "@/components/buddy/KineticHeading"
 import { MEDIAA } from "@/lib/mediaA"
 import { MEDIAB } from "@/lib/mediaB"
 import { MEDIAC } from "@/lib/mediaC"
@@ -1962,6 +1964,7 @@ export default function Portfolio() {
       
       {/* Scroll Progress */}
       <ScrollProgressBar />
+      <Buddy answer={getAIResponse} />
       
       {/* Back to Top */}
       <BackToTop />
@@ -2295,12 +2298,7 @@ export default function Portfolio() {
             <Badge variant="outline" className="mb-4 border-emerald-200 text-emerald-700 bg-emerald-50/50">
               About Me
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Engineering the Future of{' '}
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                Intelligent Systems
-              </span>
-            </h2>
+            <KineticHeading className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4" lead="Engineering the Future of" accent="Intelligent Systems" accentClassName="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent" />
           </AnimatedSection>
 
           <div className="max-w-3xl mx-auto mb-12">
@@ -2472,12 +2470,7 @@ export default function Portfolio() {
             <Badge variant="outline" className="mb-4 border-emerald-200 text-emerald-700 bg-emerald-50/50">
               Technical Skills
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Technologies &{' '}
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                Expertise
-              </span>
-            </h2>
+            <KineticHeading className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4" lead="Technologies &" accent="Expertise" accentClassName="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent" />
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -2495,12 +2488,7 @@ export default function Portfolio() {
             <Badge variant="outline" className="mb-4 border-emerald-200 text-emerald-700 bg-emerald-50/50">
               Featured Work
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              My{' '}
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                Projects
-              </span>
-            </h2>
+            <KineticHeading className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4" lead="My" accent="Projects" accentClassName="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent" />
             <p className="text-slate-600 max-w-2xl mx-auto">
               A collection of 15+ projects showcasing expertise in AI, Machine Learning, Computer Vision, NLP, and n8n Automation
             </p>
@@ -2573,12 +2561,7 @@ export default function Portfolio() {
             <Badge variant="outline" className="mb-4 border-emerald-200 text-emerald-700 bg-emerald-50/50">
               Career Journey
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Professional{' '}
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                Experience
-              </span>
-            </h2>
+            <KineticHeading className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4" lead="Professional" accent="Experience" accentClassName="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent" />
           </AnimatedSection>
 
           <div className="max-w-3xl mx-auto">
@@ -2658,12 +2641,7 @@ export default function Portfolio() {
             <Badge variant="outline" className="mb-4 border-emerald-200 text-emerald-700 bg-emerald-50/50">
               Credentials
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Professional{' '}
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                Certifications
-              </span>
-            </h2>
+            <KineticHeading className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4" lead="Professional" accent="Certifications" accentClassName="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent" />
             <p className="text-slate-600">{certifications.length} industry-recognized certifications in AI and Data Science</p>
           </AnimatedSection>
 
@@ -2768,12 +2746,7 @@ export default function Portfolio() {
             <Badge className="mb-4 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
               Get in Touch
             </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Let&apos;s Build Something{' '}
-              <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                Amazing
-              </span>
-            </h2>
+            <KineticHeading className="text-3xl sm:text-4xl font-bold text-white mb-4" lead="Let's Build Something" accent="Amazing" accentClassName="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent" />
             <p className="text-slate-400 max-w-2xl mx-auto">
               Ready to bring AI-powered solutions to your next project? Let&apos;s discuss how we can work together.
             </p>

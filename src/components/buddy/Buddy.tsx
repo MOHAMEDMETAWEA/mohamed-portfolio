@@ -2,12 +2,27 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CLIPS_A } from "./clips-va";
-import { CLIPS_B } from "./clips-vb";
-import { CLIPS_C } from "./clips-vc";
-import { HI_CLIP } from "./clips-hi";
 
-const CLIPS: Record<string, string> = { ...CLIPS_A, ...CLIPS_B, ...CLIPS_C };
+// Voice clips live in separate chunks that load only when needed (never in the main bundle).
+type ClipMap = Record<string, string>;
+const FAMILY: Record<string, () => Promise<ClipMap>> = {
+  intro: () => import("./clips-va").then((m) => m.CLIPS_A), skills: () => import("./clips-va").then((m) => m.CLIPS_A), projects: () => import("./clips-va").then((m) => m.CLIPS_A),
+  experience: () => import("./clips-vb").then((m) => m.CLIPS_B), education: () => import("./clips-vb").then((m) => m.CLIPS_B), certifications: () => import("./clips-vb").then((m) => m.CLIPS_B),
+  medagent: () => import("./clips-vc").then((m) => m.CLIPS_C), contact: () => import("./clips-vc").then((m) => m.CLIPS_C),
+};
+const clipCache: ClipMap = {};
+function loadClip(key: string): Promise<string | undefined> {
+  if (clipCache[key]) return Promise.resolve(clipCache[key]);
+  const f = FAMILY[key];
+  if (!f) return Promise.resolve(undefined);
+  return f().then((m) => { Object.assign(clipCache, m); return clipCache[key]; }).catch(() => undefined);
+}
+let hiCache: string | undefined;
+function loadHi(): Promise<string | undefined> {
+  if (hiCache) return Promise.resolve(hiCache);
+  return import("./clips-hi").then((m) => (hiCache = m.HI_CLIP)).catch(() => undefined);
+}
+const idle = (fn: () => void) => { const w = window as unknown as { requestIdleCallback?: (f: () => void) => void }; if (w.requestIdleCallback) w.requestIdleCallback(fn); else setTimeout(fn, 1500); };
 
 type Props = {
   /** Pre-written answers, used for the chips and as the fallback when the AI is unavailable. */
@@ -71,14 +86,15 @@ export function Buddy({ answer }: Props) {
   };
   // Tap-to-play only: nothing ever plays by itself.
   const playKey = (key: string) => {
-    if (!CLIPS[key]) return;
+    if (!FAMILY[key]) return;
     if (playing) { stopAudio(); return; }
     const a = audioRef.current ?? new Audio();
     audioRef.current = a;
-    a.src = CLIPS[key];
     a.onended = () => { setPlaying(false); setIntroPlaying(false); };
     a.onerror = () => { setPlaying(false); setIntroPlaying(false); };
-    a.play().then(() => setPlaying(true)).catch(() => { setPlaying(false); setIntroPlaying(false); });
+    const go = (src: string) => { a.src = src; a.play().then(() => setPlaying(true)).catch(() => { setPlaying(false); setIntroPlaying(false); }); };
+    if (clipCache[key]) go(clipCache[key]);
+    else loadClip(key).then((src) => { if (src) go(src); else { setPlaying(false); setIntroPlaying(false); } });
   };
   const listen = () => { if (spokenKey) playKey(spokenKey); };
 
@@ -88,6 +104,8 @@ export function Buddy({ answer }: Props) {
   useEffect(() => {
     try { if (!localStorage.getItem("hamo-intro-seen")) setWelcome(true); } catch { /* ignore */ }
   }, []);
+  useEffect(() => { if (welcome) idle(() => { void loadClip("intro"); }); }, [welcome]);
+  useEffect(() => { if (open) idle(() => { ["skills", "experience", "medagent"].forEach((k) => { void loadClip(k); }); }); }, [open]);
   const closeWelcome = () => {
     try { localStorage.setItem("hamo-intro-seen", "1"); } catch { /* ignore */ }
     stopAudio();
@@ -154,7 +172,8 @@ export function Buddy({ answer }: Props) {
     const disarm = () => { events.forEach((e) => window.removeEventListener(e, onGesture, true)); armed = false; };
     const playHi = () => {
       if (done) return Promise.resolve();
-      const a = new Audio(HI_CLIP);
+      if (!hiCache) return Promise.reject(new Error("not loaded"));
+      const a = new Audio(hiCache);
       return a.play().then(() => { done = true; try { sessionStorage.setItem("hamo-hi", "1"); } catch { /* ignore */ } });
     };
     function onGesture(ev: Event) {
@@ -163,8 +182,10 @@ export function Buddy({ answer }: Props) {
       disarm();
       playHi().catch(() => { /* ignore */ });
     }
+    if (!done) idle(() => { void loadHi(); });
     const start = setTimeout(() => {
       if (done) return;
+      if (!hiCache) { void loadHi().then(() => { if (!done && hiCache) playHi().catch(() => { if (!done) { armed = true; events.forEach((e) => window.addEventListener(e, onGesture, true)); } }); }); return; }
       playHi().catch(() => {
         if (done) return;
         armed = true;
@@ -190,13 +211,16 @@ export function Buddy({ answer }: Props) {
 
   // Eyes follow the pointer.
   useEffect(() => {
-    const look = (cx: number, cy: number) => {
+    let raf = 0;
+    let px = 0, py = 0;
+    const apply = () => {
+      raf = 0;
       const d = drop.current;
       const e = eyes.current;
       if (!d || !e) return;
       const r = d.getBoundingClientRect();
-      const dx = cx - (r.left + r.width / 2);
-      const dy = cy - (r.top + r.height / 2);
+      const dx = px - (r.left + r.width / 2);
+      const dy = py - (r.top + r.height / 2);
       const dist = Math.hypot(dx, dy) || 1;
       const k = Math.min(1, dist / 220);
       e.style.setProperty("--ex", `${(dx / dist) * 4.5 * k}px`);
@@ -205,7 +229,12 @@ export function Buddy({ answer }: Props) {
       d.style.setProperty("--rx", `${-(dy / dist) * 12 * k}deg`);
       d.style.setProperty("--gx", `${(dx / dist) * 3 * k}px`);
       d.style.setProperty("--gy", `${(dy / dist) * 3 * k}px`);
-      lastLook = Date.now();
+    };
+    // One update per frame at most, and none while the tab is hidden.
+    const look = (cx: number, cy: number) => {
+      if (document.hidden) return;
+      px = cx; py = cy; lastLook = Date.now();
+      if (!raf) raf = requestAnimationFrame(apply);
     };
     let lastLook = 0;
     // Idle glances when nobody is moving a pointer.
@@ -224,7 +253,7 @@ export function Buddy({ answer }: Props) {
     const t = (ev: TouchEvent) => ev.touches[0] && look(ev.touches[0].clientX, ev.touches[0].clientY);
     window.addEventListener("mousemove", m);
     window.addEventListener("touchmove", t, { passive: true });
-    return () => { clearInterval(idle); window.removeEventListener("mousemove", m); window.removeEventListener("touchmove", t); };
+    return () => { if (raf) cancelAnimationFrame(raf); clearInterval(idle); window.removeEventListener("mousemove", m); window.removeEventListener("touchmove", t); };
   }, []);
 
   // Scroll captions: one short line per section, using only facts shown on the page.
@@ -333,7 +362,7 @@ export function Buddy({ answer }: Props) {
               <div className="mb-2 flex items-center justify-between">
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-300">Ask Hamo | حمو</span>
                 <div className="flex items-center gap-1">
-                  {spokenKey && CLIPS[spokenKey] && (
+                  {spokenKey && FAMILY[spokenKey] && (
                     <button type="button" onClick={listen} className="rounded-full border border-emerald-400/40 px-2 py-0.5 text-[11px] text-emerald-200 hover:bg-emerald-400/15" aria-label={playing ? "Stop voice" : "Listen to this answer"}>{playing ? "■ Stop" : "▶ Listen"}</button>
                   )}
                   <button type="button" onClick={() => { stopAudio(); setOpen(false); }} className="rounded px-1.5 text-slate-300 hover:text-white" aria-label="Close">×</button>

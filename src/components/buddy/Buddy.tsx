@@ -2,6 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { CLIPS_A } from "./clips-va";
+import { CLIPS_B } from "./clips-vb";
+import { CLIPS_C } from "./clips-vc";
+
+const CLIPS: Record<string, string> = { ...CLIPS_A, ...CLIPS_B, ...CLIPS_C };
 
 type Props = {
   /** Pre-written answers, used for the chips and as the fallback when the AI is unavailable. */
@@ -54,6 +59,26 @@ export function Buddy({ answer }: Props) {
   const [asked, setAsked] = useState<string | null>(null);
   const [talking, setTalking] = useState(false);
   const [input, setInput] = useState("");
+  const [spokenKey, setSpokenKey] = useState<string | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const stopAudio = () => {
+    const a = audioRef.current;
+    if (a) { a.pause(); a.currentTime = 0; }
+    setPlaying(false);
+  };
+  // Tap-to-play only: nothing ever plays by itself.
+  const listen = () => {
+    if (!spokenKey || !CLIPS[spokenKey]) return;
+    if (playing) { stopAudio(); return; }
+    const a = audioRef.current ?? new Audio();
+    audioRef.current = a;
+    a.src = CLIPS[spokenKey];
+    a.onended = () => setPlaying(false);
+    a.onerror = () => setPlaying(false);
+    a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+  };
 
   const drop = useRef<HTMLDivElement>(null);
   const eyes = useRef<HTMLDivElement>(null);
@@ -152,6 +177,8 @@ export function Buddy({ answer }: Props) {
   openRef.current = open;
 
   const ask = (label: string, q: string) => {
+    stopAudio();
+    setSpokenKey(q);
     setAsked(label);
     say(answer(q));
     if (hideTimer.current) clearTimeout(hideTimer.current);
@@ -162,6 +189,8 @@ export function Buddy({ answer }: Props) {
     const q = input.trim().slice(0, 300);
     if (!q || thinking) return;
     setInput("");
+    stopAudio();
+    setSpokenKey(null);
     setAsked(q);
     if (hideTimer.current) clearTimeout(hideTimer.current);
     setThinking(true);
@@ -211,7 +240,12 @@ export function Buddy({ answer }: Props) {
             {open && (
               <div className="mb-2 flex items-center justify-between">
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-300">Ask Hamo | حمو</span>
-                <button type="button" onClick={() => setOpen(false)} className="rounded px-1.5 text-slate-300 hover:text-white" aria-label="Close">×</button>
+                <div className="flex items-center gap-1">
+                  {spokenKey && CLIPS[spokenKey] && (
+                    <button type="button" onClick={listen} className="rounded-full border border-emerald-400/40 px-2 py-0.5 text-[11px] text-emerald-200 hover:bg-emerald-400/15" aria-label={playing ? "Stop voice" : "Listen to this answer"}>{playing ? "■ Stop" : "▶ Listen"}</button>
+                  )}
+                  <button type="button" onClick={() => { stopAudio(); setOpen(false); }} className="rounded px-1.5 text-slate-300 hover:text-white" aria-label="Close">×</button>
+                </div>
               </div>
             )}
             {asked && open && <p className="mb-1.5 text-[12px] text-slate-400">You: {asked}</p>}

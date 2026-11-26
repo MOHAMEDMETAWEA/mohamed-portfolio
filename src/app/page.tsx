@@ -174,7 +174,7 @@ const skills = {
     icon: Cpu
   },
   "Generative AI & LLMs": { 
-    skills: ["LangChain", "OpenAI API", "RAG", "AI Agents", "Prompt Engineering", "Fine-tuning", "RLHF", "Vector Databases", "MCP"],
+    skills: ["LangChain", "LangGraph", "OpenAI API", "GPT-4o", "RAG", "AI Agents", "Prompt Engineering", "Fine-tuning", "RLHF", "Vector Databases", "MCP"],
     icon: Sparkles
   },
   "Computer Vision": { 
@@ -273,8 +273,8 @@ const projects = [
     id: 3,
     title: "AI-Based Face Recognition Attendance System",
     featured: true,
-    description: "Graduation project: a real-time face recognition attendance system with a liveness (anti-spoofing) check based on the open-source Silent-Face-Anti-Spoofing models. Flask web dashboard where admins register employees and view date-wise attendance logs, and employees are marked by webcam scan.",
-    tech: ["Python", "OpenCV", "Flask", "Deep Learning", "Liveness Detection"],
+    description: "Graduation project: a real-time face recognition attendance system with a liveness (anti-spoofing) check based on the open-source Silent-Face-Anti-Spoofing models. Flask web dashboard where admins register employees and view date-wise attendance logs, and employees are marked by webcam scan. CNN-based face recognition with 95% accuracy and sub-second inference latency (per his CV).",
+    tech: ["Python", "OpenCV", "Flask", "CNN", "Liveness Detection"],
     category: "Computer Vision",
     icon: Eye,
     github: "https://github.com/MOHAMEDMETAWEA/Graduation-project-Face-attendance-system-face-recognition-based-on-AI-",
@@ -2407,9 +2407,9 @@ export default function Portfolio() {
                 icon: Bot,
                 title: "Agentic Systems",
                 subtitle: "Multi-Agent Orchestrations",
-                desc: "LangChain, n8n workflows, Model Context Protocol (MCP), and autonomous tool execution.",
+                desc: "LangChain, LangGraph, n8n workflows, Model Context Protocol (MCP), and autonomous tool execution.",
                 gradient: "from-emerald-500/20 to-teal-500/20",
-                badge: "LangChain · MCP"
+                badge: "LangGraph · MCP"
               },
               {
                 icon: Sparkles,

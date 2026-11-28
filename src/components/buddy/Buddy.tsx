@@ -335,6 +335,57 @@ export function Buddy({ answer }: Props) {
   }, [booted, say, hideLater]);
 
   const openRef = useRef(open);
+  // Mobile: if the orb sits on top of a button or link once scrolling stops, move it to the other bottom corner.
+  const [pos, setPos] = useState<{ side: "left" | "right"; lift: boolean }>({ side: "left", lift: false });
+  const side = pos.side;
+  const posRef = useRef(pos);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const LIFT = 96;
+    let t: ReturnType<typeof setTimeout> | undefined;
+    const hitsAt = (x: number, y: number) => {
+      for (const el of document.elementsFromPoint(x, y)) {
+        if (el.closest(".buddy-root")) continue;
+        const c = el.closest("a, button, [role='button'], input, textarea");
+        if (!c || getComputedStyle(c).position === "fixed") continue;
+        const cr = c.getBoundingClientRect();
+        if (cr.width * cr.height < 30000) return true;
+      }
+      return false;
+    };
+    const count = (left: number, top: number, w: number, h: number) => {
+      let n = 0;
+      for (const fx of [0.1, 0.5, 0.9]) for (const fy of [0.1, 0.5, 0.9]) if (hitsAt(left + w * fx, top + h * fy)) n++;
+      return n;
+    };
+    const apply = (next: { side: "left" | "right"; lift: boolean }) => {
+      if (next.side !== posRef.current.side || next.lift !== posRef.current.lift) { posRef.current = next; setPos(next); }
+    };
+    const check = () => {
+      if (!mq.matches) { apply({ side: "left", lift: false }); return; }
+      if (openRef.current) return;
+      const shell = document.querySelector(".buddy-shell");
+      if (!shell) return;
+      const r = shell.getBoundingClientRect();
+      const cur = posRef.current;
+      const baseTop = r.top + (cur.lift ? LIFT : 0);
+      const vw = window.innerWidth;
+      const cands = [cur, { side: cur.side === "left" ? "right" : "left", lift: cur.lift }, { side: cur.side, lift: !cur.lift }, { side: cur.side === "left" ? "right" : "left", lift: !cur.lift }] as { side: "left" | "right"; lift: boolean }[];
+      let best = cands[0];
+      let bestN = Infinity;
+      for (const c of cands) {
+        const n = count(c.side === "left" ? 16 : vw - 16 - r.width, c.lift ? baseTop - LIFT : baseTop, r.width, r.height);
+        if (n < bestN) { best = c; bestN = n; }
+      }
+      const curN = count(cur.side === "left" ? 16 : vw - 16 - r.width, cur.lift ? baseTop - LIFT : baseTop, r.width, r.height);
+      if (curN > 0 && bestN < curN) apply(best);
+    };
+    const onScroll = () => { if (t) clearTimeout(t); t = setTimeout(check, 220); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    t = setTimeout(check, 1500);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); if (t) clearTimeout(t); };
+  }, []);
   openRef.current = open;
 
   const ask = (label: string, q: string) => {
@@ -388,7 +439,7 @@ export function Buddy({ answer }: Props) {
   if (!booted) return null;
 
   return (
-    <div className="buddy-root fixed bottom-4 left-4 z-[60] sm:bottom-6 sm:left-6" style={{ pointerEvents: "none" }}>
+    <div className={`buddy-root fixed bottom-4 z-[60] sm:bottom-6 sm:left-6 ${side === "right" ? "right-4 buddy-right" : "left-4"} ${pos.lift ? "buddy-lift" : ""}`} style={{ pointerEvents: "none" }}>
       {welcome && !open && !caption && (
         <div className="buddy-bubble mb-3 w-[min(21rem,calc(100vw-2rem))] rounded-2xl p-3.5 text-[13px] leading-relaxed" style={{ pointerEvents: "auto" }} role="region" aria-label="Meet Hamo">
           <div className="mb-1.5 flex items-start justify-between gap-2">
@@ -411,7 +462,7 @@ export function Buddy({ answer }: Props) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 260, damping: 22 }}
-            className="buddy-bubble mb-3 w-[min(21rem,calc(100vw-2rem))] rounded-2xl p-3.5 text-[13px] leading-relaxed"
+            className={`buddy-bubble ${open ? "" : "buddy-caption"} mb-3 w-[min(21rem,calc(100vw-2rem))] rounded-2xl p-3.5 text-[13px] leading-relaxed`}
             style={{ pointerEvents: "auto", transformOrigin: "bottom left" }}
             role={open ? "dialog" : undefined}
             aria-label={open ? "Ask Hamo about Mohamed" : undefined}

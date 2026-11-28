@@ -411,7 +411,7 @@ export function Buddy({ answer }: Props) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 260, damping: 22 }}
-            className="buddy-bubble mb-3 w-[min(21rem,calc(100vw-2rem))] rounded-2xl p-3.5 text-[13px] leading-relaxed"
+            className={`buddy-bubble ${open ? "" : "buddy-caption"} mb-3 w-[min(21rem,calc(100vw-2rem))] rounded-2xl p-3.5 text-[13px] leading-relaxed`}
             style={{ pointerEvents: "auto", transformOrigin: "bottom left" }}
             role={open ? "dialog" : undefined}
             aria-label={open ? "Ask Hamo about Mohamed" : undefined}

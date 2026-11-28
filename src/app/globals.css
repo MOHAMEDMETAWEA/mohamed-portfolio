@@ -827,3 +827,18 @@ html:not([data-theme="light"]) [data-slot="card-title"] { color: #f8fafc; }
 @media (prefers-reduced-motion: reduce) {
   .hero-line, .hero-copy > *, .hero-photo-wrap { animation: none !important; }
 }
+
+/* Mobile: Hamo captions stay right above the orb, small and narrow, so they clear the hero buttons. */
+@media (max-width: 639px) {
+  .buddy-bubble.buddy-caption {
+    width: fit-content;
+    max-width: min(12rem, calc(100vw - 2rem));
+    margin-bottom: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    font-size: 12px;
+  }
+}
+@media (max-width: 639px) {
+  .buddy-root { transition: bottom 0.3s ease; }
+  .buddy-root.buddy-lift { bottom: 7rem; }
+}

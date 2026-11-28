@@ -132,7 +132,9 @@ export function Buddy({ answer }: Props) {
   const [welcome, setWelcome] = useState(false);
   const [introPlaying, setIntroPlaying] = useState(false);
   useEffect(() => {
-    try { if (!localStorage.getItem("hamo-intro-seen")) setWelcome(true); } catch { /* ignore */ }
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try { if (!localStorage.getItem("hamo-intro-seen")) timer = setTimeout(() => setWelcome(true), 7000); } catch { /* ignore */ }
+    return () => { if (timer) clearTimeout(timer); };
   }, []);
   useEffect(() => { if (welcome) idle(() => { void loadClip("intro"); }); }, [welcome]);
   useEffect(() => { if (open) idle(() => { ["skills", "experience", "medagent"].forEach((k) => { void loadClip(k); }); }); }, [open]);

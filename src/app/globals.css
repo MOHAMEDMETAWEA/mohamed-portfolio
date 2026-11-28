@@ -792,3 +792,38 @@ html:not([data-theme="light"]) [data-slot="card-title"] { color: #f8fafc; }
 .buddy-chrome.buddy-gl-on .buddy-gl { display: block; }
 .buddy-chrome.buddy-gl-on .buddy-gloss, .buddy-chrome.buddy-gl-on::after, .buddy-chrome.buddy-gl-on::before { display: none; }
 .buddy-chrome { overflow: visible; }
+
+
+/* ── Motion polish (audit) ───────────────────────────────────────── */
+.hero-mask { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.hero-line { display: inline-block; animation: hero-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes hero-up { from { transform: translateY(105%); } to { transform: none; } }
+.hero-copy > * { animation: hero-fade 0.5s ease-out both; }
+.hero-copy > *:nth-child(2) { animation-delay: 0.05s; }
+.hero-copy > *:nth-child(3) { animation-delay: 0.15s; }
+.hero-copy > *:nth-child(4) { animation-delay: 0.2s; }
+.hero-copy > *:nth-child(5) { animation-delay: 0.25s; }
+.hero-copy > *:nth-child(6) { animation-delay: 0.3s; }
+.hero-copy > *:nth-child(7) { animation-delay: 0.35s; }
+@keyframes hero-fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.hero-photo-wrap { animation: hero-photo 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes hero-photo { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: none; } }
+
+/* One bounce ease on buttons and cards */
+[data-slot="button"], .fx-card { transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* Touch devices: tap-press feedback instead of hover */
+@media (hover: none) {
+  [data-slot="button"]:active, .fx-card:active { transform: scale(0.97); transition: transform 0.12s ease-out; }
+}
+
+/* Phones: lighter rendering */
+@media (max-width: 768px) {
+  .backdrop-blur-sm, .backdrop-blur, .backdrop-blur-md, .backdrop-blur-xl { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .pf-p:nth-child(even) { display: none; }
+  #hero::before, #hero::after { filter: blur(40px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-line, .hero-copy > *, .hero-photo-wrap { animation: none !important; }
+}

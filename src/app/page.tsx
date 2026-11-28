@@ -2655,17 +2655,18 @@ export default function Portfolio() {
             <p className="text-slate-600">{certifications.length} industry-recognized certifications in AI and Data Science</p>
           </AnimatedSection>
 
-          <motion.div 
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
-          >
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {(showAllCerts ? certifications : certifications.slice(0, 12)).map((cert, idx) => {
               const Icon = cert.icon
               return (
-                <motion.div key={idx} variants={fadeInUp}>
+                <motion.div
+                  key={idx}
+                  variants={fadeInUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: (idx % 3) * 0.06 }}
+                >
                   <motion.div
                     whileHover={{ y: -6, boxShadow: "0 16px 40px -8px rgba(16,185,129,0.15)" }}
                     transition={{ duration: 0.3 }}
@@ -2742,7 +2743,7 @@ export default function Portfolio() {
                 </motion.div>
               )
             })}
-          </motion.div>
+          </div>
           {certifications.length > 12 && (
             <div className="mt-8 text-center">
               <Button
@@ -2883,4 +2884,4 @@ export default function Portfolio() {
     </div>
     </MotionConfig>
   )
-}
+                }

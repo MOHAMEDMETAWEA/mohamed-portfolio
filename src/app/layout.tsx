@@ -41,20 +41,11 @@ export const metadata: Metadata = {
     url: "https://mohamed-mostafa-metawea.vercel.app",
     siteName: "Mohamed Metawea Portfolio",
     type: "website",
-    images: [
-      {
-        url: "/my-photo.jpg",
-        width: 800,
-        height: 800,
-        alt: "Mohamed Mostafa Metawea",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Mohamed Mostafa Metawea | AI Engineer",
     description: "AI Engineer specializing in Generative AI & Agentic Systems",
-    images: ["/my-photo.jpg"],
   },
 };
 
@@ -107,6 +98,10 @@ export default function RootLayout({
       >
         {children}
         <Toaster />
+        <script
+          dangerouslySetInnerHTML={{ __html: "window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}" }}
+        />
+        <script defer src="/_vercel/insights/script.js" />
       </body>
     </html>
   );

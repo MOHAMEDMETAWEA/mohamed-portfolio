@@ -20,7 +20,6 @@ import {
 } from 'lucide-react'
 
 import { useMagnetic } from "@/hooks/use-magnetic"
-import { TextReveal, CharacterReveal } from "@/components/animations/text-reveal"
 import { TiltCard } from "@/components/animations/tilt-card"
 import { CustomCursor } from "@/components/animations/custom-cursor"
 import { Buddy } from "@/components/buddy/Buddy"
@@ -54,24 +53,26 @@ function MagneticButton({ children, className = "" }: { children: React.ReactNod
   );
 }
 
+const BOUNCE = { type: "spring" as const, stiffness: 420, damping: 18 }
+
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } }
+  hidden: { opacity: 0, y: 20 },
+  visible: (d: number = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.4, delay: d, ease: [0.22, 1, 0.36, 1] as const } })
 }
 
 const fadeInLeft = {
-  hidden: { opacity: 0, x: -40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } }
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const } }
 }
 
 const fadeInRight = {
-  hidden: { opacity: 0, x: 40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } }
+  hidden: { opacity: 0, x: 20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const } }
 }
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } }
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const } }
 }
 
 const staggerContainer = {
@@ -79,8 +80,8 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.15
+      staggerChildren: 0.06,
+      delayChildren: 0.05
     }
   }
 }
@@ -90,8 +91,8 @@ const staggerFast = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1
+      staggerChildren: 0.05,
+      delayChildren: 0.05
     }
   }
 }
@@ -110,7 +111,7 @@ const cardHover = {
     scale: 1.03, 
     y: -8, 
     boxShadow: "0 20px 40px -12px rgba(16,185,129,0.25)",
-    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }
+    transition: BOUNCE
   }
 }
 
@@ -119,7 +120,7 @@ const buttonGlow = {
   hover: { 
     boxShadow: "0 6px 20px 0 rgba(16,185,129,0.45)",
     scale: 1.05,
-    transition: { duration: 0.3, ease: "easeOut" }
+    transition: BOUNCE
   },
   tap: { scale: 0.97 }
 }
@@ -1154,9 +1155,9 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, delay, ease: [0.22, 1, 0.36, 1] as const }}
       className={className}
     >
       {children}
@@ -1453,7 +1454,14 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
               <>
                 <motion.video 
                   src={(project as any).video} 
-                  autoPlay 
+                  ref={(el: HTMLVideoElement | null) => {
+                    if (!el || (el as any).__io) return
+                    const io = new IntersectionObserver(([entry]) => {
+                      if (entry.isIntersecting) { el.play().catch(() => {}) } else { el.pause() }
+                    }, { threshold: 0.25 })
+                    io.observe(el)
+                    ;(el as any).__io = io
+                  }}
                   loop 
                   muted 
                   playsInline
@@ -1866,6 +1874,8 @@ function ParticleField() {
     document.addEventListener('visibilitychange', upd)
     return () => { io.disconnect(); document.removeEventListener('visibilitychange', upd) }
   }, [])
+  // Deterministic pseudo-random values so server and client render the same particles.
+  const rnd = (i: number, k: number) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x) }
   return (
     <div ref={box} className="pfield absolute inset-0 overflow-hidden pointer-events-none">
       {Array.from({ length: 20 }).map((_, i) => (
@@ -1873,11 +1883,11 @@ function ParticleField() {
           key={i}
           className="pf-p absolute w-1 h-1 bg-emerald-400/30 rounded-full"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            ['--dx' as string]: `${Math.random() * 20 - 10}px`,
-            animationDuration: `${4 + Math.random() * 4}s`,
-            animationDelay: `${Math.random() * 3}s`,
+            left: `${(rnd(i, 1) * 100).toFixed(2)}%`,
+            top: `${(rnd(i, 2) * 100).toFixed(2)}%`,
+            ['--dx' as string]: `${(rnd(i, 3) * 20 - 10).toFixed(2)}px`,
+            animationDuration: `${(4 + rnd(i, 4) * 4).toFixed(2)}s`,
+            animationDelay: `${(rnd(i, 5) * 3).toFixed(2)}s`,
           }}
         />
       ))}
@@ -2136,10 +2146,10 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div 
-              initial="hidden"
+              initial={false}
               animate="visible"
               variants={staggerContainer}
-              className="order-2 lg:order-1 text-center lg:text-left"
+              className="hero-copy order-2 lg:order-1 text-center lg:text-left"
             >
               <motion.div variants={fadeInUp}>
                 <motion.div whileHover={{ scale: 1.05 }} className="inline-block">
@@ -2150,17 +2160,20 @@ export default function Portfolio() {
                 </motion.div>
               </motion.div>
               
-              <motion.h1 variants={fadeInUp} className="text-3xl sm:text-5xl lg:text-4xl xl:text-[2.75rem] font-bold text-slate-900 mb-4 leading-tight">
-                <CharacterReveal text="Mohamed Mostafa" className="inline-flex !flex-nowrap whitespace-nowrap mr-3" />
-                <motion.span 
-                  className="fx-grad bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent bg-[length:200%_200%] inline-block"
-                >
-                  Metawea
-                </motion.span>
-              </motion.h1>
+              <h1 className="text-3xl sm:text-5xl lg:text-4xl xl:text-[2.75rem] font-bold text-slate-900 mb-4 leading-tight">
+                <span className="hero-mask mr-3"><span className="hero-line">Mohamed Mostafa</span></span>
+                <span className="hero-mask">
+                  <span
+                    className="hero-line fx-grad bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent bg-[length:200%_200%]"
+                    style={{ animationDelay: "0.12s" }}
+                  >
+                    Metawea
+                  </span>
+                </span>
+              </h1>
               
               <motion.div variants={fadeInUp} className="text-xl sm:text-2xl text-slate-600 mb-4 font-medium min-h-8">
-                <TextReveal text={personalInfo.role} stagger={0.03} />
+                {personalInfo.role}
               </motion.div>
               
               <motion.p variants={fadeInUp} className="accent-text text-emerald-600 font-semibold mb-6 text-lg">
@@ -2199,14 +2212,14 @@ export default function Portfolio() {
 
               <motion.div variants={fadeInUp} className="flex items-center gap-4 justify-center lg:justify-start">
                 {[
-                  { href: personalInfo.github, icon: Github },
-                  { href: personalInfo.linkedin, icon: Linkedin },
-                  { href: personalInfo.whatsapp, icon: MessageSquare },
-                  { href: `mailto:${personalInfo.email}`, icon: Mail }
-                ].map(({ href, icon: Icon }, idx) => (
+                  { href: personalInfo.github, icon: Github, label: "GitHub Profile" },
+                  { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn Profile" },
+                  { href: personalInfo.whatsapp, icon: MessageSquare, label: "WhatsApp" },
+                  { href: `mailto:${personalInfo.email}`, icon: Mail, label: "Email Mohamed" }
+                ].map(({ href, icon: Icon, label }, idx) => (
                   <MagneticButton key={idx}>
-                    <Button variant="ghost" size="icon" className="hover:bg-emerald-50 hover:text-emerald-600 rounded-xl" asChild>
-                      <a href={href} target="_blank" rel="noopener noreferrer">
+                    <Button variant="ghost" size="icon" aria-label={label} className="hover:bg-emerald-50 hover:text-emerald-600 rounded-xl" asChild>
+                      <a href={href} aria-label={label} target="_blank" rel="noopener noreferrer">
                         <Icon className="h-5 w-5" />
                       </a>
                     </Button>
@@ -2216,10 +2229,8 @@ export default function Portfolio() {
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, scale: 0.8, rotate: -2 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] as const }}
-              className="order-1 lg:order-2 flex justify-center"
+              initial={false}
+              className="hero-photo-wrap order-1 lg:order-2 flex justify-center"
             >
               <motion.div 
                 className="relative"
@@ -2237,7 +2248,7 @@ export default function Portfolio() {
                 <motion.img
                   src="/my-photo.jpg"
                   alt={personalInfo.name}
-                  className="hero-photo-dark relative w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-3xl shadow-2xl border-4 border-white z-10"
+                  className="hero-photo-dark relative w-36 h-36 sm:w-80 sm:h-80 object-cover rounded-3xl shadow-2xl border-4 border-white z-10"
                   whileHover={{ scale: 1.03, rotate: 1 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -2665,7 +2676,7 @@ export default function Portfolio() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: (idx % 3) * 0.06 }}
+                  custom={(idx % 3) * 0.06}
                 >
                   <motion.div
                     whileHover={{ y: -6, boxShadow: "0 16px 40px -8px rgba(16,185,129,0.15)" }}
@@ -2884,4 +2895,4 @@ export default function Portfolio() {
     </div>
     </MotionConfig>
   )
-                }
+            }

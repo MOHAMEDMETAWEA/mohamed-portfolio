@@ -395,7 +395,7 @@ export function Buddy({ answer }: Props) {
           </div>
           <p className="text-slate-200">Tap to hear Hamo introduce himself. It is a short clip, and it only plays if you tap.</p>
           <div className="mt-2.5 flex gap-2">
-            <button type="button" onClick={introPlaying ? closeWelcome : playIntro} className="rounded-lg bg-emerald-500 px-3 py-1.5 text-[12px] font-semibold text-slate-900 hover:bg-emerald-400">{introPlaying ? "■ Stop" : "▶ Hear intro"}</button>
+            <button type="button" onClick={introPlaying ? closeWelcome : playIntro} style={{ color: "#0f172a" }} className="rounded-lg bg-emerald-500 px-3 py-1.5 text-[12px] font-semibold text-slate-900 hover:bg-emerald-400">{introPlaying ? "■ Stop" : "▶ Hear intro"}</button>
             <button type="button" onClick={closeWelcome} className="rounded-lg border border-slate-600 px-3 py-1.5 text-[12px] text-slate-200 hover:bg-slate-700/50">No thanks</button>
           </div>
         </div>

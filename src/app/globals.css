@@ -827,3 +827,14 @@ html:not([data-theme="light"]) [data-slot="card-title"] { color: #f8fafc; }
 @media (prefers-reduced-motion: reduce) {
   .hero-line, .hero-copy > *, .hero-photo-wrap { animation: none !important; }
 }
+
+/* Mobile: Hamo captions sit under the header so they never cover the hero buttons. */
+@media (max-width: 639px) {
+  .buddy-bubble.buddy-caption {
+    position: fixed;
+    top: 4.5rem;
+    left: 1rem;
+    margin: 0;
+    width: calc(100vw - 2rem);
+  }
+}

@@ -1453,7 +1453,14 @@ function ProjectCard({ project, isFeatured = false }: { project: typeof projects
               <>
                 <motion.video 
                   src={(project as any).video} 
-                  autoPlay 
+                  ref={(el: HTMLVideoElement | null) => {
+                    if (!el || (el as any).__io) return
+                    const io = new IntersectionObserver(([entry]) => {
+                      if (entry.isIntersecting) { el.play().catch(() => {}) } else { el.pause() }
+                    }, { threshold: 0.25 })
+                    io.observe(el)
+                    ;(el as any).__io = io
+                  }}
                   loop 
                   muted 
                   playsInline
@@ -2199,14 +2206,14 @@ export default function Portfolio() {
 
               <motion.div variants={fadeInUp} className="flex items-center gap-4 justify-center lg:justify-start">
                 {[
-                  { href: personalInfo.github, icon: Github },
-                  { href: personalInfo.linkedin, icon: Linkedin },
-                  { href: personalInfo.whatsapp, icon: MessageSquare },
-                  { href: `mailto:${personalInfo.email}`, icon: Mail }
-                ].map(({ href, icon: Icon }, idx) => (
+                  { href: personalInfo.github, icon: Github, label: "GitHub Profile" },
+                  { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn Profile" },
+                  { href: personalInfo.whatsapp, icon: MessageSquare, label: "WhatsApp" },
+                  { href: `mailto:${personalInfo.email}`, icon: Mail, label: "Email Mohamed" }
+                ].map(({ href, icon: Icon, label }, idx) => (
                   <MagneticButton key={idx}>
-                    <Button variant="ghost" size="icon" className="hover:bg-emerald-50 hover:text-emerald-600 rounded-xl" asChild>
-                      <a href={href} target="_blank" rel="noopener noreferrer">
+                    <Button variant="ghost" size="icon" aria-label={label} className="hover:bg-emerald-50 hover:text-emerald-600 rounded-xl" asChild>
+                      <a href={href} aria-label={label} target="_blank" rel="noopener noreferrer">
                         <Icon className="h-5 w-5" />
                       </a>
                     </Button>
@@ -2884,4 +2891,4 @@ export default function Portfolio() {
     </div>
     </MotionConfig>
   )
-                }
+                  }
